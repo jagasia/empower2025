@@ -1,0 +1,298 @@
+R. Jagadeeswaran, 
+Trainer
+31st July 2025 to 25th September 2025
+
+7 am
+
+8 am after breakfast
+
+10:45 morning break
+
+12:30 lunch
+
+4pm end
+--------------------------------
+--------------------------------
+For every module, we will have module test.
+	MCQs
+	Handson challenge
+
+
+Module 1:
+Oracle
+--------
+	RDBMS
+	SQL
+	PL/SQL
+
+
+We will use "livesql" oracle now. Then later, we will be able to use SQL Developer to connect to real oracle server.
+
+https://livesql.oracle.com/landing/
+
+start coding
+
+then "sign in"
+	create oracle account, if not already
+
+
+DBMS, RDBMS, basics
+
+Relation
+	row-column format data
+
+
+Data models
+	E-R model
+	Object based
+	Relational model
+	network model
+	hierarchical model
+
+Relational model
+--------------------
+
+Oracle 
+Microsoft SQL Server
+IBM DB2
+MySQL
+	1970s Dr.E.F.Codd defined 12 rules
+	
+--------------
+Normalization
+----------------
+	is a process, that is a scientific or step by step approach to arrive at
+	the definite set of tables (and columns and relationship between them) 
+	for a given scenario or project
+
+customer purchase product
+
+in above e-r
+the nouns (that directly involve in business)
+	customer
+	product
+
+since the relationship "purchase" is Many to Many,
+then the relationship becomes entity
+
+customer
+sales		(i renamed it)
+product
+
+these 3 becomes entities in E-R diagram
+
+entity has become table in db
+
+We will have a large table to record each sale happening.
+
+SALESDATE	CUSTOMERNAME	PRODUCTNAME	QTY PRICE	NETAMOUNT
+-------------------------------------------------------------------------------------------------------
+31-Jul-25		JAGADEESWARAN	PENCIL		10	5	50
+01-Aug-25	JAGADEESWARAN	SHARPNER	5	10	50
+02-Aug-25	JAG		SCALE		5	5	25
+
+
+TAMIL NADU
+TAMILNADU
+TN
+
+
+
+Normalization
+	splits the large table into smaller tables to avoid redundancy
+
+Redundancy
+	unnecessary repeatation of data 
+
+DeNormalization
+	introducing some amount of redundancy in the interest to improve the speed of 		queries
+
+
+Normalization involves few steps:- 
+	each step will ensure that the table conforms to normal forms.
+
+1NF
+2NF
+3NF
+BCNF
+
+What is 1st normal form?
+	A table is in first normal form, if
+		every cell in the table, precisely has only 1 data
+	to achieve this, we need to split the composite values into atomic values,
+	by splitting rows or columns
+
+
+What is 2nd normal form?
+	Now, we start analysing the columns in the table to see if the column is dependent on the table
+	dependent =  related
+	or determinant
+
+who determines? the state, when then pin code is given?
+	when the city is given, who determines the state?
+
+
+
+
+ First Normal Form (1NF) – Explained Simply
+📘 Definition:
+A table is in First Normal Form (1NF) if:
+
+All columns contain only atomic (indivisible) values, and
+
+Each column contains values of a single type, and
+
+Each row is uniquely identifiable (i.e., has a primary key).
+
+
+
+===============================
+      FIRST NORMAL FORM (1NF)
+===============================
+
+Definition:
+-----------
+A table is in First Normal Form (1NF) if:
+1. All attributes (columns) contain only atomic (indivisible) values.
+2. Each column contains values of the same type.
+3. Each row is unique (usually identified by a primary key).
+
+Key Points:
+-----------
+- No repeating groups or arrays.
+- No multiple values in a single cell.
+- Each record should be unique.
+
+Example of NOT in 1NF:
+----------------------
+Table: Students
+
++-----------+--------+---------------------+
+| StudentID | Name   | Subjects            |
++-----------+--------+---------------------+
+| 101       | Arjun  | Math, Science       |
+| 102       | Priya  | English, History    |
+
+Violation:
+- 'Subjects' column has multiple values (not atomic).
+
+Conversion to 1NF:
+------------------
+Table: StudentSubjects
+
++-----------+--------+-----------+
+| StudentID | Name   | Subject   |
++-----------+--------+-----------+
+| 101
+--------------------------------------------------------------
+
+2nd normal form
+--------------------
+The table must be already in 1NF, and each attribute (column) must be functionally dependent on the primary key
+
+
+
+
+Here’s a **Notepad-friendly explanation** of **Second Normal Form (2NF)** — easy to use in lectures, notes, or handouts.
+
+---
+
+```
+===============================
+      SECOND NORMAL FORM (2NF)
+===============================
+
+Definition:
+-----------
+A table is in Second Normal Form (2NF) **if**:
+1. It is already in First Normal Form (1NF), AND
+2. All non-key attributes are fully functionally dependent on the **entire primary key**.
+
+Key Concepts:
+-------------
+- 1NF + No Partial Dependency.
+- Partial Dependency occurs when a non-key column depends on only a part of a composite primary key.
+
+Reminder:
+---------
+- Composite Primary Key: A primary key made of more than one column.
+
+Example of NOT in 2NF:
+----------------------
+Table: StudentCourses
+
++----------+----------+------------+--------------+
+| StudentID| CourseID | StudentName| CourseName   |
++----------+----------+------------+--------------+
+| 1        | 101      | Ravi       | Java         |
+| 1        | 102      | Ravi       | Python       |
+| 2        | 101      | Kavya      | Java         |
+
+Primary Key: (StudentID, CourseID)
+
+Violations:
+- StudentName depends only on StudentID
+- CourseName depends only on CourseID
+=> Partial dependencies exist => Not in 2NF
+
+Conversion to 2NF:
+------------------
+Break the table into 3 tables:
+
+1. Students Table:
++-----------+-------------+
+| StudentID | StudentName |
++-----------+-------------+
+| 1         | Ravi        |
+| 2         | Kavya       |
+
+2. Courses Table:
++----------+------------+
+| CourseID | CourseName |
++----------+------------+
+| 101      | Java       |
+| 102      | Python     |
+
+3. Enrollments Table:
++-----------+----------+
+| StudentID | CourseID |
++-----------+----------+
+| 1         | 101      |
+| 1         | 102      |
+| 2         | 101      |
+
+Now:
+- No partial dependency.
+- Each non-key attribute depends on the whole primary key.
+
+Trainer Demo:
+-------------
+Explain with a sample table:
+- Composite key: (OrderID, ProductID)
+- Columns: OrderDate, ProductName
+
+Show how:
+- OrderDate depends only on OrderID
+- ProductName depends only on ProductID
+
+Then normalize into:
+- Orders(OrderID, OrderDate)
+- Products(ProductID, ProductName)
+- OrderDetails(OrderID, ProductID)
+
+Hands-On Tasks:
+---------------
+1. Identify partial dependencies in a given table.
+2. Decompose the table into 2NF.
+3. Write CREATE TABLE and INSERT statements.
+4. Write JOIN queries on the decomposed tables.
+
+End of 2NF Notes.
+```
+
+---
+
+Let me know if you'd like the same **3NF Notepad-friendly version** next.
+
+
+--------------------------------------------------------------

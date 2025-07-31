@@ -1,0 +1,86 @@
+1. Introduction to Python (30 mins)
+What is Python?
+
+Key features of Python
+
+Installing Python and setting up the environment (IDEs: PyCharm, VS Code, Jupyter Notebooks)
+
+Introduction to Python syntax and structure
+
+Running your first Python program (Hello, World!)
+
+2. Python Basics (1 hour)
+Variables and Data Types (integers, strings, floats, booleans)
+
+Type Conversion
+
+Basic Operations (Arithmetic, Comparison, Logical Operators)
+
+Input and Output (Reading from user input, printing output)
+
+3. Control Structures (45 mins)
+Conditional Statements: if, else, elif
+
+Loops: for loop, while loop
+
+Break and Continue statements
+
+4. Functions (45 mins)
+Defining functions (def keyword)
+
+Arguments and Return Values
+
+Function Scope (Local vs Global variables)
+
+Lambda Functions (Anonymous functions)
+
+5. Data Structures (1 hour)
+Lists: Definition, indexing, slicing, methods
+
+Tuples: Immutable sequences
+
+Dictionaries: Key-Value pairs, methods
+
+Sets: Unordered collections
+
+Iterating through data structures
+
+6. Error Handling (30 mins)
+Introduction to Exceptions
+
+try, except, else, finally blocks
+
+Raising Exceptions
+
+Common Python Errors (Syntax, TypeError, IndexError)
+
+7. Modules and Libraries (30 mins)
+Importing Standard Libraries (math, random, datetime)
+
+Third-Party Libraries: Installing with pip
+
+Example: Using NumPy for basic calculations
+
+Introduction to Virtual Environments
+
+8. Object-Oriented Programming (45 mins)
+Classes and Objects
+
+Instance Variables and Methods
+
+Inheritance and Polymorphism
+
+Encapsulation (private and public attributes)
+
+9. Final Hands-On Exercise (45 mins)
+Build a small project using learned concepts
+(e.g., a simple calculator, a number guessing game, or a contact book)
+
+10. Q&A and Wrap-Up (15 mins)
+Review Key Concepts
+
+Additional Resources (Books, Online Courses, Practice Sites)
+
+Q&A session to clarify doubts
+
+Tips for continued learning and growth in Python
