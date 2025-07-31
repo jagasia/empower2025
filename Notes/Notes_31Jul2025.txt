@@ -942,3 +942,395 @@ Deliverables:
 
 
 
+
+
+-- 1. Create Departments Table
+CREATE TABLE departments (
+  dept_id NUMBER PRIMARY KEY,
+  dept_name VARCHAR2(50) NOT NULL
+);
+
+-- 2. Create Employees Table
+CREATE TABLE employees (
+  emp_id NUMBER PRIMARY KEY,
+  emp_name VARCHAR2(100) NOT NULL,
+  age NUMBER CHECK (age >= 21),
+  salary NUMBER CHECK (salary BETWEEN 20000 AND 200000),
+  dept_id NUMBER,
+  CONSTRAINT fk_dept FOREIGN KEY (dept_id)
+    REFERENCES departments(dept_id)
+);
+
+-- 3. Insert Valid Departments
+INSERT INTO departments VALUES (10, 'HR');
+INSERT INTO departments VALUES (20, 'IT');
+
+-- 4. Insert Valid Employees
+INSERT INTO employees VALUES (1, 'Ravi', 30, 50000, 10);
+INSERT INTO employees VALUES (2, 'Neha', 28, 75000, 20);
+INSERT INTO employees VALUES (3, 'Arjun', 35, 65000, 10);
+
+-- 5. Insert Invalid Employee (salary out of range)
+-- Should fail
+INSERT INTO employees VALUES (4, 'Kiran', 25, 500000, 10);
+
+-- 6. Insert Invalid Employee (non-existent dept)
+-- Should fail
+INSERT INTO employees VALUES (5, 'Meena', 27, 60000, 99);
+
+-- 7. Create Trigger to Restrict Salary Hike > 50%
+CREATE OR REPLACE TRIGGER trg_salary_limit
+BEFORE UPDATE ON employees
+FOR EACH ROW
+WHEN (NEW.salary > OLD.salary * 1.5)
+BEGIN
+  RAISE_APPLICATION_ERROR(-20001, 'Salary increase exceeds 50% limit!');
+END;
+
+-- 8. Test Invalid Salary Update (should fail)
+UPDATE employees SET salary = 120000 WHERE emp_id = 1;
+
+-- 9. Test Valid Salary Update (should pass)
+UPDATE employees SET salary = 70000 WHERE emp_id = 1;
+
+-- 10. Select All Data
+SELECT * FROM departments;
+SELECT * FROM employees;
+
+
+------------------------------------------------------
+
+
+We can add primary key constraint
+	while creating the table
+		at column level
+		at table level by mentioning the column name
+	by altering the existing table
+
+we can also drop constraint 
+
+
+
+while creating the table	option 1:
+
+	CREATE TABLE DEPARTMENTS
+	(
+		ID NUMBER PRIMARY KEY,
+		NAME VARCHAR2(50) NOT NULL
+	);
+
+Table created.
+
+
+DROP TABLE DEPARTMENTS;
+Table dropped.
+
+
+
+	CREATE TABLE DEPARTMENTS
+	(
+		ID NUMBER,
+		NAME VARCHAR2(50) NOT NULL,
+		CONSTRAINT PK1 PRIMARY KEY(ID)
+	);
+Table created.
+
+
+alter table departments drop constraint pk1;
+Table altered.
+
+
+
+
+
+ALTER TABLE DEPARTMENTS ADD CONSTRAINT PK2 PRIMARY KEY(ID);
+Table altered.
+
+
+CREATE TABLE EMPLOYEES
+(
+    ID INT PRIMARY KEY,
+    NAME VARCHAR2(20)
+);
+
+
+
+
+SELECT * FROM USER_CONS_COLUMNS;
+
+SQL_CYOAYKHMCUCIQNMQXXFRTSNRH	SYS_C00188903688	EMPLOYEES	ID	1
+
+ALTER TABLE employees DROP CONSTRAINT SYS_C00188903688;
+Table altered.
+
+
+1) create a table and mention primary key in column line
+2) create a table and mention primary key at the table level, at the end after all columns are defined.
+3) alter the table and drop constraint using constraint name
+if name is not provided while creating, we can find the system generated constraint name from dictionary
+SELECT * FROM USER_CONS_COLUMNS;
+4) alter the table and add constraint
+	by providing constraint name
+	by not providing constraint name
+
+
+
+NOT NULL
+
+CHECK
+	while creating the table
+	while altering the existing table
+
+
+
+ALTER TABLE EMPLOYEES ADD SALARY NUMBER(6);
+
+
+ALTER TABLE EMPLOYEES ADD CONSTRAINT CK1 CHECK (SALARY>=20000 AND SALARY<=200000);
+Table altered.
+
+
+
+You're welcome! Let's dive into what **is** and **is not** allowed with `CHECK` constraints in Oracle.
+
+---
+
+## ✅ What is **Possible** in `CHECK` Constraints
+
+### 1. **Column-level conditions**
+
+You can enforce rules on the values of one or more columns:
+
+```sql
+CHECK (salary >= 20000)
+CHECK (salary BETWEEN 20000 AND 200000)
+```
+
+---
+
+### 2. **Multiple columns in the same condition**
+
+```sql
+CHECK (start_date < end_date)
+```
+
+---
+
+### 3. **Logical operators**
+
+You can use `AND`, `OR`, and `NOT`:
+
+```sql
+CHECK (age >= 18 AND age <= 60)
+CHECK (department = 'HR' OR department = 'IT')
+CHECK (NOT (status = 'inactive' AND balance > 0))
+```
+
+---
+
+### 4. **IN, LIKE, IS NULL**
+
+```sql
+CHECK (gender IN ('M', 'F', 'O'))
+CHECK (email LIKE '%.com')
+CHECK (middle_name IS NULL OR LENGTH(middle_name) > 1)
+```
+
+---
+
+### 5. **Simple expressions**
+
+```sql
+CHECK (quantity * price <= 10000)
+```
+
+---
+
+### 6. **CHECK on nullable columns**
+
+If the column is `NULL`, the constraint is not violated:
+
+```sql
+CHECK (score >= 0 AND score <= 100) -- NULL values pass this check
+```
+
+---
+
+## ❌ What is **Not Possible** in `CHECK` Constraints
+
+### 🚫 1. **Subqueries**
+
+You cannot use SELECT inside a CHECK:
+
+```sql
+-- ❌ Invalid
+CHECK (salary > (SELECT AVG(salary) FROM employees))
+```
+
+---
+
+### 🚫 2. **Functions that access database state**
+
+No user-defined functions, and most Oracle built-ins like `SYSDATE`, `CURRENT_DATE`, etc.:
+
+```sql
+-- ❌ Invalid
+CHECK (hire_date <= SYSDATE)
+```
+
+Only deterministic functions like `LENGTH`, `UPPER`, `ROUND` are sometimes allowed.
+
+---
+
+### 🚫 3. **Referencing other tables**
+
+You cannot enforce foreign key-like logic using `CHECK`:
+
+```sql
+-- ❌ Invalid
+CHECK (dept_id IN (SELECT dept_id FROM departments))
+```
+
+Use `FOREIGN KEY` constraints for this.
+
+---
+
+### 🚫 4. **PL/SQL logic**
+
+No IF-ELSE, CASE statements, or procedure/function calls.
+
+---
+
+### 🚫 5. **Cross-row validation**
+
+You can't check if a value already exists in another row or compare between rows.
+
+```sql
+-- ❌ Invalid
+CHECK (salary < ALL (SELECT salary FROM employees WHERE department_id = 10))
+```
+
+Use **triggers** or application logic for this kind of validation.
+
+---
+
+## ✅ Summary Table
+
+| Feature                   | Allowed in CHECK? |
+| ------------------------- | ----------------- |
+| Column conditions         | ✅ Yes             |
+| Multiple columns          | ✅ Yes             |
+| `AND`, `OR`, `NOT`        | ✅ Yes             |
+| `IN`, `LIKE`, `IS NULL`   | ✅ Yes             |
+| Subqueries                | ❌ No              |
+| `SYSDATE`, `USER`, etc.   | ❌ No              |
+| Table-to-table comparison | ❌ No              |
+| Cross-row logic           | ❌ No              |
+| Deterministic functions   | ☑️ Sometimes      |
+
+---
+
+Let me know if you want examples of each type or a handson task!
+
+
+
+------------------------------------
+PRIMARY KEY
+NOT NULL
+UNIQUE
+CHECK
+FOREIGN KEY
+
+
+
+UNIQUE
+-----------
+ensures that every row contains value that is unique in this particular column(s).
+UNIQUE allows any number of null.
+
+Country column is unique:-
+
+INDIA
+AUSTRALIA
+CHINA
+JAPAN
+
+SRI LANKA
+
+BANGLADESH
+
+
+
+
+
+
+
+
+FOREIGN KEY
+	references PRIMARY KEY of another table.
+
+Question:
+A table EMPLOYEES has a column 
+	ID	UNIQUE and NOT NULL
+
+A table ATTENDANCE has a column
+	EMPLOYEE_ID	(can this column be foreign key that references EMPLOYEES 				table's ID column?) 	YES
+
+
+
+
+We can create foreign key
+	when the table is created
+		at column level
+		or at the end of the column list
+
+	when we alter the table
+
+
+we can drop the foreign key constraint.
+
+MASTER - DETAILS		aka
+MASTER - TRANSACTION
+
+the table that contains primary key column is considered as MASTER table
+the table that contains foreign key column is considered as DETAILS table
+
+
+
+
+🧪 SET 1: Hands-on Practice 
+-----------------------------------
+Use this set in a training session or test to practice on your own.
+
+🔹 Task 1: Create a foreign key at column level during table creation
+Create a DEPARTMENTS table with columns:
+
+DEPT_ID (Primary key)
+
+DEPT_NAME
+
+Create an EMPLOYEES table where:
+
+EMP_ID is primary key
+
+DEPT_ID references DEPARTMENTS(DEPT_ID) — define this foreign key inline, at column level
+
+🔹 Task 2: Create a foreign key at the end of the column list during table creation
+Create a PROJECTS table with:
+
+PROJECT_ID (Primary key)
+
+EMP_ID referencing EMPLOYEES(EMP_ID) — define this foreign key at table level after all columns.
+
+🔹 Task 3: Add a foreign key using ALTER TABLE
+Create a TASKS table with:
+
+TASK_ID (Primary key)
+
+EMP_ID column (but do not define the foreign key yet)
+
+Now add a foreign key later using ALTER TABLE that links EMP_ID to EMPLOYEES(EMP_ID).
+
+🔹 Task 4: Drop a foreign key constraint
+Drop the foreign key constraint from the TASKS table.
+
