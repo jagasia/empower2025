@@ -2072,3 +2072,109 @@ FROM PRODUCT;
 
 
 ==========================
+
+
+DCL
+-----
+Data Control Language
+
+
+control the access to the data from users.
+
+who is allowed to do what?
+
+which user is allowed to do what?
+
+there are lot of privileges in oracle.
+they are categorized into
+	System privileges	
+		login
+		logout
+		create table, alter table, etc
+		these are not specific to an object.
+
+	Object privileges
+		are specific to objects like table, view, etc.
+		we specify which action of a particular object is allowed/ rejected
+
+
+statements in DCL
+	GRANT
+	REVOKE
+	
+Ex for Grant:
+-----------------
+	GRANT INSERT ON EMPLOYEES TO RAJA;	--RAJA is an user
+
+	GRANT INSERT ON EMPLOYEES TO SUPERVISOR;	--SUPERVISOR is a role
+
+	REVOKE INSERT ON EMPLOYEES FROM RAJA;
+
+
+
+"System" (DBA) has granted "INSERT ON EMPLOYEES" privilege to "Hrithik"
+Can "Hrithik" grant that privilege to "Harinath"?
+	It is not allowed. Unless, "System" has given with GRANT option.
+
+
+system:
+	GRANT INSERT ON EMPLOYEES TO HRITHIK WITH GRANT OPTION; --object privi
+
+	GRANT CREATE SESSION TO HRITHIK WITH ADMIN OPTION;  --system privileges
+
+Question:
+
+Sys has granted CREATE SESSION privilege to MITHUN 	with admin option.
+MITHUN has granted that to ATHARV
+
+Now, syS REVOKED that privilege from MITHUN.
+What happens to ATHARV
+
+a) ATHARV also loses the system privilege
+b) ATHARV still holds that system privilege		CORRECT
+c) Don't know
+Reason:
+	System privileges are not CASCADE
+-----------------------------------------------
+Question:
+
+Sys has granted Bhuvan SELECT ON EMPLOYEES with grant option.
+Bhuvan has granted that privilege to Sameeksha.
+
+Now, Sys Revoked SELECT ON EMPLOYEES from Bhuvan.
+What happens to Sameeksha?
+
+a) Sameeksha also loses the object privilege		CORRECT
+b) Sameeksha still holds that object privilege		
+c) Don't know
+Reason:
+	Object privileges are CASCADE
+
+-------------------------------------------------------
+TCL
+-----
+	Transaction Control Language
+
+
+SAVEPOINT
+COMMIT
+ROLLBACK
+
+
+
+Normally, every DML is itself a transaction.
+
+except if it is auto-commit,
+	every transaction can be 
+		commit or
+		rollback
+
+commit	=	make changes permanent
+rollback	=	undo the changes
+
+we can commit or rollback to 
+	from beginning
+	till save point
+	till previous commit/ rollback
+
+
