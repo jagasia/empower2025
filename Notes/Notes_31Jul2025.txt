@@ -1334,3 +1334,50 @@ Now add a foreign key later using ALTER TABLE that links EMP_ID to EMPLOYEES(EMP
 🔹 Task 4: Drop a foreign key constraint
 Drop the foreign key constraint from the TASKS table.
 
+
+
+
+
+
+
+DROP TABLE DEPARTMENTS;
+Table dropped.
+
+
+
+create table DEPARTMENTS
+(
+    DEPT_ID INT PRIMARY KEY,
+    DEPT_NAME VARCHAR2(50)
+)
+Table created.
+
+
+
+
+
+At column level:  (no not mention FOREIGN KEY)
+
+create TABLE EMPLOYEES(
+    EMP_ID INT PRIMARY KEY,
+    DEPT_ID INT REFERENCES DEPARTMENTS(DEPT_ID)
+);
+
+
+
+Table level:
+
+create TABLE EMPLOYEES(
+    EMP_ID INT PRIMARY KEY,
+    DEPT_ID INT,
+    FOREIGN KEY(DEPT_ID) REFERENCES DEPARTMENTS(DEPT_ID)
+);
+
+
+Try adding records in MASTER table DEPARTMENTS
+and then add records in DETAILS table EMPLOYEES.
+
+Observe that the DEPT_ID in EMPLOYEES accepts
+	null		(any number of null)	(or)
+	values that are present in DEPARTMENTS table DEPT_ID column
+
