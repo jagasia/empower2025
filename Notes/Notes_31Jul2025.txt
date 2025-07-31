@@ -1597,3 +1597,380 @@ What is truncate?
 	it cannot be ROLLED BACK
 	we cannot selectively remove records.
 	it will not notify DELETE triggers. Hence it is FASTer than DELETE statement.
+
+
+
+
+✅ TRUNCATE in Oracle SQL
+📌 What is TRUNCATE?
+The TRUNCATE command is used to remove all rows from a table quickly and irreversibly, without logging individual row deletions.
+
+🔍 Key Characteristics
+Feature	Behavior
+Deletes all rows?	✅ Yes
+Can be rolled back?	❌ No (It's a DDL operation, not DML)
+Affects table structure?	❌ No (Table structure and columns remain intact)
+Logs individual deletes?	❌ No
+Fires DELETE triggers?	❌ No
+Fast?	✅ Very fast compared to DELETE
+Reclaims space?	✅ Frees up space immediately (like DROP+CREATE)
+WHERE condition supported?	❌ No — TRUNCATE deletes all rows only
+
+🧪 Syntax
+sql
+Copy
+Edit
+TRUNCATE TABLE table_name;
+Example:
+
+sql
+Copy
+Edit
+TRUNCATE TABLE EMPLOYEES;
+🛑 Important Notes
+Cannot be undone (no rollback)
+
+Cannot truncate a table referenced by a foreign key constraint
+
+Cannot use WHERE clause
+
+✅ TRUNCATE vs DELETE vs DROP (Comparison)
+Feature	TRUNCATE	DELETE	DROP
+Removes all rows?	✅	✅ (with no WHERE)	✅ (plus table itself)
+WHERE condition?	❌	✅	❌
+Rollback possible?	❌	✅	❌
+Triggers fired?	❌	✅	❌
+Structure remains?	✅	✅	❌
+Performance	🚀 Very Fast	🐢 Slower	🚀 Very Fast
+
+
+
+=======================================
+  HANDS-ON: TRUNCATE vs DELETE vs DROP
+=======================================
+
+Step 1:
+-------
+Create a table called TEMP_EMP with the following structure:
+
+    EMP_ID    INT
+    EMP_NAME  VARCHAR2(50)
+    SALARY    NUMBER
+
+Insert the following data:
+
+    (1, 'Ravi', 40000)
+    (2, 'Sita', 45000)
+    (3, 'Manoj', 50000)
+
+Step 2:
+-------
+Perform the following operations one after another and observe:
+
+1. Delete the record where EMP_NAME = 'Ravi'
+   - Can you rollback?
+
+2. TRUNCATE the TEMP_EMP table.
+   - Try SELECTing from the table.
+   - Can you rollback?
+
+3. Recreate the table TEMP_EMP and insert the same 3 rows.
+
+4. DROP the TEMP_EMP table.
+   - Can you SELECT after that?
+   - Can you rollback?
+
+Step 3:
+-------
+Answer the following questions:
+- Which operation allowed rollback?
+- Which operation kept the table structure intact?
+- Which one was the fastest?
+- Which one fired triggers (if any)?
+
+
+
+
+
+Note:
+in livesql, it is always auto-commit
+So, we cannot rollback any dml statements.
+---------------------------------------------
+
+
+DML - Data manipulation langugage
+------------------------------------------
+INSERT
+UPDATE
+DELETE
+MERGE		(oracle)
+
+
+
+
+INSERT
+	adding row(s) to a table
+
+UPDATE
+	updating existing row(s) of a table
+
+DELETE
+	deleting existing row(s) of a table
+
+MERGE
+	insert/ update row
+
+CREATE TABLE PRODUCT (
+    ID        NUMBER PRIMARY KEY,
+    NAME      VARCHAR2(100) NOT NULL,
+    PRICE     NUMBER(10,2),
+    CATEGORY  VARCHAR2(50)
+);
+
+
+
+
+
+INSERT
+	there are lot of syntax for INSERT statement
+
+Syntax #1) INSERT a row with all columns in correct order
+	INSERT INTO PRODUCT VALUES (1, 'PEN', 10, 'STATIONERY');
+	1 row(s) inserted.
+
+
+	INSERT INTO PRODUCT VALUES (2, 'SHARPNER', 10, NULL);
+	1 row(s) inserted.
+
+
+
+
+What is default;
+
+
+CREATE TABLE PRODUCT (
+    ID        NUMBER PRIMARY KEY,
+    NAME      VARCHAR2(100) NOT NULL,
+    PRICE     NUMBER(10,2),
+    CATEGORY  VARCHAR2(50) DEFAULT 'CONSUMER PRODUCT'
+);
+
+
+
+INSERT INTO PRODUCT VALUES (3, 'LG 55 inch TV', 50000, DEFAULT);
+1 row(s) inserted.
+
+the above will not work, if someone ALTERs the table and add/ remove columns, then 
+it will affect the number of, order of columns
+
+Syntax #2:
+
+INSERT INTO PRODUCT (NAME, ID, PRICE) VALUES ('Eraser',101, 5);
+1 row(s) inserted.
+
+
+
+Syntax #3:
+--------------
+insert multiple rows.
+
+in Oracle, INSERT ALL is used to add multiple rows using single INSERT statement.
+
+
+
+
+INSERT ALL
+  INTO PRODUCT (ID, NAME, PRICE, CATEGORY) VALUES (106, 'Toothpaste', 45.50, 'PERSONAL CARE')
+  INTO PRODUCT (ID, NAME, PRICE, CATEGORY) VALUES (102, 'Notebook', 35.00, 'STATIONERY')
+  INTO PRODUCT (ID, NAME, PRICE) VALUES (103, 'Pen', 15.00)  -- CATEGORY will use DEFAULT
+  INTO PRODUCT (ID, NAME, PRICE, CATEGORY) VALUES (104, 'Shampoo', 120.00, 'PERSONAL CARE')
+  INTO PRODUCT (ID, NAME, PRICE) VALUES (105, 'Eraser', 5.00)  -- CATEGORY will use DEFAULT
+SELECT * FROM dual;
+
+
+
+5 row(s) inserted.
+
+
+
+
+===============
+You're absolutely right — Oracle SQL `INSERT` has **multiple syntaxes and nuances**, and you've already captured the **core variations** very well.
+
+To complete your understanding, here’s a full **summary of everything important to know about `INSERT` in Oracle**, presented in a **notepad-friendly format**:
+
+---
+
+## ✅ ORACLE SQL — INSERT Statement Variants
+
+---
+
+### 🔹 Syntax #1: Insert using all columns (in order)
+
+```sql
+INSERT INTO PRODUCT VALUES (1, 'PEN', 10, 'STATIONERY');
+```
+
+> ⚠️ Not recommended if columns are added/removed later — column order may break!
+
+---
+
+### 🔹 Syntax #2: Insert using specific columns (safe)
+
+```sql
+INSERT INTO PRODUCT (ID, NAME, PRICE) VALUES (2, 'SHARPNER', 10);
+```
+
+> ✅ Recommended: safe against future column changes. Default values will apply if not specified.
+
+---
+
+### 🔹 Syntax #3: Insert using `DEFAULT` keyword
+
+```sql
+INSERT INTO PRODUCT (ID, NAME, PRICE, CATEGORY)
+VALUES (3, 'LG 55 inch TV', 50000, DEFAULT);
+```
+
+> ✅ Use `DEFAULT` explicitly when you want Oracle to apply the column's default value.
+
+---
+
+### 🔹 Syntax #4: Insert multiple rows using `INSERT ALL`
+
+```sql
+INSERT ALL
+  INTO PRODUCT (ID, NAME, PRICE, CATEGORY) VALUES (4, 'Toothpaste', 45.50, 'PERSONAL CARE')
+  INTO PRODUCT (ID, NAME, PRICE) VALUES (5, 'Pen', 15.00) -- default CATEGORY
+SELECT * FROM dual;
+```
+
+> ✅ Inserts multiple rows efficiently with one statement.
+
+---
+
+### 🔹 Syntax #5: Insert using `SELECT` from another table
+
+```sql
+INSERT INTO PRODUCT (ID, NAME, PRICE, CATEGORY)
+SELECT ID, NAME, PRICE, CATEGORY FROM TEMP_PRODUCTS;
+```
+
+> 📥 Used for **copying/migrating** data between tables.
+
+---
+
+### 🔹 Syntax #6: Conditional Insert using `INSERT ALL ... WHEN`
+
+```sql
+INSERT ALL
+  WHEN CATEGORY = 'GADGET' THEN
+    INTO ELECTRONICS (ID, NAME, PRICE) VALUES (ID, NAME, PRICE)
+  WHEN CATEGORY = 'STATIONERY' THEN
+    INTO STATIONERY (ID, NAME, PRICE) VALUES (ID, NAME, PRICE)
+SELECT ID, NAME, PRICE, CATEGORY FROM PRODUCT;
+```
+
+> 🔁 Used to **split and insert into multiple tables** based on a condition.
+
+---
+
+### 🔹 Syntax #7: Insert using `RETURNING INTO`
+
+```sql
+DECLARE
+  new_id NUMBER;
+BEGIN
+  INSERT INTO PRODUCT (ID, NAME, PRICE, CATEGORY)
+  VALUES (1001, 'Charger', 999, 'GADGET')
+  RETURNING ID INTO new_id;
+
+  DBMS_OUTPUT.PUT_LINE('Inserted ID: ' || new_id);
+END;
+```
+
+> 🎯 Captures generated values like `ID`, useful in PL/SQL blocks.
+
+---
+
+## ℹ️ Notes:
+
+* Oracle **does not support** `INSERT INTO ... VALUES (), (), ()` syntax (like MySQL).
+* Use **`INSERT ALL`** for multiple rows.
+* Use **column list** always for better maintainability.
+
+---
+
+Let me know if you want:
+
+* A **hands-on exercise (2 sets)** for `INSERT`
+* Examples using **SEQUENCE** with `INSERT`
+* Or **error handling** during inserts (e.g., `DUP_VAL_ON_INDEX`)
+
+==============================
+Handson for INSERT statement
+-----------------------------------
+✅ STEP 1: INITIAL SETUP
+sql
+Copy
+Edit
+-- DROP table if it already exists
+DROP TABLE PRODUCT;
+
+-- CREATE PRODUCT table
+CREATE TABLE PRODUCT (
+    ID        NUMBER PRIMARY KEY,
+    NAME      VARCHAR2(100) NOT NULL,
+    PRICE     NUMBER(10,2),
+    CATEGORY  VARCHAR2(50) DEFAULT 'CONSUMER PRODUCT'
+);
+🧠 HANDS-ON TASKS: INSERT Statement (Without Solutions)
+🔹 Task 1: Insert a row using full VALUES in column order
+sql
+Copy
+Edit
+-- Insert a product with ID 1, name 'PEN', price 10, category 'STATIONERY'
+-- (All columns in exact order)
+🔹 Task 2: Insert a row using column list (ID, NAME, PRICE only)
+sql
+Copy
+Edit
+-- Insert a product with ID 2, name 'SHARPNER', price 10
+-- Do not give CATEGORY. Let it take the default value.
+🔹 Task 3: Use DEFAULT keyword explicitly for CATEGORY
+sql
+Copy
+Edit
+-- Insert a product with ID 3, name 'TV', price 40000
+-- Use DEFAULT for category in the insert statement
+🔹 Task 4: Insert multiple rows using INSERT ALL
+sql
+Copy
+Edit
+-- Insert the following products using a single INSERT ALL statement:
+-- ID 4, 'Toothpaste', 45.5, 'PERSONAL CARE'
+-- ID 5, 'Pen', 15.0 (no category)
+-- ID 6, 'Notebook', 35.0, 'STATIONERY'
+-- ID 7, 'Shampoo', 120.0, 'PERSONAL CARE'
+-- ID 8, 'Eraser', 5.0 (no category)
+🔹 Task 5: Insert from SELECT (create a temp table)
+sql
+Copy
+Edit
+-- Create a TEMP_PRODUCTS table with 3 rows (use INSERT INTO TEMP_PRODUCTS)
+-- Columns: ID, NAME, PRICE, CATEGORY
+
+-- Now insert rows into PRODUCT using:
+-- INSERT INTO PRODUCT (...) SELECT ... FROM TEMP_PRODUCTS;
+🔹 Task 6: Conditional INSERT using INSERT ALL + WHEN (bonus)
+sql
+Copy
+Edit
+-- Create tables:
+-- CREATE TABLE ELECTRONICS (ID NUMBER, NAME VARCHAR2(100), PRICE NUMBER);
+-- CREATE TABLE STATIONERY (ID NUMBER, NAME VARCHAR2(100), PRICE NUMBER);
+
+-- Write an INSERT ALL ... WHEN ... THEN ... SELECT
+-- to insert products from PRODUCT table into either:
+-- ELECTRONICS if CATEGORY is 'GADGET'
+-- STATIONERY if CATEGORY is 'STATIONERY'
