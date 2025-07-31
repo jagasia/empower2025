@@ -1,0 +1,309 @@
+1. Introduction to RDBMS (Relational Database Management System)
+
+What is a Database?
+
+A database is an organized collection of data that can be easily accessed, managed, and updated. A database is used to store data in a structured way, typically using tables, rows, and columns.
+
+What is RDBMS?
+
+RDBMS stands for Relational Database Management System. It is a type of database management system that stores data in the form of related tables. RDBMS is based on E.F. Codd's relational model, where data is organized into one or more tables (or "relations") of columns and rows, with a unique key identifying each row.
+
+Key Features:
+
+Data is stored in tables
+
+Use of SQL to access and manipulate data
+
+Data integrity and constraints
+
+Relationships between tables using foreign keys
+
+Support for transactions (ACID properties)
+
+Examples of RDBMS:
+
+Oracle
+
+MySQL
+
+PostgreSQL
+
+Microsoft SQL Server
+
+SQLite
+
+🔹 Trainer Demo:
+
+Show how to create a simple database and a table in MySQL Workbench or any SQL client.
+
+CREATE DATABASE company;
+USE company;
+CREATE TABLE employee (
+  emp_id INT PRIMARY KEY,
+  name VARCHAR(100),
+  department VARCHAR(100)
+);
+
+🔹 Participant Hands-on Task:
+
+Create a database named school.
+
+Create a table named students with columns: student_id (PK), name, class, and age.
+
+Insert at least 3 records.
+
+2. Introduction to Normalization
+
+What is Normalization?
+
+Normalization is a process in database design used to eliminate data redundancy and improve data integrity. It involves organizing data into tables in such a way that the results of using the database are always unambiguous and as intended.
+
+Objectives of Normalization:
+
+Eliminate redundant data
+
+Ensure data dependencies make sense
+
+Simplify data structure
+
+Avoid update anomalies (insert, delete, update)
+
+Normal Forms:
+
+1NF (First Normal Form): Remove repeating groups; ensure atomic values
+
+2NF (Second Normal Form): Be in 1NF and remove partial dependencies
+
+3NF (Third Normal Form): Be in 2NF and remove transitive dependencies
+
+BCNF (Boyce-Codd Normal Form): Every determinant must be a candidate key
+
+🔹 Trainer Demo:
+
+Explain a flat file structure with repeating groups and show how it can be normalized step-by-step to 3NF.
+
+🔹 Participant Hands-on Task:
+
+Given a table with student, subject1, subject2, marks1, marks2 columns, normalize it to 1NF, 2NF, and 3NF.
+
+3. SQL Command Types
+
+SQL (Structured Query Language) is used to interact with RDBMS. SQL commands are divided into several categories:
+
+A. DDL (Data Definition Language)
+
+Used to define and modify the structure of database objects.
+
+Command
+
+Description
+
+CREATE
+
+Create a new table, view, or database
+
+ALTER
+
+Modify an existing table structure
+
+DROP
+
+Delete a table or database permanently
+
+TRUNCATE
+
+Remove all rows from a table quickly
+
+Example:
+
+CREATE TABLE students (
+  id INT PRIMARY KEY,
+  name VARCHAR(50),
+  age INT
+);
+
+B. DML (Data Manipulation Language)
+
+Used to manage data within schema objects.
+
+Command
+
+Description
+
+INSERT
+
+Add new rows
+
+UPDATE
+
+Modify existing data
+
+DELETE
+
+Remove rows
+
+Example:
+
+INSERT INTO students (id, name, age) VALUES (1, 'Ravi', 20);
+UPDATE students SET age = 21 WHERE id = 1;
+DELETE FROM students WHERE id = 1;
+
+C. TCL (Transaction Control Language)
+
+Used to manage transactions.
+
+Command
+
+Description
+
+COMMIT
+
+Save all changes
+
+ROLLBACK
+
+Undo changes since last commit
+
+SAVEPOINT
+
+Create points to rollback to
+
+Example:
+
+BEGIN;
+UPDATE students SET age = 25 WHERE id = 2;
+SAVEPOINT sp1;
+UPDATE students SET name = 'Rahul' WHERE id = 2;
+ROLLBACK TO sp1;
+COMMIT;
+
+D. DCL (Data Control Language)
+
+Used to control access to data.
+
+Command
+
+Description
+
+GRANT
+
+Give privileges to users
+
+REVOKE
+
+Take back privileges
+
+Example:
+
+GRANT SELECT, INSERT ON students TO 'john';
+REVOKE INSERT ON students FROM 'john';
+
+🔹 Trainer Demo:
+
+Demonstrate each SQL command type using MySQL or SQL Server: creating tables, inserting and modifying data, and controlling access.
+
+🔹 Participant Hands-on Task:
+
+Create a table called courses with fields: course_id, course_name, duration.
+
+Insert at least 3 courses.
+
+Update one course duration.
+
+Delete one course.
+
+Use transactions to update multiple rows and rollback a change.
+
+4. SQL Joins
+
+What is a Join?
+
+A join is used in SQL to combine rows from two or more tables, based on a related column between them. Joins help in retrieving data spread across multiple tables.
+
+Types of Joins:
+
+Join Type
+
+Description
+
+INNER JOIN
+
+Returns only matching rows from both tables
+
+LEFT JOIN
+
+Returns all rows from left table and matched rows from right
+
+RIGHT JOIN
+
+Returns all rows from right table and matched rows from left
+
+FULL OUTER JOIN
+
+Returns rows when there is a match in one of the tables
+
+CROSS JOIN
+
+Returns Cartesian product (all combinations)
+
+Example:
+
+SELECT e.emp_name, d.dept_name
+FROM employees e
+INNER JOIN departments d ON e.dept_id = d.dept_id;
+
+🔹 Trainer Demo:
+
+Use employees and departments tables to demonstrate each join type. Show visual output or ERD to explain matching and non-matching rows.
+
+🔹 Participant Hands-on Task:
+
+Create two tables: authors(author_id, name) and books(book_id, title, author_id).
+
+Use INNER JOIN to list books with author names.
+
+Use LEFT JOIN to show all authors and their books (if any).
+
+Try RIGHT JOIN and CROSS JOIN.
+
+5. Hands-On Practice Exercise
+
+Step 1: Create Tables
+
+CREATE TABLE departments (
+  dept_id INT PRIMARY KEY,
+  dept_name VARCHAR(100)
+);
+
+CREATE TABLE employees (
+  emp_id INT PRIMARY KEY,
+  emp_name VARCHAR(100),
+  salary DECIMAL(10,2),
+  dept_id INT,
+  FOREIGN KEY (dept_id) REFERENCES departments(dept_id)
+);
+
+Step 2: Insert Sample Data
+
+INSERT INTO departments VALUES (1, 'HR'), (2, 'IT'), (3, 'Finance');
+
+INSERT INTO employees VALUES 
+(101, 'Alice', 50000, 1),
+(102, 'Bob', 60000, 2),
+(103, 'Charlie', 70000, 3),
+(104, 'David', 65000, NULL);
+
+Step 3: Practice Queries
+
+Use INNER JOIN to list employee names with department names
+
+Use LEFT JOIN to list all departments, even if no employees
+
+Use RIGHT JOIN to list all employees even if no departments assigned
+
+Use CROSS JOIN to view all possible combinations
+
+🔹 Bonus Task:
+
+Create a report of average salary by department using GROUP BY and JOINs.
+

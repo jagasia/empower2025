@@ -397,3 +397,112 @@ Participants will:
 --------------------------------------------------------------
 https://github.com/jagasia/empower2025
 
+----------------------------------------
+SQL
+------
+Structured Query Language
+
+	is used to interact with a RDBMS
+	we can 
+		create tables, view, procedures, function, etc
+		alter, drop
+		query (select)
+		
+on the database using SQL.
+
+SQL is slightly different for different RDBMS
+we call them as different dialects
+
+Oracle		isql
+Mysql		mysql
+ms sql server	t-sql
+
+We learn Oracle SQL:
+--------------------------
+SQL is categorized into	
+	DDL
+	DML
+	DCL
+	TCL
+	DQL
+
+DDL - Data Definition Language
+DML - Data Manipulation Language
+DCL - Data Control Language
+TCL - Transaction Control Language
+DQL - Data Query Language
+
+
+DDL - Data Definition Language
+	CREATE
+	ALTER
+	DROP
+	TRUNCATE
+
+DML - Data Manipulation Language
+	INSERT
+	UPDATE
+	DELETE
+	MERGE
+
+DCL - Data Control Language
+	GRANT
+	REVOKE
+
+		WITH GRANT OPTION
+		WITH ADMIN OPTION
+
+TCL - Transaction Control Language
+	SAVEPOINT
+	COMMIT
+	ROLLBACK
+
+
+DQL - Data Query Language
+	SELECT
+	
+
+
+
+--------------------------
+DDL
+CREATE TABLE
+
+
+We can create a table that has arrived using normalization.
+we use CREATE TABLE statement to create table.
+
+we need to have
+	table name
+	columns
+		each column name,
+		data type
+		constraints  (if any)
+
+Ex:
+
+CREATE TABLE STUDENT(
+    STUDENT_ID INT,
+    NAME VARCHAR2(20)
+);
+
+
+This requires knowledge of various data types in oracle.
+
+some of the data types in oracle SQL:
+	
+	char
+	nchar
+	varchar2
+	nvarchar2
+	int
+	number
+	date
+	CLOB
+	BLOB
+	BFile
+	RAW
+	
+
+TasK:
+Identify as many data types in SQL
