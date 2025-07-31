@@ -926,7 +926,7 @@ Tasks:
    - 1 employee with invalid salary
    - 1 employee with invalid department
 
-3. Create a trigger that prevents salary hike > 50% on update.
+3. Create a trigger that prevents salary hike > 50% on update. (NOT REQUIRED NOW)
 
 4. Test integrity:
    - Try inserting a NULL name
@@ -937,7 +937,7 @@ Deliverables:
 -------------
 - CREATE TABLE statements with constraints
 - INSERT statements (valid & invalid)
-- Trigger definition
+- Trigger definition		(NOT REQUIRED NOW)
 - SELECT statements to verify data
 
 
