@@ -2069,3 +2069,6 @@ INSERT ALL
     VALUES (ID, NAME, PRICE)
 SELECT ID, NAME, PRICE, CATEGORY
 FROM PRODUCT;
+
+
+==========================
