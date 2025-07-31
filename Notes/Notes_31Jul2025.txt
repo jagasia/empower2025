@@ -294,5 +294,106 @@ End of 2NF Notes.
 
 Let me know if you'd like the same **3NF Notepad-friendly version** next.
 
+Handson:-
+--------------
+Here's a **large hands-on table** with deliberate **1NF and 2NF violations**. Participants can **normalize** this table step-by-step:
+✅ From unnormalized → 1NF → 2NF.
+
+---
+
+```
+=======================================================
+         PARTICIPANT HANDS-ON: NORMALIZATION TASK
+=======================================================
+
+Initial Table: StudentCourseInfo
+
++-----------+----------------+---------------------------+---------------------+----------------+
+| StudentID | StudentName    | Courses                   | InstructorName      | InstructorEmail|
++-----------+----------------+---------------------------+---------------------+----------------+
+| 101       | Arjun Kumar    | Java, Python              | Mr. Ravi, Ms. Neha  | ravi@abc.com, neha@abc.com |
+| 102       | Priya Sharma   | C++, Data Structures      | Mr. Mehta, Mr. Raj  | mehta@abc.com, raj@abc.com |
+| 103       | Naveen Babu    | Java                      | Mr. Ravi            | ravi@abc.com   |
+| 104       | Meena Iyer     | Python, SQL               | Ms. Neha, Mr. Khan  | neha@abc.com, khan@abc.com |
+
+Problems:
+---------
+1. Courses column contains multiple values. ❌ Violates 1NF (not atomic).
+2. InstructorName and InstructorEmail are dependent on the course, not the student. ❌ Violates 2NF (partial dependency).
+
+Tasks:
+------
+
+➡ STEP 1: Convert to First Normal Form (1NF)
+--------------------------------------------
+- Remove multi-valued fields.
+- Repeat rows so each row has only one course and one instructor per cell.
+
+Participants should transform into:
+
+Intermediate Table (1NF):
+
++-----------+----------------+---------+----------------+-------------------+
+| StudentID | StudentName    | Course  | InstructorName | InstructorEmail   |
++-----------+----------------+---------+----------------+-------------------+
+| 101       | Arjun Kumar    | Java    | Mr. Ravi       | ravi@abc.com      |
+| 101       | Arjun Kumar    | Python  | Ms. Neha       | neha@abc.com      |
+| 102       | Priya Sharma   | C++     | Mr. Mehta      | mehta@abc.com     |
+| 102       | Priya Sharma   | Data Structures | Mr. Raj   | raj@abc.com      |
+| 103       | Naveen Babu    | Java    | Mr. Ravi       | ravi@abc.com      |
+| 104       | Meena Iyer     | Python  | Ms. Neha       | neha@abc.com      |
+| 104       | Meena Iyer     | SQL     | Mr. Khan       | khan@abc.com      |
+
+➡ STEP 2: Convert to Second Normal Form (2NF)
+---------------------------------------------
+- Remove partial dependencies.
+- Instructor info depends on Course, not on the composite key (StudentID + Course).
+- Create separate tables:
+
+1. Students Table:
++-----------+----------------+
+| StudentID | StudentName    |
++-----------+----------------+
+| 101       | Arjun Kumar    |
+| 102       | Priya Sharma   |
+| 103       | Naveen Babu    |
+| 104       | Meena Iyer     |
+
+2. Courses Table:
++---------+----------------+-------------------+
+| Course  | InstructorName | InstructorEmail   |
++---------+----------------+-------------------+
+| Java    | Mr. Ravi       | ravi@abc.com      |
+| Python  | Ms. Neha       | neha@abc.com      |
+| C++     | Mr. Mehta      | mehta@abc.com     |
+| Data Structures | Mr. Raj | raj@abc.com      |
+| SQL     | Mr. Khan       | khan@abc.com      |
+
+3. Enrollments Table:
++-----------+---------+
+| StudentID | Course  |
++-----------+---------+
+| 101       | Java    |
+| 101       | Python  |
+| 102       | C++     |
+| 102       | Data Structures |
+| 103       | Java    |
+| 104       | Python  |
+| 104       | SQL     |
+
+Hands-On Output:
+----------------
+Participants will:
+✅ Identify and fix 1NF violations.  
+✅ Decompose into 2NF by removing partial dependencies.  
+✅ Write CREATE TABLE + INSERT + SELECT JOIN queries to reconstruct original data.
+
+```
+
+---
+
+
 
 --------------------------------------------------------------
+https://github.com/jagasia/empower2025
+
