@@ -1497,7 +1497,47 @@ DROP CONSTRAINT uq_emp_email;
 
 ---
 
-Let me know if you want hands-on tasks next (with and without solutions).
+-------------
+
+=======================================
+    HANDS-ON: ALTER TABLE in Oracle SQL
+=======================================
+
+Scenario:
+---------
+You have a table called EMPLOYEES with the following structure:
+
+CREATE TABLE EMPLOYEES (
+    EMP_ID     INT PRIMARY KEY,
+    EMP_NAME   VARCHAR2(50),
+    DEPT_ID    INT,
+    SALARY     NUMBER
+);
+
+Tasks:
+------
+
+1. Add a new column:
+   - EMAIL (VARCHAR2(100))
+
+2. Drop the column SALARY.
+
+3. Rename the column EMP_NAME to FULL_NAME.
+
+4. Add the following constraints:
+   a. DEPT_ID must reference DEPARTMENTS(DEPT_ID)
+   b. FULL_NAME should be NOT NULL
+   c. EMAIL must be UNIQUE
+
+5. Drop the foreign key constraint on DEPT_ID later.
+
+6. Re-add the SALARY column with a CHECK constraint that salary must be >= 25000.
+
+7. Rename the EMAIL column to WORK_EMAIL.
+
+Validation:
+-----------
+After every operation, run `DESC EMPLOYEES` to verify
 
 
 
