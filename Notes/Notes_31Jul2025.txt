@@ -2178,3 +2178,181 @@ we can commit or rollback to
 	till previous commit/ rollback
 
 
+Task:
+Understand the use of
+	Savepoint
+	Commit
+	Rollback
+
+
+
+Transaction:
+	Atomicity
+	Consistency
+	Isolation
+	Durability
+
+
+
+Atomicity
+	all otherwise, none
+	a transaction should be able to complete all the statements
+	or it should not implement any statement
+
+	there is no partial completion
+
+Consistency
+	no matter, the transaction is successful or failure,
+	the data must be in the consistent state
+
+Isolation
+	a transaction should not be disturbed by another transaction
+	it is about the "isolation" level whether to
+		read uncommitted
+		read committed
+		repeatable read
+		serializable
+	LOCKING
+
+Durability
+	logs are used to remember the status of transaction,
+	to rollback whenever any disturbance or error occurred during transaction
+	LOGGING
+
+
+
+Isolation
+	the concurrency issues that occur when multiple transactions try to affect same record(s), are
+		Dirty read
+		Phantom read
+		Non repeatable read
+	
+To address these issues,
+	Isolation levels are used.
+
+
+
+
+
+
+
+
+Here’s a **complete, notepad-friendly explanation** of **Oracle Transactions**, including `COMMIT`, `SAVEPOINT`, `ROLLBACK`, **ACID properties**, **concurrency issues**, and **isolation levels** — with examples.
+
+---
+
+## ✅ 1. What is a Transaction?
+
+A **transaction** is a logical unit of work made up of one or more SQL statements that are executed together.
+
+It begins with the first **DML** (INSERT, UPDATE, DELETE) and ends with a:
+
+* `COMMIT` — to make the changes permanent
+* or `ROLLBACK` — to undo the changes
+
+---
+
+## ✅ 2. COMMIT
+
+* **Makes all changes permanent**
+* Releases all locks
+
+```sql
+UPDATE EMPLOYEES SET SALARY = SALARY + 1000 WHERE DEPT_ID = 10;
+COMMIT;
+```
+
+---
+
+## ✅ 3. ROLLBACK
+
+* **Undo** all changes since the last `COMMIT`
+* Releases all locks
+
+```sql
+DELETE FROM EMPLOYEES WHERE EMP_ID = 101;
+ROLLBACK;  -- Undo the DELETE
+```
+
+---
+
+## ✅ 4. SAVEPOINT
+
+* Creates a **named checkpoint** in a transaction.
+* You can **ROLLBACK to that point** instead of undoing the whole transaction.
+
+```sql
+SAVEPOINT sp1;
+
+UPDATE EMPLOYEES SET SALARY = 5000 WHERE EMP_ID = 101;
+
+SAVEPOINT sp2;
+
+DELETE FROM EMPLOYEES WHERE DEPT_ID = 20;
+
+ROLLBACK TO sp2; -- Undo DELETE only
+
+COMMIT; -- Commit remaining changes
+```
+
+---
+
+## ✅ 5. ACID Properties
+
+A reliable transaction must follow **ACID** properties:
+
+| Property            | Description                                                     |
+| ------------------- | --------------------------------------------------------------- |
+| **A - Atomicity**   | All steps in the transaction complete or none do.               |
+| **C - Consistency** | Ensures database moves from one valid state to another.         |
+| **I - Isolation**   | Transactions do not interfere with each other.                  |
+| **D - Durability**  | Once committed, changes persist even after crash/power failure. |
+
+---
+
+## ✅ 6. Concurrency Issues
+
+When multiple transactions run at the same time, **concurrency control** is critical. Common issues include:
+
+| Issue                   | Description                                                                            |
+| ----------------------- | -------------------------------------------------------------------------------------- |
+| **Dirty Read**          | T2 reads uncommitted data from T1                                                      |
+| **Non-repeatable Read** | T1 reads a row; T2 updates it; T1 reads again and sees different data                  |
+| **Phantom Read**        | T1 queries a condition; T2 inserts matching rows; T1 queries again and gets extra rows |
+
+---
+
+## ✅ 7. Isolation Levels (Oracle)
+
+Controls how/if one transaction can see another transaction’s uncommitted data.
+
+| Isolation Level              | Description                                                 |
+| ---------------------------- | ----------------------------------------------------------- |
+| **READ COMMITTED** (Default) | Only sees committed changes. Prevents **dirty reads**.      |
+| **SERIALIZABLE**             | Full isolation. Prevents all concurrency issues but slower. |
+| **READ ONLY**                | No DML allowed. Like SERIALIZABLE but for queries only.     |
+
+Set using:
+
+```sql
+SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+```
+
+---
+
+## ✅ Example: Concurrency with Isolation
+
+### Transaction 1 (T1):
+
+```sql
+SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+SELECT * FROM PRODUCT WHERE CATEGORY = 'STATIONERY';
+```
+
+### Transaction 2 (T2) in parallel:
+
+```sql
+INSERT INTO PRODUCT VALUES (999, 'Sketch Pen', 45, 'STATIONERY');
+COMMIT; -- Blocked if T1 is SERIALIZABLE
+```
+
