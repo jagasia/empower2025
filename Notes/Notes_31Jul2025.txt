@@ -1381,3 +1381,123 @@ Observe that the DEPT_ID in EMPLOYEES accepts
 	null		(any number of null)	(or)
 	values that are present in DEPARTMENTS table DEPT_ID column
 
+
+in DDL,
+CREATE TABLE
+ALTER TABLE
+DROP TABLE
+TRUNCATE TABLE
+
+
+
+
+ALTER table
+	add column
+	drop column
+	rename column
+	add constraints
+	drop constraints
+
+
+
+Here’s a **Notepad-friendly Oracle SQL cheat sheet** for `ALTER TABLE` commands — including how to **add/drop/rename columns** and **add/drop constraints**.
+
+---
+
+### 🧾 `ALTER TABLE` in Oracle SQL
+
+(All syntax examples use a table named `EMPLOYEES`)
+
+---
+
+### ✅ Add a New Column
+
+```sql
+ALTER TABLE EMPLOYEES
+ADD (EMAIL VARCHAR2(100));
+```
+
+---
+
+### ✅ Drop a Column
+
+```sql
+ALTER TABLE EMPLOYEES
+DROP COLUMN EMAIL;
+```
+
+---
+
+### ✅ Rename a Column
+
+```sql
+ALTER TABLE EMPLOYEES
+RENAME COLUMN EMAIL TO WORK_EMAIL;
+```
+
+---
+
+### ✅ Add a Constraint
+
+**Example 1: Add NOT NULL**
+
+```sql
+ALTER TABLE EMPLOYEES
+MODIFY (EMP_NAME VARCHAR2(50) NOT NULL);
+```
+
+**Example 2: Add PRIMARY KEY**
+
+```sql
+ALTER TABLE EMPLOYEES
+ADD CONSTRAINT pk_emp PRIMARY KEY (EMP_ID);
+```
+
+**Example 3: Add FOREIGN KEY**
+
+```sql
+ALTER TABLE EMPLOYEES
+ADD CONSTRAINT fk_dept
+FOREIGN KEY (DEPT_ID)
+REFERENCES DEPARTMENTS(DEPT_ID);
+```
+
+**Example 4: Add CHECK**
+
+```sql
+ALTER TABLE EMPLOYEES
+ADD CONSTRAINT chk_salary
+CHECK (SALARY BETWEEN 20000 AND 200000);
+```
+
+---
+
+### ✅ Drop a Constraint
+
+**If you know the constraint name:**
+
+```sql
+ALTER TABLE EMPLOYEES
+DROP CONSTRAINT fk_dept;
+```
+
+**Drop Primary Key**
+
+```sql
+ALTER TABLE EMPLOYEES
+DROP PRIMARY KEY;
+```
+
+**Drop Unique Constraint**
+
+```sql
+ALTER TABLE EMPLOYEES
+DROP CONSTRAINT uq_emp_email;
+```
+
+---
+
+Let me know if you want hands-on tasks next (with and without solutions).
+
+
+
