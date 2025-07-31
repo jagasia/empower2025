@@ -506,3 +506,439 @@ some of the data types in oracle SQL:
 
 TasK:
 Identify as many data types in SQL
+	binaryfloat
+	text
+	boolean
+	long
+	time
+	datetime
+	timestamp
+	year to month
+	hour to minute
+	year
+	rowid
+
+
+
+char vs nchar
+----------------
+
+CREATE TABLE TABLE1(
+    NAME CHAR(4)
+);
+
+CREATE TABLE TABLE2(
+    NAME NCHAR(4)
+);
+
+
+
+
+
+
+INSERT INTO TABLE1 VALUES('ABCDE');
+ORA-12899: value too large for column "SQL_XDYZNRWCJSRFUKJSXZAXAUOJZ"."TABLE1"."NAME" (actual: 5, maximum: 4) ORA-06512: at "SYS.DBMS_SQL", line 1721
+
+
+
+INSERT INTO TABLE2 VALUES('ABCDE');
+ORA-12899: value too large for column "SQL_XDYZNRWCJSRFUKJSXZAXAUOJZ"."TABLE2"."NAME" (actual: 5, maximum: 4) ORA-06512: at "SYS.DBMS_SQL", line 1721
+
+=====================================
+
+INSERT INTO TABLE1 VALUES('☺☻♥♦');
+ORA-12899: value too large for column "SQL_XDYZNRWCJSRFUKJSXZAXAUOJZ"."TABLE1"."NAME" (actual: 12, maximum: 4) ORA-06512: at "SYS.DBMS_SQL", line 1721
+
+
+
+INSERT INTO TABLE2 VALUES('☺☻♥♦');
+1 row(s) inserted.
+
+
+alt + 257	=	☺
+
+☺☺☺☺
+
+my observation:
+char(4) allows 4 bytes not 4 chars
+nchar(4) allowed me to store 8 bytes but actually 4 characters of each 2 bytes
+
+
+
+Here’s a **notepad-friendly summary** of **Oracle SQL Data Types** – categorized for quick reference during training or practice.
+
+---
+
+```
+=================================
+     ORACLE SQL DATA TYPES
+=================================
+
+1. CHARACTER DATA TYPES
+------------------------
+- CHAR(n)
+  Fixed-length character string.
+  Max: 2000 bytes.
+
+  Example:
+    CHAR(10) → Always 10 characters, space-padded if shorter.
+
+- VARCHAR2(n)
+  Variable-length string.
+  Max: 4000 bytes (can extend with extended mode).
+
+  Example:
+    VARCHAR2(20) → Stores up to 20 characters.
+
+- CLOB
+  Character Large Object (up to 4 GB of text).
+
+---------------------------------------------------
+
+2. NUMERIC DATA TYPES
+-----------------------
+- NUMBER(p, s)
+  General-purpose number.
+  p = precision (total digits)
+  s = scale (digits after decimal)
+
+  Example:
+    NUMBER(5,2) → Up to 999.99
+
+- INTEGER / INT
+  Same as NUMBER(38)
+
+- FLOAT(n)
+  Approximate number with n binary digits precision
+
+---------------------------------------------------
+
+3. DATE AND TIME DATA TYPES
+-----------------------------
+- DATE
+  Stores date + time (up to seconds).
+  Format: DD-MON-YY or DD-MON-YYYY
+
+  Example: 31-JUL-2025
+
+- TIMESTAMP
+  Stores date + fractional seconds.
+  More precise than DATE.
+
+- TIMESTAMP WITH TIME ZONE
+  Includes time zone offset.
+
+- TIMESTAMP WITH LOCAL TIME ZONE
+  Normalized to DB server’s time zone.
+
+---------------------------------------------------
+
+4. BINARY DATA TYPES
+---------------------
+- RAW(n)
+  Stores binary data (up to 2000 bytes).
+
+- LONG RAW
+  Stores binary data (up to 2 GB). Deprecated.
+
+- BLOB
+  Binary Large Object (up to 4 GB)
+
+---------------------------------------------------
+
+5. LOB DATA TYPES
+-------------------
+- BLOB  → Binary Large Object (e.g., images, videos)
+- CLOB  → Character Large Object
+- NCLOB → National Character LOB
+- BFILE → External binary files (read-only)
+
+---------------------------------------------------
+
+6. ROWID AND UROWID
+---------------------
+- ROWID
+  Physical address of a row in DB.
+
+- UROWID
+  Universal ROWID, supports both physical and logical addresses (used in Index-Organized Tables).
+
+---------------------------------------------------
+
+7. BOOLEAN (PL/SQL only)
+--------------------------
+- BOOLEAN
+  TRUE / FALSE / NULL (only in PL/SQL, not in SQL queries)
+
+---------------------------------------------------
+
+Trainer Demo Tip:
+-------------------
+- Show difference between CHAR and VARCHAR2:
+    CHAR(10) vs. VARCHAR2(10)
+    Insert 'Hi' and observe trailing spaces in CHAR.
+
+- Show DATE and TIMESTAMP output using:
+    SELECT SYSDATE, SYSTIMESTAMP FROM DUAL;
+
+Hands-On Tasks:
+---------------
+1. Create a table using all major data types.
+2. Insert sample values and check behavior.
+3. Query date functions: SYSDATE, SYSTIMESTAMP, TO_CHAR.
+4. Practice with NUMBER(p,s): try inserting out-of-range values.
+
+End of Oracle SQL Data Types Summary.
+```
+
+---
+
+Let me know if you want a **hands-on task** on Oracle data types in 2 sets (without and with solution) — ready when you are.
+
+
+
+
+Constraints
+-------------
+	are introduced to ensure that the data stored in the db, conforms to rules
+
+
+data integrity is implemented using constraints.
+categories:
+
+	entity integrity
+	domain integrity
+	referential integrity
+	user defined integrity
+
+Entity integrity
+-----------------
+	Each entity must be identified uniquely
+	primary key is the constraint that is used to enforce this.
+a combination of the following:-
+	UNIQUE constraint
+	NOT NULL constraint
+
+
+Domain integrity
+-------------------
+	The data in a column must conform to the given rule
+	CHECK constraint
+
+Referential integrity
+----------------------
+	ensures that the data entered in a column, refers, to a data in primary key of another table.
+
+	Foreign key is used to enforce referential integrity
+
+if primary key is composite, then foreign key that references, will also be composite.
+
+
+
+User defined integrity
+-------------------------
+Any other integrity other than those 3 are user defined
+
+ex:
+	trigger can be used to enforce integrity.
+
+whenever i insert a row in sales table, a row must be updated in product table. This is done by trigger.
+
+
+
+
+
+
+
+
+
+Sure! Here’s a **notepad-friendly, detailed explanation** of **Data Integrity in Oracle**, including definitions, types, and examples — perfect for training, handouts, or personal notes.
+
+---
+
+```
+======================================
+      DATA INTEGRITY IN ORACLE SQL
+======================================
+
+Definition:
+-----------
+Data Integrity ensures **accuracy, consistency, and reliability**
+of data in a database throughout its lifecycle.
+
+Oracle provides **built-in constraints** to enforce integrity rules
+automatically at the database level.
+
+======================================
+TYPES OF DATA INTEGRITY & EXAMPLES
+======================================
+
+1. DOMAIN INTEGRITY
+--------------------
+Ensures values in a column fall within a specific range, format, or type.
+
+Enforced using:
+  - CHECK constraints
+  - NOT NULL constraints
+  - Data types
+
+Example:
+---------
+CREATE TABLE employees (
+  emp_id     NUMBER PRIMARY KEY,
+  name       VARCHAR2(50) NOT NULL,
+  age        NUMBER CHECK (age >= 18 AND age <= 60)
+);
+
+- Name cannot be null.
+- Age must be between 18 and 60.
+
+--------------------------------------
+
+2. ENTITY INTEGRITY
+--------------------
+Ensures each row in a table is uniquely identifiable.
+
+Enforced using:
+  - PRIMARY KEY constraint
+
+Example:
+---------
+CREATE TABLE students (
+  student_id NUMBER PRIMARY KEY,
+  name       VARCHAR2(100)
+);
+
+- student_id must be unique and not null.
+
+--------------------------------------
+
+3. REFERENTIAL INTEGRITY
+-------------------------
+Ensures relationships between tables are valid.
+Child table values must match values in the parent table.
+
+Enforced using:
+  - FOREIGN KEY constraint
+
+Example:
+---------
+CREATE TABLE departments (
+  dept_id   NUMBER PRIMARY KEY,
+  dept_name VARCHAR2(100)
+);
+
+CREATE TABLE employees (
+  emp_id   NUMBER PRIMARY KEY,
+  emp_name VARCHAR2(100),
+  dept_id  NUMBER,
+  CONSTRAINT fk_dept FOREIGN KEY (dept_id)
+    REFERENCES departments(dept_id)
+);
+
+- You cannot assign a non-existent dept_id to an employee.
+
+--------------------------------------
+
+4. USER-DEFINED INTEGRITY
+--------------------------
+Custom business rules enforced using:
+  - Triggers
+  - Application logic
+  - Procedures
+
+Example:
+---------
+A rule that salary cannot increase by more than 50% in one update.
+
+CREATE OR REPLACE TRIGGER salary_check
+BEFORE UPDATE ON employees
+FOR EACH ROW
+WHEN (NEW.salary > OLD.salary * 1.5)
+BEGIN
+  RAISE_APPLICATION_ERROR(-20001, 'Salary hike too high!');
+END;
+
+--------------------------------------
+
+SUMMARY TABLE:
+--------------
+| Integrity Type      | Enforced By         | Purpose                        |
+|---------------------|---------------------|--------------------------------|
+| Domain Integrity     | NOT NULL, CHECK     | Valid column values            |
+| Entity Integrity     | PRIMARY KEY         | Unique identification          |
+| Referential Integrity| FOREIGN KEY         | Valid table relationships      |
+| User-Defined         | Triggers, Logic     | Custom business rules          |
+
+========================================
+HANDS-ON TASK IDEAS (for participants)
+========================================
+1. Create 2 related tables with PK–FK relationship.
+2. Apply CHECK and NOT NULL constraints.
+3. Try inserting:
+   - A null into a NOT NULL column → Should fail
+   - A wrong FK value → Should fail
+4. Add a trigger to enforce a user-defined integrity rule.
+
+End of Data Integrity Notes.
+```
+
+---
+
+===========================================
+   HANDS-ON: DATA INTEGRITY IN ORACLE SQL
+===========================================
+
+Business Scenario:
+------------------
+You are designing a small Employee Management System
+with the following requirements:
+
+1. Each department has a unique ID and name.
+2. Each employee must:
+   - Belong to a valid department.
+   - Be at least 21 years old.
+   - Have a non-empty name.
+   - Earn a salary between 20,000 and 2,00,000.
+   - Not receive a salary hike of more than 50% at once.
+
+Tasks:
+------
+
+1. Create the following tables with proper integrity constraints:
+
+   - DEPARTMENTS
+     Columns:
+       - dept_id (Primary Key)
+       - dept_name (Not Null)
+
+   - EMPLOYEES
+     Columns:
+       - emp_id (Primary Key)
+       - emp_name (Not Null)
+       - age (Check constraint: >= 21)
+       - salary (Check constraint: 20k to 2L)
+       - dept_id (Foreign Key → departments.dept_id)
+
+2. Write INSERT statements for:
+   - 2 departments
+   - 3 valid employees
+   - 1 employee with invalid salary
+   - 1 employee with invalid department
+
+3. Create a trigger that prevents salary hike > 50% on update.
+
+4. Test integrity:
+   - Try inserting a NULL name
+   - Try inserting employee with invalid age
+   - Try updating salary to double the original → should fail
+
+Deliverables:
+-------------
+- CREATE TABLE statements with constraints
+- INSERT statements (valid & invalid)
+- Trigger definition
+- SELECT statements to verify data
+
+
+
