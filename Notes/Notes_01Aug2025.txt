@@ -2146,3 +2146,42 @@ UPDATE DEPT_SALARY_SUM SET TOTAL_SALARY = 500000 WHERE DEPT_ID = 1;
 
 ---
 
+Index
+-------
+index is additional table (database object) that is stored in the database, to speed up queries.
+
+index will contain 2 columns:
+	key	offset
+
+Whenever we create a primary key, then a "clustered" index is also created.
+we can also create additional indices for a table.
+
+Oracle advise us, to create index ONLY if, the condition we use results < 2% of the total rows in the table.
+
+index is useful only when we use that indexed column in our where condition or any condition
+
+SELECT * FROM EMPLOYEES;		//there is no use of any index.
+
+SELECT * FROM EMPLOYEES WHERE EMPLOYEE_ID=100;
+	//EMPLOYEE_ID is primary key, ie., there is an index on this field.
+	so, this query results very fast.
+
+
+CREATE INDEX idx1
+ON EMPLOYEES(UPPER(DESIGNATION));
+
+	SELECT * FROM EMPLOYEES WHERE DESIGNATION='Manager';	//NO USE
+	SELECT * FROM EMPLOYEES WHERE UPPER(DESIGNATION)='MANAGER';	//				WORKS well
+
+
+index is a drawback for DML
+	because, each DML may need to update index.
+
+
+
+index types:
+	clustered index		decides the order in which physical data is stored
+	non-clustered index
+
+only 1 clustered index is possible for a table.
+
