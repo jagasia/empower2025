@@ -1583,34 +1583,465 @@ INSERT INTO ASSETS VALUES ('A4', 108, 'Laptop'); -- invalid emp_id
 ```sql
 -- Q1. INNER JOIN
 -- List all employees with their department names.
+SELECT E.EMP_ID, E.NAME, D.DEPT_NAME FROM EMPLOYEES E JOIN DEPARTMENTS D
+    ON E.DEPT_ID=D.DEPT_ID;
 
 -- Q2. LEFT OUTER JOIN
 -- List all employees and their department names (include unassigned employees).
+SELECT E.EMP_ID, E.NAME, D.DEPT_NAME FROM EMPLOYEES E LEFT JOIN DEPARTMENTS D
+    ON E.DEPT_ID=D.DEPT_ID;
 
 -- Q3. RIGHT OUTER JOIN
 -- List all departments and the employees in them (include departments with no employees).
+SELECT E.EMP_ID, E.NAME, D.DEPT_NAME FROM EMPLOYEES E RIGHT JOIN DEPARTMENTS D
+    ON E.DEPT_ID=D.DEPT_ID;
 
 -- Q4. FULL OUTER JOIN
 -- List all employees and departments, even if no matching department or employee.
+SELECT E.EMP_ID, E.NAME, D.DEPT_NAME FROM EMPLOYEES E FULL JOIN DEPARTMENTS D
+    ON E.DEPT_ID=D.DEPT_ID;
 
 -- Q5. SELF JOIN
 -- List each employee with their manager's name.
+SELECT E.EMP_ID, E.NAME, E.MANAGER_ID, M.NAME 
+    FROM EMPLOYEES E
+JOIN EMPLOYEES M
+ON E.MANAGER_ID=M.EMP_ID;
+
 
 -- Q6. THETA JOIN
 -- List employees who work in departments with DEPT_ID > 2.
+SELECT E.EMP_ID, E.NAME, D.DEPT_NAME 
+FROM EMPLOYEES E JOIN DEPARTMENTS D
+    ON E.DEPT_ID=D.DEPT_ID
+WHERE E.DEPT_ID>2;
+
+SELECT E.EMP_ID, E.NAME, D.DEPT_NAME 
+FROM EMPLOYEES E 
+JOIN DEPARTMENTS D ON E.DEPT_ID = D.DEPT_ID AND E.DEPT_ID > 2;
+
 
 -- Q7. NATURAL JOIN or USING
 -- List employee names and their department names using USING(DEPT_ID) or NATURAL JOIN.
+SELECT * FROM EMPLOYEES JOIN DEPARTMENTS USING(DEPT_ID);
+
 
 -- Q8. JOIN with MISSING MATCHES
 -- List all assets with their employee names. Include unassigned assets.
+SELECT A.ASSET_ID, A.EMP_ID, A.ASSET_TYPE, E.NAME 
+    FROM ASSETS A
+LEFT JOIN EMPLOYEES E
+ON E.EMP_ID=A.EMP_ID;
+
 
 -- Q9. PROJECTS and EMPLOYEES
 -- List projects and assigned employee names (even if employee doesn’t exist).
+SELECT 
+PROJECT_ID,	PROJECT_NAME,	P.EMP_ID, E.NAME 
+    FROM PROJECTS P
+LEFT JOIN EMPLOYEES E
+ON E.EMP_ID=P.EMP_ID;
+
+
 
 -- Q10. MULTI-TABLE JOIN
 -- List employee name, department name, and asset type (only if asset is assigned).
 ```
+SELECT E.NAME, D.DEPT_NAME, A.ASSET_TYPE
+    FROM EMPLOYEES E
+    JOIN DEPARTMENTS D
+    ON E.DEPT_ID=D.DEPT_ID
+    JOIN ASSETS A
+	ON E.EMP_ID=A.EMP_ID;
+---
+
+
+
+=========================
+VIEWS
+--------
+views are used to create named queries, that are stored in the database as a database object.
+
+we can use the views to handle complex queries, easily.
+
+we can further add conditions, sorting etc on the views.
+
+views can be created to do
+	projection
+	selection
+and so on.
+
+
+Scenario:
+-----------
+
+
+CREATE VIEW vwHrithik
+    AS
+SELECT E.EMPLOYEE_ID, E.FIRST_NAME, E.DEPARTMENT_ID, D.DEPARTMENT_NAME
+FROM HR.EMPLOYEES E
+JOIN HR.DEPARTMENTS D
+ON E.DEPARTMENT_ID=D.DEPARTMENT_ID
+AND SALARY BETWEEN 6000 AND 12000;
+
+
+SELECT * FROM vwHrithik
+    where DEPARTMENT_NAME!='Marketing';
+
+
+
+CREATE or replace VIEW vwHrithik
+    AS
+SELECT E.EMPLOYEE_ID EID, E.FIRST_NAME ENAME, E.DEPARTMENT_ID DID, D.DEPARTMENT_NAME DNAME
+FROM HR.EMPLOYEES E
+JOIN HR.DEPARTMENTS D
+ON E.DEPARTMENT_ID=D.DEPARTMENT_ID
+AND SALARY BETWEEN 6000 AND 12000;
+
+
+
+
+
+when you learned functions in SQL,
+DATE functions
+	MONTHS_BETWEEN
+	EXTRACT()
+NUMERIC functions
+CHARACTER functions
+Conversion functions
+	TO_CHAR			converts date or number into char type
+	TO_NUMBER		converts date or string into number type
+	TO_DATE			converts char into date type
+
+
+
+
+SELECT HIRE_DATE, EXTRACT(YEAR FROM HIRE_DATE) FROM HR.EMPLOYEES;
+
+
+
+
+Here’s a **notepad-friendly** list of important **Oracle SQL Date Functions** with examples for quick reference:
 
 ---
 
+## ✅ **1. `SYSDATE`**
+
+Returns the current system date and time.
+
+```sql
+SELECT SYSDATE FROM DUAL;
+```
+
+---
+
+## ✅ **2. `CURRENT_DATE`**
+
+Returns current date in **session time zone**.
+
+```sql
+SELECT CURRENT_DATE FROM DUAL;
+```
+
+---
+
+## ✅ **3. `SYSTIMESTAMP`**
+
+Returns the current **timestamp with time zone**.
+
+```sql
+SELECT SYSTIMESTAMP FROM DUAL;
+```
+
+---
+
+## ✅ **4. `ADD_MONTHS(date, n)`**
+
+Adds (or subtracts) **n months** to/from a date.
+
+```sql
+SELECT ADD_MONTHS(SYSDATE, 2) AS TWO_MONTHS_LATER FROM DUAL;
+```
+
+---
+
+## ✅ **5. `MONTHS_BETWEEN(date1, date2)`**
+
+Returns **number of months** between two dates.
+
+```sql
+SELECT MONTHS_BETWEEN(SYSDATE, TO_DATE('2024-12-01','YYYY-MM-DD')) FROM DUAL;
+```
+
+---
+
+## ✅ **6. `NEXT_DAY(date, 'DAY')`**
+
+Returns the **next given weekday** after a date.
+
+```sql
+SELECT NEXT_DAY(SYSDATE, 'MONDAY') FROM DUAL;
+```
+
+---
+
+## ✅ **7. `LAST_DAY(date)`**
+
+Returns the **last day of the month** for the given date.
+
+```sql
+SELECT LAST_DAY(SYSDATE) FROM DUAL;
+```
+
+---
+
+## ✅ **8. `TRUNC(date [, fmt])`**
+
+Truncates date to specified part: `'YEAR'`, `'MONTH'`, `'DAY'`, etc.
+
+```sql
+SELECT TRUNC(SYSDATE, 'MONTH') FROM DUAL;  -- 1st of this month
+```
+
+---
+
+## ✅ **9. `ROUND(date [, fmt])`**
+
+Rounds date to nearest specified unit.
+
+```sql
+SELECT ROUND(SYSDATE, 'MONTH') FROM DUAL;
+```
+
+---
+
+## ✅ **10. `EXTRACT(field FROM date)`**
+
+Extracts **part of date** like year, month, etc.
+
+```sql
+SELECT EXTRACT(YEAR FROM SYSDATE) AS YEAR FROM DUAL;
+SELECT EXTRACT(MONTH FROM SYSDATE) AS MONTH FROM DUAL;
+```
+
+---
+
+## ✅ **11. `TO_DATE(string, format)`**
+
+Converts a string to a DATE.
+
+```sql
+SELECT TO_DATE('2025-12-15', 'YYYY-MM-DD') FROM DUAL;
+```
+
+---
+
+## ✅ **12. `TO_CHAR(date, format)`**
+
+Converts a date to a string.
+
+```sql
+SELECT TO_CHAR(SYSDATE, 'DD-MON-YYYY HH24:MI:SS') FROM DUAL;
+```
+
+---
+
+## ✅ **13. `NEW_TIME(date, from_timezone, to_timezone)`**
+
+Converts time between time zones (legacy method).
+
+```sql
+SELECT NEW_TIME(SYSDATE, 'IST', 'PST') FROM DUAL;
+```
+
+---
+
+## ✅ **Common Format Models for `TO_CHAR` / `TO_DATE`:**
+
+| Format Model | Meaning            |
+| ------------ | ------------------ |
+| `YYYY`       | 4-digit year       |
+| `MM`         | 2-digit month      |
+| `MON`        | Month abbreviation |
+| `DD`         | Day of month       |
+| `DY`         | Day abbreviation   |
+| `HH24`       | Hour (24hr)        |
+| `MI`         | Minutes            |
+| `SS`         | Seconds            |
+
+---
+
+views
+-------
+can we do DML on views?
+	DML on views are allowed when that statement affects only columns of one underlying table.
+	if we try to update data on a computed column, it is not allowed
+
+Yes, ✅ **you can perform DML (INSERT, UPDATE, DELETE)** operations on **views**, but **with some rules and limitations**.
+
+---
+
+### ✅ **When DML on Views is Allowed:**
+
+You **can perform DML** on a view if:
+
+* The view is based on **a single base table**.
+* The view does **not contain**:
+
+  * `GROUP BY`
+  * `DISTINCT`
+  * `UNION`, `INTERSECT`, `MINUS`
+  * `JOINs` (in general, unless it’s an **updatable join view**)
+  * **Aggregate functions** (e.g., `SUM`, `AVG`)
+* The view **includes all NOT NULL columns** of the base table (for INSERT).
+* There are **no pseudocolumns** like `ROWNUM` in the view.
+
+---
+
+### ✅ **Examples of Allowed DML**
+
+#### 1. **Base Table:**
+
+```sql
+CREATE TABLE EMPLOYEES (
+  EMP_ID NUMBER PRIMARY KEY,
+  NAME VARCHAR2(50),
+  DEPT_ID NUMBER,
+  SALARY NUMBER
+);
+```
+
+#### 2. **Simple View:**
+
+```sql
+CREATE VIEW EMP_VIEW AS
+SELECT EMP_ID, NAME, SALARY FROM EMPLOYEES;
+```
+
+#### 3. **Allowed DMLs:**
+
+```sql
+-- INSERT
+INSERT INTO EMP_VIEW (EMP_ID, NAME, SALARY) VALUES (101, 'Alice', 50000);
+
+-- UPDATE
+UPDATE EMP_VIEW SET SALARY = 55000 WHERE EMP_ID = 101;
+
+-- DELETE
+DELETE FROM EMP_VIEW WHERE EMP_ID = 101;
+```
+
+---
+
+### 🚫 **When DML is Not Allowed (Directly):**
+
+DML fails when the view:
+
+* Has **aggregations**, **grouping**, or **joins**
+* Is based on **multiple tables**
+* Excludes **required NOT NULL columns**
+
+Example (Not allowed):
+
+```sql
+CREATE VIEW AVG_SALARY AS
+SELECT DEPT_ID, AVG(SALARY) AS AVG_SAL FROM EMPLOYEES GROUP BY DEPT_ID;
+
+-- UPDATE on AVG_SALARY → ❌ Not allowed
+```
+
+---
+
+### ✅ **To Enable DML on Complex Views:**
+
+Use **INSTEAD OF TRIGGERS**
+
+```sql
+CREATE VIEW COMPLEX_VIEW AS 
+SELECT E.EMP_ID, E.NAME, D.DEPT_NAME
+FROM EMPLOYEES E JOIN DEPARTMENTS D ON E.DEPT_ID = D.DEPT_ID;
+
+-- Then create an INSTEAD OF trigger
+CREATE OR REPLACE TRIGGER trg_instead_of_insert
+INSTEAD OF INSERT ON COMPLEX_VIEW
+FOR EACH ROW
+BEGIN
+  INSERT INTO EMPLOYEES (EMP_ID, NAME, DEPT_ID)
+  VALUES (:NEW.EMP_ID, :NEW.NAME, 
+     (SELECT DEPT_ID FROM DEPARTMENTS WHERE DEPT_NAME = :NEW.DEPT_NAME));
+END;
+/
+```
+
+---
+
+
+
+Handson Views
+
+
+CREATE TABLE EMPLOYEES (
+  EMP_ID NUMBER PRIMARY KEY,
+  NAME VARCHAR2(50),
+  DEPT_ID NUMBER,
+  SALARY NUMBER,
+  DOJ DATE
+);
+
+INSERT INTO EMPLOYEES VALUES (101, 'Alice', 1, 60000, TO_DATE('2020-05-10','YYYY-MM-DD'));
+INSERT INTO EMPLOYEES VALUES (102, 'Bob', 2, 55000, TO_DATE('2021-06-15','YYYY-MM-DD'));
+INSERT INTO EMPLOYEES VALUES (103, 'Charlie', 1, 70000, TO_DATE('2019-03-20','YYYY-MM-DD'));
+INSERT INTO EMPLOYEES VALUES (104, 'Diana', 3, 52000, TO_DATE('2022-01-05','YYYY-MM-DD'));
+
+
+
+
+
+
+
+
+---
+
+## ✅ **Set 1: Hands-On to Understand Views (Without Answers)**
+
+### 🔹 **Q1. Creating a Simple View**
+
+Create a view that shows only **employee name** and **salary** from the `EMPLOYEES` table.
+
+### 🔹 **Q2. Querying a View**
+
+Write a query to select all employees’ **names** and **salaries** from the view created in Q1.
+
+### 🔹 **Q3. Creating a View with Joins**
+
+Create a view that shows **employee name**, **department name**, and **salary** by joining `EMPLOYEES` and `DEPARTMENTS`.
+
+### 🔹 **Q4. Modify the View (add another column)**
+
+Modify the view from Q3 to include the **employee's manager's name** (assuming there is a `MANAGER_ID` column in the `EMPLOYEES` table).
+
+### 🔹 **Q5. View with Aggregate Function**
+
+Create a view that shows the **average salary** for each **department** (group by department).
+
+### 🔹 **Q6. View with Filter Condition**
+
+Create a view that shows only **employees** with a salary greater than 50,000.
+
+### 🔹 **Q7. DML on View: Insert**
+
+Given the view from Q6, **insert** a new employee record using the view.
+
+### 🔹 **Q8. DML on View: Update**
+
+Given the view from Q6, **update** the salary of an employee using the view.
+
+### 🔹 **Q9. DML on View: Delete**
+
+Given the view from Q6, **delete** an employee using the view.
+
+### 🔹 **Q10. Invalid DML on Complex View**
+
+Create a view with **aggregated data** (e.g., sum of salaries by department). Try to **update** an employee’s salary using this view. Verify if the operation is allowed.
+
+---
