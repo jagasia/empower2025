@@ -472,7 +472,6 @@ Functions that can be used in SELECT statements in SQL.
 
 
 
-Here’s a **Notepad-friendly version** of the functions used in SQL `SELECT` statements, suitable for quick reference or sharing with learners.
 
 ---
 
@@ -518,16 +517,16 @@ SELECT PRICE, ROUND(PRICE, 1), MOD(STOCK, 2) FROM PRODUCTS;
 ## 1.c) DATE FUNCTIONS
 
 SYSDATE              → Current system date and time
-CURRENT\_DATE         → Current session time zone date
-ADD\_MONTHS(d, n)     → Add n months to a date
-MONTHS\_BETWEEN(d1, d2) → Months between dates
-NEXT\_DAY(d, 'DAY')   → Next occurrence of a day
-LAST\_DAY(d)          → Last day of month
+CURRENT_DATE         → Current session time zone date
+ADD_MONTHS(d, n)     → Add n months to a date
+MONTHS_BETWEEN(d1, d2) → Months between dates
+NEXT_DAY(d, 'DAY')   → Next occurrence of a day
+LAST_DAY(d)          → Last day of month
 TRUNC(d)             → Remove time part of date
 ROUND(d)             → Round date to nearest day/month
 
 Example:
-SELECT SYSDATE, TRUNC(SYSDATE), ADD\_MONTHS(SYSDATE, 1) FROM DUAL;
+SELECT SYSDATE, TRUNC(SYSDATE), ADD_MONTHS(SYSDATE, 1) FROM DUAL;
 
 ---
 
@@ -538,7 +537,7 @@ TO\_DATE(str, 'fmt')  → Convert string to date
 TO\_NUMBER(str)       → Convert string to number
 
 Example:
-SELECT TO\_CHAR(SYSDATE, 'YYYY-MM-DD'), TO\_NUMBER('1234') FROM DUAL;
+SELECT TO_CHAR(SYSDATE, 'YYYY-MM-DD'), TO_NUMBER('1234') FROM DUAL;
 
 ---
 
@@ -566,11 +565,11 @@ SUM(column)          → Total sum
 AVG(column)          → Average value
 MAX(column)          → Maximum value
 MIN(column)          → Minimum value
-COUNT(\*)             → Total number of rows
+COUNT(*)             → Total number of rows
 COUNT(column)        → Count non-null values
 
 Example:
-SELECT CATEGORY, COUNT(\*), AVG(PRICE)
+SELECT CATEGORY, COUNT(*), AVG(PRICE)
 FROM PRODUCTS
 GROUP BY CATEGORY;
 
