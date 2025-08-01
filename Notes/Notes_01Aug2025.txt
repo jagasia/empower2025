@@ -1229,7 +1229,8 @@ GROUP BY CATEGORY;
 ```sql
 -- Your Query Here
 ```
-
+select * from products where price>
+(select avg(price) from products)
 ---
 
 **2. List categories whose total stock is greater than the average total stock of all categories.**
@@ -1237,7 +1238,10 @@ GROUP BY CATEGORY;
 ```sql
 -- Your Query Here
 ```
-
+SELECT CATEGORY, SUM(STOCK) FROM PRODUCTS
+GROUP BY CATEGORY
+    HAVING SUM(STOCK)>
+(select avg(sum(stock)) from products group by category);
 ---
 
 **3. Display product name(s) with the highest price.**
@@ -1245,7 +1249,8 @@ GROUP BY CATEGORY;
 ```sql
 -- Your Query Here
 ```
-
+SELECT * FROM PRODUCTS WHERE PRICE=
+(SELECT MAX(PRICE) FROM PRODUCTS);
 ---
 
 **4. List the categories with at least one product priced below the average price of that category.**
@@ -1253,6 +1258,10 @@ GROUP BY CATEGORY;
 ```sql
 -- Your Query Here
 ```
+SELECT DISTINCT CATEGORY FROM PRODUCTS P1 WHERE PRICE<(
+SELECT AVG(P2.PRICE) FROM PRODUCTS P2
+    WHERE P2.CATEGORY=P1.CATEGORY
+GROUP BY P2.CATEGORY);
 
 ---
 
@@ -1261,6 +1270,10 @@ GROUP BY CATEGORY;
 ```sql
 -- Your Query Here
 ```
+SELECT P1.NAME, P1.PRICE FROM PRODUCTS P1 WHERE PRICE>(
+SELECT AVG(P2.PRICE) FROM PRODUCTS P2
+    WHERE P2.CATEGORY=P1.CATEGORY
+GROUP BY P2.CATEGORY);
 
 ---
 
@@ -1269,15 +1282,34 @@ GROUP BY CATEGORY;
 ```sql
 -- Your Query Here
 ```
+SELECT CATEGORY, AVG(PRICE)
+FROM PRODUCTS
+GROUP BY CATEGORY
+HAVING AVG(PRICE)>=ALL
+(SELECT AVG(PRICE)
+FROM PRODUCTS
+GROUP BY CATEGORY);
 
 ---
+
+SELECT CATEGORY, AVG(PRICE)
+FROM PRODUCTS
+GROUP BY CATEGORY
+HAVING AVG(PRICE)=(SELECT MAX(T.AV) FROM (SELECT AVG(PRICE) AV FROM PRODUCTS GROUP BY CATEGORY) T);
+
+
 
 **7. List product(s) that belong to the category having the maximum number of products.**
 
 ```sql
 -- Your Query Here
 ```
-
+SELECT CATEGORY, COUNT(*) 
+    FROM PRODUCTS
+	GROUP BY CATEGORY
+	HAVING COUNT(*)>=ALL(SELECT COUNT(*) 
+    FROM PRODUCTS
+	GROUP BY CATEGORY);
 ---
 
 **8. Display categories that have more than one product with price above 1000.**
@@ -1285,6 +1317,14 @@ GROUP BY CATEGORY;
 ```sql
 -- Your Query Here
 ```
+SELECT DISTINCT CATEGORY FROM PRODUCTS
+WHERE PRICE>1000;
+
+SELECT DISTINCT CATEGORY FROM PRODUCTS P1
+WHERE EXISTS
+(
+    SELECT * FROM PRODUCTS P2 WHERE P1.PRICE>1000
+);
 
 ---
 
@@ -1293,7 +1333,13 @@ GROUP BY CATEGORY;
 ```sql
 -- Your Query Here
 ```
-
+select category, name
+    from products p1
+    where p1.price=
+(select min(price)
+from products p2
+    where p2.category=p1.category
+group by p2.category)
 ---
 
 **10. Show product(s) whose stock is greater than the maximum stock of any Electronics product.**
@@ -1301,6 +1347,10 @@ GROUP BY CATEGORY;
 ```sql
 -- Your Query Here
 ```
+select * from products
+    where stock>(
+select max(stock) from products
+where category='Electronics');
 
 ---
 
@@ -1309,3 +1359,6 @@ GROUP BY CATEGORY;
 
 
 
+
+After lunch, we will start JOINs
+-----------------------------------
