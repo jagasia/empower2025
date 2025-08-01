@@ -1078,3 +1078,185 @@ These require aggregation per category:
 
 ---
 
+
+-----------------------
+group by
+-----------
+whenever we use aggregate functions, we get one result per relation (table)
+
+for ex:
+
+SELECT SUM(STOCK) FROM PRODUCTS;
+
+
+SUM(STOCK)
+1155
+
+
+
+NOW, i want one result per group.
+
+SELECT category, SUM(STOCK) FROM PRODUCTS
+group by category;
+
+
+
+sum
+avg
+min
+max
+count
+
+
+
+
+SELECT category, SUM(STOCK) FROM PRODUCTS
+group by category
+    having sum(stock)>500
+order by sum(stock) desc;
+
+
+
+
+
+Here’s a **notepad-friendly introduction to `GROUP BY` in SQL** — including explanation, syntax, examples, and then **hands-on practice (without solutions)** as per your preferred format.
+
+---
+
+## 🧠 SQL `GROUP BY` Clause – Introduction
+
+### 🔸 What is `GROUP BY`?
+
+The `GROUP BY` clause in SQL is used to **group rows** that have the same values in one or more columns. It is often used **with aggregate functions** like `COUNT()`, `SUM()`, `AVG()`, `MAX()`, and `MIN()` to perform calculations **on each group**.
+
+---
+
+### 🔹 Syntax
+
+```sql
+SELECT column1, AGG_FUNCTION(column2)
+FROM table_name
+WHERE condition
+GROUP BY column1;
+```
+
+---
+
+### 🔹 Aggregate Functions Commonly Used
+
+* `COUNT()` – Count rows
+* `SUM()` – Total sum
+* `AVG()` – Average value
+* `MIN()` – Minimum value
+* `MAX()` – Maximum value
+
+---
+
+### 🔹 Example Table: PRODUCTS
+
+| ID | NAME     | CATEGORY    | PRICE  | STOCK |
+| -- | -------- | ----------- | ------ | ----- |
+| 1  | Pen      | Stationery  | 10.00  | 200   |
+| 2  | Notebook | Stationery  | 50.00  | 150   |
+| 3  | Mouse    | Electronics | 300.00 | 40    |
+| 4  | Keyboard | Electronics | 500.00 | 35    |
+| 5  | Pencil   | Stationery  | 5.00   | 500   |
+
+---
+
+### 🔹 Example 1 – Total products in each category
+
+```sql
+SELECT CATEGORY, COUNT(*) AS TOTAL_PRODUCTS
+FROM PRODUCTS
+GROUP BY CATEGORY;
+```
+
+**Output:**
+
+| CATEGORY    | TOTAL\_PRODUCTS |
+| ----------- | --------------- |
+| Stationery  | 3               |
+| Electronics | 2               |
+
+---
+
+### 🔹 Example 2 – Average price per category
+
+```sql
+SELECT CATEGORY, AVG(PRICE) AS AVG_PRICE
+FROM PRODUCTS
+GROUP BY CATEGORY;
+```
+
+---
+
+## 🧪 Hands-on Practice: `GROUP BY` (Without Solutions)
+
+Use this `PRODUCTS` table again:
+
+| ID | NAME     | CATEGORY    | PRICE   | STOCK |
+| -- | -------- | ----------- | ------- | ----- |
+| 1  | Pen      | Stationery  | 10.00   | 200   |
+| 2  | Notebook | Stationery  | 50.00   | 150   |
+| 3  | Mouse    | Electronics | 300.00  | 40    |
+| 4  | Keyboard | Electronics | 500.00  | 35    |
+| 5  | Pencil   | Stationery  | 5.00    | 500   |
+| 6  | Charger  | Electronics | 800.00  | 25    |
+| 7  | Eraser   | Stationery  | 3.00    | 300   |
+| 8  | Monitor  | Electronics | 7000.00 | 10    |
+
+---
+
+### ✍️ Tasks (Without Solutions)
+
+---
+
+**1. Find the number of products in each category.**
+
+```sql
+-- Your Query Here
+```
+
+---
+
+**2. Show the average price of products for each category.**
+
+```sql
+-- Your Query Here
+```
+
+---
+
+**3. Display the category and maximum price in each category.**
+
+```sql
+-- Your Query Here
+```
+
+---
+
+**4. List categories where total stock is more than 300.**
+
+```sql
+-- Your Query Here
+```
+
+---
+
+**5. Show the total stock of products for each category.**
+
+```sql
+-- Your Query Here
+```
+
+---
+
+**6. Display the number of products in each category with average price greater than 100.**
+
+```sql
+-- Your Query Here
+```
+
+---
+
