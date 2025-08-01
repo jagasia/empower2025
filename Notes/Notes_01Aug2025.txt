@@ -994,3 +994,87 @@ Here's a **comprehensive hands-on SQL practice set focused on subqueries** — a
 
 ---
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+Great catch — yes, a few of those hands-on exercises **do require `GROUP BY`**, which you mentioned hasn't been introduced yet. Here's a quick breakdown:
+
+---
+
+### ✅ **Safe to Use (No GROUP BY Required):**
+
+These use only scalar or basic subqueries:
+
+1. Products priced higher than average price
+2. Product(s) with the highest price
+3. Stock greater than max stock in Electronics
+
+---
+
+### ⚠️ **GROUP BY Required (Skip for now or revise later):**
+
+These require aggregation per category:
+2\. Total stock per category vs. average total stock
+4\. Products priced below category average
+5\. Price greater than average of their category
+6\. Category with highest average price
+7\. Category with most products
+8\. Categories with multiple products priced > 1000
+9\. Cheapest product per category
+
+---
+
+### ✅ Here's a Revised Set of Hands-on Tasks (NO GROUP BY)
+
+---
+
+### 🔹 1. Find product(s) that have a price higher than the average price of all products.
+
+```sql
+-- Your Query Here
+```
+
+---
+
+### 🔹 2. Display product name(s) with the highest price.
+
+```sql
+-- Your Query Here
+```
+
+---
+
+### 🔹 3. Show product(s) whose stock is greater than the maximum stock of any Electronics product.
+
+```sql
+-- Your Query Here
+```
+
+---
+
+### 🔹 4. Display products that belong to the same category as the most expensive product.
+
+```sql
+-- Your Query Here
+```
+
+---
+
+### 🔹 5. List products that have the lowest price among all products.
+
+```sql
+-- Your Query Here
+```
+
+---
+
