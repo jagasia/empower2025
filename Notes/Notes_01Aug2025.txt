@@ -158,15 +158,39 @@ minus, the intersect
 
 ===================================
 ===================================
-Sure! Below is the **two-part format** you requested for the `SELECT` statement hands-on tasks on **Projection** and **Selection** using Oracle SQL:
+`SELECT` statement hands-on tasks on **Projection** and **Selection** using Oracle SQL:
 
 ---
 
-## ✅ Part 1: Hands-On Tasks – **Without Solutions**
+## ✅ Part 1: Hands-On Tasks
 
 ### 🔧 Initial Setup
 
 Create a table named `PRODUCTS` and insert sample data for 10 products (stationery and electronics).
+
+CREATE TABLE PRODUCTS (
+    ID NUMBER PRIMARY KEY,
+    NAME VARCHAR2(100),
+    CATEGORY VARCHAR2(50),
+    PRICE NUMBER(10,2),
+    STOCK NUMBER
+);
+
+INSERT ALL
+  INTO PRODUCTS VALUES (1, 'Pen', 'Stationery', 10.5, 100)
+  INTO PRODUCTS VALUES (2, 'Notebook', 'Stationery', 50.0, 200)
+  INTO PRODUCTS VALUES (3, 'Eraser', 'Stationery', 5.0, 150)
+  INTO PRODUCTS VALUES (4, 'Pencil', 'Stationery', 8.0, 250)
+  INTO PRODUCTS VALUES (5, 'Mouse', 'Electronics', 450.0, 80)
+  INTO PRODUCTS VALUES (6, 'Keyboard', 'Electronics', 700.0, 60)
+  INTO PRODUCTS VALUES (7, 'Monitor', 'Electronics', 12000.0, 20)
+  INTO PRODUCTS VALUES (8, 'Charger', 'Electronics', 900.0, 40)
+  INTO PRODUCTS VALUES (9, 'File Folder', 'Stationery', 30.0, 120)
+  INTO PRODUCTS VALUES (10, 'Headphones', 'Electronics', 1500.0, 35)
+SELECT * FROM DUAL;
+
+COMMIT;
+
 
 ---
 
