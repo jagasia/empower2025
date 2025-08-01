@@ -888,117 +888,6 @@ GROUP BY T.DEPT_ID;
 Here's a **comprehensive hands-on SQL practice set focused on subqueries** — as requested, **without solutions first**. These exercises use an example PRODUCT table and go from basic to complex subqueries, including scalar, multi-row, correlated, and subqueries in `SELECT`, `FROM`, and `WHERE`.
 
 ---
-===========================================
-## 🧪 SQL Subquery Hands-on Practice 
-
----
-
-### 📘 Sample Table: `PRODUCTS`
-
-| ID | NAME       | CATEGORY    | PRICE   | STOCK |
-| -- | ---------- | ----------- | ------- | ----- |
-| 1  | Pen        | Stationery  | 10.00   | 200   |
-| 2  | Notebook   | Stationery  | 50.00   | 150   |
-| 3  | Mouse      | Electronics | 300.00  | 40    |
-| 4  | Keyboard   | Electronics | 500.00  | 35    |
-| 5  | Pencil     | Stationery  | 5.00    | 500   |
-| 6  | Charger    | Electronics | 800.00  | 25    |
-| 7  | Eraser     | Stationery  | 3.00    | 300   |
-| 8  | Monitor    | Electronics | 7000.00 | 10    |
-| 9  | Headphones | Electronics | 1500.00 | 20    |
-| 10 | Marker     | Stationery  | 25.00   | 180   |
-
----
-
-### 🔸 Tasks
-
----
-
-**1. Find products that have a price higher than the average price of all products.**
-
-```sql
--- Your Query Here
-```
-
----
-
-**2. List categories whose total stock is greater than the average total stock of all categories.**
-
-```sql
--- Your Query Here
-```
-
----
-
-**3. Display product name(s) with the highest price.**
-
-```sql
--- Your Query Here
-```
-
----
-
-**4. List the categories with at least one product priced below the average price of that category.**
-
-```sql
--- Your Query Here
-```
-
----
-
-**5. Show product names and their prices, where the price is greater than the average price of their own category.**
-
-```sql
--- Your Query Here
-```
-
----
-
-**6. Find the category with the highest average product price.**
-
-```sql
--- Your Query Here
-```
-
----
-
-**7. List product(s) that belong to the category having the maximum number of products.**
-
-```sql
--- Your Query Here
-```
-
----
-
-**8. Display categories that have more than one product with price above 1000.**
-
-```sql
--- Your Query Here
-```
-
----
-
-**9. For each category, show the name of the cheapest product.**
-
-```sql
--- Your Query Here
-```
-
----
-
-**10. Show product(s) whose stock is greater than the maximum stock of any Electronics product.**
-
-```sql
--- Your Query Here
-```
-
----
-
-
-
-
-
-
 
 
 
@@ -1217,7 +1106,9 @@ Use this `PRODUCTS` table again:
 ```sql
 -- Your Query Here
 ```
-
+SELECT CATEGORY, COUNT(*)
+FROM PRODUCTS
+GROUP BY CATEGORY;
 ---
 
 **2. Show the average price of products for each category.**
@@ -1225,7 +1116,9 @@ Use this `PRODUCTS` table again:
 ```sql
 -- Your Query Here
 ```
-
+SELECT CATEGORY, AVG(PRICE)
+FROM PRODUCTS
+GROUP BY CATEGORY;
 ---
 
 **3. Display the category and maximum price in each category.**
@@ -1233,7 +1126,9 @@ Use this `PRODUCTS` table again:
 ```sql
 -- Your Query Here
 ```
-
+SELECT CATEGORY, MAX(PRICE)
+FROM PRODUCTS
+GROUP BY CATEGORY;
 ---
 
 **4. List categories where total stock is more than 300.**
@@ -1241,6 +1136,11 @@ Use this `PRODUCTS` table again:
 ```sql
 -- Your Query Here
 ```
+SELECT CATEGORY, SUM(STOCK)
+FROM PRODUCTS
+GROUP BY CATEGORY
+HAVING SUM(STOCK)>300;
+
 
 ---
 
@@ -1249,7 +1149,8 @@ Use this `PRODUCTS` table again:
 ```sql
 -- Your Query Here
 ```
-
+SELECT CATEGORY, SUM(STOCK) FROM PRODUCTS
+GROUP BY CATEGORY;
 ---
 
 **6. Display the number of products in each category with average price greater than 100.**
@@ -1257,6 +1158,154 @@ Use this `PRODUCTS` table again:
 ```sql
 -- Your Query Here
 ```
+SELECT CATEGORY, COUNT(*)
+    FROM PRODUCTS
+GROUP BY CATEGORY
+HAVING AVG(PRICE)>100;
+---
+
+
+
+
+
+
+
+ROLLUP
+CUBE
+
+
+
+What is the difference between
+	WHERE and HAVING?
+
+
+'where' is used to restrict the rows
+	we cannot use aggregates in where condition
+'having' is used to restrict the groups
+
+
+
+
+
+SELECT DISTINCT CATEGORY FROM PRODUCTS;
+
+SELECT CATEGORY FROM PRODUCTS
+GROUP BY CATEGORY;
+
+
+
+
+
+
+
+===========================================
+## 🧪 SQL Subquery Hands-on Practice 
 
 ---
+
+### 📘 Sample Table: `PRODUCTS`
+
+| ID | NAME       | CATEGORY    | PRICE   | STOCK |
+| -- | ---------- | ----------- | ------- | ----- |
+| 1  | Pen        | Stationery  | 10.00   | 200   |
+| 2  | Notebook   | Stationery  | 50.00   | 150   |
+| 3  | Mouse      | Electronics | 300.00  | 40    |
+| 4  | Keyboard   | Electronics | 500.00  | 35    |
+| 5  | Pencil     | Stationery  | 5.00    | 500   |
+| 6  | Charger    | Electronics | 800.00  | 25    |
+| 7  | Eraser     | Stationery  | 3.00    | 300   |
+| 8  | Monitor    | Electronics | 7000.00 | 10    |
+| 9  | Headphones | Electronics | 1500.00 | 20    |
+| 10 | Marker     | Stationery  | 25.00   | 180   |
+
+---
+
+### 🔸 Tasks
+
+---
+
+**1. Find products that have a price higher than the average price of all products.**
+
+```sql
+-- Your Query Here
+```
+
+---
+
+**2. List categories whose total stock is greater than the average total stock of all categories.**
+
+```sql
+-- Your Query Here
+```
+
+---
+
+**3. Display product name(s) with the highest price.**
+
+```sql
+-- Your Query Here
+```
+
+---
+
+**4. List the categories with at least one product priced below the average price of that category.**
+
+```sql
+-- Your Query Here
+```
+
+---
+
+**5. Show product names and their prices, where the price is greater than the average price of their own category.**
+
+```sql
+-- Your Query Here
+```
+
+---
+
+**6. Find the category with the highest average product price.**
+
+```sql
+-- Your Query Here
+```
+
+---
+
+**7. List product(s) that belong to the category having the maximum number of products.**
+
+```sql
+-- Your Query Here
+```
+
+---
+
+**8. Display categories that have more than one product with price above 1000.**
+
+```sql
+-- Your Query Here
+```
+
+---
+
+**9. For each category, show the name of the cheapest product.**
+
+```sql
+-- Your Query Here
+```
+
+---
+
+**10. Show product(s) whose stock is greater than the maximum stock of any Electronics product.**
+
+```sql
+-- Your Query Here
+```
+
+---
+
+
+
+
+
 
