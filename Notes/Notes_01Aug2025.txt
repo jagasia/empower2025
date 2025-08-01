@@ -2008,6 +2008,7 @@ INSERT INTO EMPLOYEES VALUES (104, 'Diana', 3, 52000, TO_DATE('2022-01-05','YYYY
 
 Create a view that shows only **employee name** and **salary** from the `EMPLOYEES` table.
 
+
 ### 🔹 **Q2. Querying a View**
 
 Write a query to select all employees’ **names** and **salaries** from the view created in Q1.
@@ -2045,3 +2046,103 @@ Given the view from Q6, **delete** an employee using the view.
 Create a view with **aggregated data** (e.g., sum of salaries by department). Try to **update** an employee’s salary using this view. Verify if the operation is allowed.
 
 ---
+
+## ✅ **Set 2: Hands-On with Solutions (DML on Views)**
+
+### 🔹 **Q1. Creating a Simple View**
+
+```sql
+CREATE VIEW EMP_VIEW AS
+SELECT NAME, SALARY FROM EMPLOYEES;
+```
+
+### 🔹 **Q2. Querying a View**
+
+```sql
+SELECT * FROM EMP_VIEW;
+```
+
+### 🔹 **Q3. Creating a View with Joins**
+
+```sql
+CREATE VIEW EMP_DEPT_VIEW AS
+SELECT E.NAME, D.DEPT_NAME, E.SALARY
+FROM EMPLOYEES E
+JOIN DEPARTMENTS D ON E.DEPT_ID = D.DEPT_ID;
+```
+
+### 🔹 **Q4. Modify the View (add another column)**
+
+```sql
+CREATE OR REPLACE VIEW EMP_DEPT_VIEW AS
+SELECT E.NAME, D.DEPT_NAME, E.SALARY, M.NAME AS MANAGER_NAME
+FROM EMPLOYEES E
+JOIN DEPARTMENTS D ON E.DEPT_ID = D.DEPT_ID
+JOIN EMPLOYEES M ON E.MANAGER_ID = M.EMP_ID;
+```
+
+### 🔹 **Q5. View with Aggregate Function**
+
+```sql
+CREATE VIEW AVG_SALARY_BY_DEPT AS
+SELECT DEPT_ID, AVG(SALARY) AS AVG_SALARY
+FROM EMPLOYEES
+GROUP BY DEPT_ID;
+```
+
+### 🔹 **Q6. View with Filter Condition**
+
+```sql
+CREATE VIEW HIGH_SALARY_EMPLOYEES AS
+SELECT NAME, SALARY FROM EMPLOYEES
+WHERE SALARY > 50000;
+```
+
+### 🔹 **Q7. DML on View: Insert**
+
+```sql
+-- Insert into the high salary employees view
+INSERT INTO HIGH_SALARY_EMPLOYEES (NAME, SALARY)
+VALUES ('John Doe', 60000);
+```
+
+### 🔹 **Q8. DML on View: Update**
+
+```sql
+-- Update salary of an employee in the view
+UPDATE HIGH_SALARY_EMPLOYEES
+SET SALARY = 65000
+WHERE NAME = 'John Doe';
+```
+
+### 🔹 **Q9. DML on View: Delete**
+
+```sql
+-- Delete an employee from the view
+DELETE FROM HIGH_SALARY_EMPLOYEES WHERE NAME = 'John Doe';
+```
+
+### 🔹 **Q10. Invalid DML on Complex View**
+
+```sql
+CREATE VIEW DEPT_SALARY_SUM AS
+SELECT DEPT_ID, SUM(SALARY) AS TOTAL_SALARY
+FROM EMPLOYEES
+GROUP BY DEPT_ID;
+
+-- Attempting to update the view with aggregated data
+UPDATE DEPT_SALARY_SUM SET TOTAL_SALARY = 500000 WHERE DEPT_ID = 1;
+-- This will fail, because DML on aggregated views is **not allowed**.
+```
+
+---
+
+## 🔍 **Explanation**
+
+* **Q7**: **DML Allowed**: Inserts a new employee into the `HIGH_SALARY_EMPLOYEES` view.
+* **Q8**: **DML Allowed**: Updates an employee's salary in the `HIGH_SALARY_EMPLOYEES` view.
+* **Q9**: **DML Allowed**: Deletes an employee from the `HIGH_SALARY_EMPLOYEES` view.
+* **Q10**: **DML Not Allowed**: Trying to **update a view with aggregated data** fails because aggregation (`SUM`) disallows DML operations on the view.
+
+---
+
