@@ -363,3 +363,218 @@ Copy
 Edit
 SELECT NAME, PRICE FROM PRODUCTS
 WHERE CATEGORY = 'Electronics' AND PRICE > 1000;
+
+===========================================
+
+
+
+
+
+In the `WHERE` clause of a `SELECT` statement, you can use various **operators** to filter data. These operators fall into **categories**: **comparison**, **logical**, **range**, **pattern matching**, **null checking**, and **set membership**.
+
+---
+
+## 🔹 1. **Comparison Operators**
+
+Used to compare values.
+
+| Operator     | Description              | Example                     |
+| ------------ | ------------------------ | --------------------------- |
+| `=`          | Equal to                 | `WHERE PRICE = 100`         |
+| `!=` or `<>` | Not equal to             | `WHERE CATEGORY <> 'Books'` |
+| `>`          | Greater than             | `WHERE STOCK > 50`          |
+| `<`          | Less than                | `WHERE PRICE < 500`         |
+| `>=`         | Greater than or equal to | `WHERE PRICE >= 1000`       |
+| `<=`         | Less than or equal to    | `WHERE STOCK <= 10`         |
+
+---
+
+## 🔹 2. **Logical Operators**
+
+Combine multiple conditions.
+
+| Operator | Description                         | Example                                          |
+| -------- | ----------------------------------- | ------------------------------------------------ |
+| `AND`    | Both conditions must be true        | `WHERE PRICE > 500 AND STOCK < 50`               |
+| `OR`     | At least one condition must be true | `WHERE CATEGORY = 'Electronics' OR PRICE > 1000` |
+| `NOT`    | Reverses a condition                | `WHERE NOT CATEGORY = 'Stationery'`              |
+
+---
+
+## 🔹 3. **Range Operator**
+
+To check for a range of values.
+
+| Operator              | Description                | Example                            |
+| --------------------- | -------------------------- | ---------------------------------- |
+| `BETWEEN ... AND ...` | Within a range (inclusive) | `WHERE PRICE BETWEEN 100 AND 1000` |
+
+---
+
+## 🔹 4. **Set Membership Operator**
+
+To check if a value exists in a set.
+
+| Operator   | Description               | Example                                     |
+| ---------- | ------------------------- | ------------------------------------------- |
+| `IN (...)` | Match any value in a list | `WHERE CATEGORY IN ('Electronics', 'Toys')` |
+
+---
+
+## 🔹 5. **Pattern Matching Operator**
+
+Used to search with wildcards.
+
+| Operator | Description                                | Example                             |
+| -------- | ------------------------------------------ | ----------------------------------- |
+| `LIKE`   | Pattern matching using `%` or `_`          | `WHERE NAME LIKE 'P%'`              |
+| `%`      | Matches zero or more characters (wildcard) | `LIKE 'P%'` → names starting with P |
+| `_`      | Matches a single character                 | `LIKE 'P_n'` → matches 'Pen', 'Pan' |
+
+---
+
+## 🔹 6. **Null Checking Operator**
+
+Check for `NULL` values.
+
+| Operator      | Description       | Example                      |
+| ------------- | ----------------- | ---------------------------- |
+| `IS NULL`     | Value is null     | `WHERE DISCOUNT IS NULL`     |
+| `IS NOT NULL` | Value is not null | `WHERE DISCOUNT IS NOT NULL` |
+
+---
+
+## 🔹 7. **Existence Operator**
+
+Check if subquery returns rows.
+
+| Operator | Description                           | Example                             |
+| -------- | ------------------------------------- | ----------------------------------- |
+| `EXISTS` | Returns true if subquery returns rows | `WHERE EXISTS (SELECT 1 FROM ... )` |
+
+---
+
+## ✅ Summary Table
+
+| Category             | Operators                             |
+| -------------------- | ------------------------------------- |
+| Comparison           | `=`, `!=`, `<>`, `>`, `<`, `>=`, `<=` |
+| Logical              | `AND`, `OR`, `NOT`                    |
+| Range                | `BETWEEN ... AND ...`                 |
+| Set Membership       | `IN (...)`                            |
+| Pattern Matching     | `LIKE`, `%`, `_`                      |
+| Null Checking        | `IS NULL`, `IS NOT NULL`              |
+| Existence (Subquery) | `EXISTS`, `NOT EXISTS`                |
+
+---
+
+Functions that can be used in SELECT statements in SQL.
+
+
+
+Here’s a **Notepad-friendly version** of the functions used in SQL `SELECT` statements, suitable for quick reference or sharing with learners.
+
+---
+
+# SQL FUNCTIONS USED IN SELECT STATEMENTS
+
+1. SINGLE-ROW FUNCTIONS
+
+---
+
+## 1.a) STRING FUNCTIONS
+
+UPPER(str)           → Convert to uppercase
+LOWER(str)           → Convert to lowercase
+INITCAP(str)         → Capitalize first letter of each word
+SUBSTR(str, m, n)    → Substring from position m, length n
+INSTR(str, substr)   → Find position of substring
+LENGTH(str)          → Length of the string
+REPLACE(str, old, new) → Replace old text with new
+CONCAT(str1, str2)   → Concatenate strings
+TRIM(str)            → Remove leading/trailing spaces
+
+Example:
+SELECT UPPER(NAME), LENGTH(NAME) FROM PRODUCTS;
+
+---
+
+## 1.b) NUMBER FUNCTIONS
+
+ROUND(num, n)        → Round to n decimal places
+TRUNC(num, n)        → Truncate after n decimal places
+MOD(x, y)            → Remainder of x divided by y
+ABS(num)             → Absolute value
+FLOOR(num)           → Largest integer ≤ num
+CEIL(num)            → Smallest integer ≥ num
+POWER(x, y)          → x raised to power y
+SQRT(x)              → Square root
+
+Example:
+SELECT PRICE, ROUND(PRICE, 1), MOD(STOCK, 2) FROM PRODUCTS;
+
+---
+
+## 1.c) DATE FUNCTIONS
+
+SYSDATE              → Current system date and time
+CURRENT\_DATE         → Current session time zone date
+ADD\_MONTHS(d, n)     → Add n months to a date
+MONTHS\_BETWEEN(d1, d2) → Months between dates
+NEXT\_DAY(d, 'DAY')   → Next occurrence of a day
+LAST\_DAY(d)          → Last day of month
+TRUNC(d)             → Remove time part of date
+ROUND(d)             → Round date to nearest day/month
+
+Example:
+SELECT SYSDATE, TRUNC(SYSDATE), ADD\_MONTHS(SYSDATE, 1) FROM DUAL;
+
+---
+
+## 1.d) CONVERSION FUNCTIONS
+
+TO\_CHAR(d, 'fmt')    → Convert date/number to string
+TO\_DATE(str, 'fmt')  → Convert string to date
+TO\_NUMBER(str)       → Convert string to number
+
+Example:
+SELECT TO\_CHAR(SYSDATE, 'YYYY-MM-DD'), TO\_NUMBER('1234') FROM DUAL;
+
+---
+
+## 1.e) GENERAL FUNCTIONS
+
+NVL(expr1, expr2)       → If expr1 is NULL, return expr2
+NVL2(expr1, expr2, expr3) → If expr1 is NOT NULL, return expr2 else expr3
+COALESCE(a, b, c, ...)  → Return first non-null
+NULLIF(a, b)            → Return NULL if a = b, else a
+DECODE(expr, val1, res1, ..., default) → IF-THEN logic
+CASE WHEN ... THEN ... ELSE ... END → Flexible conditional logic
+
+Example:
+SELECT NVL(DISCOUNT, 0),
+CASE WHEN PRICE > 1000 THEN 'High' ELSE 'Normal' END AS PRICE\_LEVEL
+FROM PRODUCTS;
+
+---
+
+2. GROUP (AGGREGATE) FUNCTIONS
+
+---
+
+SUM(column)          → Total sum
+AVG(column)          → Average value
+MAX(column)          → Maximum value
+MIN(column)          → Minimum value
+COUNT(\*)             → Total number of rows
+COUNT(column)        → Count non-null values
+
+Example:
+SELECT CATEGORY, COUNT(\*), AVG(PRICE)
+FROM PRODUCTS
+GROUP BY CATEGORY;
+
+---
+
+Task:
+understand the various functions that can be used in SELECT.
