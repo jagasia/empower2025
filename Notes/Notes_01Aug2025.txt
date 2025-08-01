@@ -663,7 +663,8 @@ Sure! Here's the **hands-on practice set for `ORDER BY` clause** — **without s
    ```sql
    -- Your Query Here
    ```
-
+SELECT * FROM PRODUCTS
+ORDER BY PRICE;
 ---
 
 2. **Display all products sorted by stock in descending order.**
@@ -671,7 +672,8 @@ Sure! Here's the **hands-on practice set for `ORDER BY` clause** — **without s
    ```sql
    -- Your Query Here
    ```
-
+SELECT * FROM PRODUCTS
+ORDER BY STOCK DESC;
 ---
 
 3. **List all products sorted by category (alphabetically) and then by price (high to low).**
@@ -679,7 +681,8 @@ Sure! Here's the **hands-on practice set for `ORDER BY` clause** — **without s
    ```sql
    -- Your Query Here
    ```
-
+SELECT * FROM PRODUCTS
+ORDER BY CATEGORY, PRICE DESC;
 ---
 
 4. **List all products whose stock is more than 100, sorted by name in reverse order.**
@@ -687,7 +690,9 @@ Sure! Here's the **hands-on practice set for `ORDER BY` clause** — **without s
    ```sql
    -- Your Query Here
    ```
-
+SELECT * FROM PRODUCTS
+    WHERE STOCK>100
+ORDER BY NAME DESC;
 ---
 
 5. **Display the names and prices of the top 3 most expensive products.**
@@ -695,5 +700,297 @@ Sure! Here's the **hands-on practice set for `ORDER BY` clause** — **without s
    ```sql
    -- Your Query Here
    ```
+SELECT NAME, PRICE FROM PRODUCTS     
+ORDER BY PRICE DESC
+FETCH FIRST 3 ROWS ONLY;
+---
+
+
+
+We have learned
+	PROJECTION
+	SELECTION
+	SORTING
+
+Now, lets learn sub queries:
+---------------------------------
+SUB QUERIES
+---------------
+
+
+Write a query to display all products that are same category as 'Keyboard'
+	1) first we will find the category of 'Keyboard'
+	2) then we will find all products whose category is 'Keyboard'
+
+But, we need to do this in single select statement.
+what will you do?
+	we will use subquery
+
+
+SELECT * FROM PRODUCTS 
+    WHERE CATEGORY = (SELECT CATEGORY
+    FROM PRODUCTS WHERE NAME='Keyboard');
+
+We are using = operator for subquery, then 
+	the sub query must return only one value
+
+if sub query returns multiple values, then use
+	IN
+	ALL
+	ANY
+
+to modify the 
+	>
+	<
+	>=
+	<=
+	!=
+	=
+
+
+
+
+
+Problem:
+
+SELECT * FROM PRODUCTS 
+    WHERE CATEGORY = (SELECT CATEGORY
+    FROM PRODUCTS WHERE NAME like '%o%');
+
+
+ORA-01427: single-row subquery returns more than one row
+
+
+sub query returned more than 1 value.
+
+
+SELECT * FROM PRODUCTS 
+    WHERE CATEGORY = ANY (SELECT CATEGORY
+    FROM PRODUCTS WHERE NAME like '%o%');
+
+Works!
+
+
+SELECT * FROM PRODUCTS 
+    WHERE CATEGORY IN (SELECT CATEGORY
+    FROM PRODUCTS WHERE NAME like '%o%');
+
+Also works!
+
+
+
+
+
+
+Here are the **rules for using subqueries in SQL**, in a **notepad-friendly format** for easy copy-paste or documentation:
 
 ---
+
+## ✅ Rules for Using Subqueries in SQL
+
+---
+
+### 🔹 1. **Subqueries must be enclosed in parentheses**
+
+```sql
+SELECT * FROM EMPLOYEES 
+WHERE DEPT_ID = (SELECT DEPT_ID FROM DEPARTMENTS WHERE DEPT_NAME = 'HR');
+```
+
+---
+
+### 🔹 2. **Subquery must return only one column for scalar comparisons**
+
+* Scalar subqueries (using `=`, `>`, `<`, etc.) must return **exactly one value**.
+
+❌ Invalid:
+
+```sql
+SELECT * FROM EMPLOYEES 
+WHERE DEPT_ID = (SELECT DEPT_ID, LOCATION FROM DEPARTMENTS); -- ❌ returns two columns
+```
+
+---
+
+### 🔹 3. **Use `IN`, `ANY`, `ALL`, or `EXISTS` for multiple row results**
+
+```sql
+-- IN
+SELECT * FROM EMPLOYEES 
+WHERE DEPT_ID IN (SELECT DEPT_ID FROM DEPARTMENTS WHERE LOCATION = 'CHENNAI');
+
+-- EXISTS
+SELECT * FROM EMPLOYEES E
+WHERE EXISTS (SELECT 1 FROM DEPARTMENTS D WHERE E.DEPT_ID = D.DEPT_ID);
+```
+this is called as "Correlated sub query"
+
+
+---
+
+### 🔹 4. **A subquery can be used in SELECT, FROM, or WHERE clause**
+
+```sql
+-- In SELECT clause
+SELECT NAME, (SELECT DEPT_NAME FROM DEPARTMENTS WHERE DEPT_ID = E.DEPT_ID) AS DEPT
+FROM EMPLOYEES E;	
+--this is inline subquery
+
+-- In FROM clause
+SELECT AVG(SALARY) FROM (SELECT * FROM EMPLOYEES WHERE DEPT_ID = 10);
+```
+
+---
+
+### 🔹 5. **Correlated subqueries use outer query values inside subquery**
+
+```sql
+SELECT NAME FROM EMPLOYEES E
+WHERE SALARY > (
+  SELECT AVG(SALARY) FROM EMPLOYEES WHERE DEPT_ID = E.DEPT_ID
+);
+```
+
+> Correlated subqueries are evaluated **once per row** of the outer query.
+
+---
+
+### 🔹 6. **ORDER BY is not allowed in a subquery (except in `TOP`, `FETCH`, or `ROWNUM`)**
+
+```sql
+-- Valid with FETCH
+SELECT * FROM (
+  SELECT * FROM EMPLOYEES ORDER BY SALARY DESC
+) WHERE ROWNUM = 1;
+```
+
+---
+
+### 🔹 7. **Cannot use subquery in CHECK constraint**
+
+```sql
+-- This is not allowed:
+CHECK (SALARY > (SELECT AVG(SALARY) FROM EMPLOYEES));
+```
+
+---
+
+### 🔹 8. **Use aliases when subqueries appear in the FROM clause**
+
+```sql
+SELECT T.DEPT_ID, AVG(T.SALARY)
+FROM (SELECT * FROM EMPLOYEES WHERE SALARY > 30000) T
+GROUP BY T.DEPT_ID;
+```
+
+---
+
+Here's a **comprehensive hands-on SQL practice set focused on subqueries** — as requested, **without solutions first**. These exercises use an example PRODUCT table and go from basic to complex subqueries, including scalar, multi-row, correlated, and subqueries in `SELECT`, `FROM`, and `WHERE`.
+
+---
+===========================================
+## 🧪 SQL Subquery Hands-on Practice 
+
+---
+
+### 📘 Sample Table: `PRODUCTS`
+
+| ID | NAME       | CATEGORY    | PRICE   | STOCK |
+| -- | ---------- | ----------- | ------- | ----- |
+| 1  | Pen        | Stationery  | 10.00   | 200   |
+| 2  | Notebook   | Stationery  | 50.00   | 150   |
+| 3  | Mouse      | Electronics | 300.00  | 40    |
+| 4  | Keyboard   | Electronics | 500.00  | 35    |
+| 5  | Pencil     | Stationery  | 5.00    | 500   |
+| 6  | Charger    | Electronics | 800.00  | 25    |
+| 7  | Eraser     | Stationery  | 3.00    | 300   |
+| 8  | Monitor    | Electronics | 7000.00 | 10    |
+| 9  | Headphones | Electronics | 1500.00 | 20    |
+| 10 | Marker     | Stationery  | 25.00   | 180   |
+
+---
+
+### 🔸 Tasks
+
+---
+
+**1. Find products that have a price higher than the average price of all products.**
+
+```sql
+-- Your Query Here
+```
+
+---
+
+**2. List categories whose total stock is greater than the average total stock of all categories.**
+
+```sql
+-- Your Query Here
+```
+
+---
+
+**3. Display product name(s) with the highest price.**
+
+```sql
+-- Your Query Here
+```
+
+---
+
+**4. List the categories with at least one product priced below the average price of that category.**
+
+```sql
+-- Your Query Here
+```
+
+---
+
+**5. Show product names and their prices, where the price is greater than the average price of their own category.**
+
+```sql
+-- Your Query Here
+```
+
+---
+
+**6. Find the category with the highest average product price.**
+
+```sql
+-- Your Query Here
+```
+
+---
+
+**7. List product(s) that belong to the category having the maximum number of products.**
+
+```sql
+-- Your Query Here
+```
+
+---
+
+**8. Display categories that have more than one product with price above 1000.**
+
+```sql
+-- Your Query Here
+```
+
+---
+
+**9. For each category, show the name of the cheapest product.**
+
+```sql
+-- Your Query Here
+```
+
+---
+
+**10. Show product(s) whose stock is greater than the maximum stock of any Electronics product.**
+
+```sql
+-- Your Query Here
+```
+
+---
+
