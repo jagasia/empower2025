@@ -1394,6 +1394,22 @@ The above join comes under:
 
 equi join
 	we use =	or != or any such comparison in join condition
+
+non equi join
+	join condition using 
+		IN
+		NOT IN
+		BETWEEN
+		NOT BETWEEN
+
+
+EX:
+select E.EMPLOYEE_ID, E.FIRST_NAME, E.SALARY, J.JOB_TITLE
+    from HR.EMPLOYEES E JOIN hr.jobs J
+    ON E.SALARY BETWEEN J.MIN_SALARY AND J.MAX_SALARY;
+
+
+etc
 	
 inner join
 	only matching rows are returned
@@ -1441,4 +1457,160 @@ Understand
 	FULL OUTER
 
 joins now.
+
+-------------------
+Types of JOINS
+
+Inner
+Outer
+	Left
+	Right
+	Full
+Equi
+Non Equi
+Cross
+Natural
+Self 
+
+
+cross join
+	is cartesian product of rows from both tables
+
+SELECT * FROM HR.LOCATIONS CROSS JOIN HR.DEPARTMENTS;
+
+
+Natural join
+
+select *
+from HR.EMPLOYEES
+JOIN HR.DEPARTMENTS
+USING(DEPARTMENT_ID);
+
+
+
+
+Self Join
+----------
+SELECT E.EMPLOYEE_ID, E.FIRST_NAME, E.MANAGER_ID, M.FIRST_NAME MANAGER_NAME 
+    FROM HR.EMPLOYEES E
+    LEFT 
+    JOIN HR.EMPLOYEES M
+    ON E.MANAGER_ID=M.EMPLOYEE_ID
+ORDER BY E.EMPLOYEE_ID;
+
+===========================
+=====================
+
+
+
+
+
+Hands on JOINS
+=================
+
+
+1. ✅ `CREATE TABLE` scripts
+2. ✅ `INSERT` sample records
+3. ✅ 🧪 **Set 1: Join Practice Questions (Without Solutions)**
+
+---
+
+## ✅ 1. CREATE TABLE Scripts
+
+```sql
+CREATE TABLE EMPLOYEES (
+  EMP_ID NUMBER PRIMARY KEY,
+  NAME VARCHAR2(50),
+  DEPT_ID NUMBER,
+  MANAGER_ID NUMBER
+);
+
+CREATE TABLE DEPARTMENTS (
+  DEPT_ID NUMBER PRIMARY KEY,
+  DEPT_NAME VARCHAR2(50)
+);
+
+CREATE TABLE PROJECTS (
+  PROJECT_ID VARCHAR2(10) PRIMARY KEY,
+  PROJECT_NAME VARCHAR2(100),
+  EMP_ID NUMBER
+);
+
+CREATE TABLE ASSETS (
+  ASSET_ID VARCHAR2(10) PRIMARY KEY,
+  EMP_ID NUMBER,
+  ASSET_TYPE VARCHAR2(50)
+);
+```
+
+---
+
+## ✅ 2. INSERT Sample Records
+
+```sql
+-- EMPLOYEES
+INSERT INTO EMPLOYEES VALUES (101, 'Alice', 1, 105);
+INSERT INTO EMPLOYEES VALUES (102, 'Bob', 2, 105);
+INSERT INTO EMPLOYEES VALUES (103, 'Charlie', 1, 105);
+INSERT INTO EMPLOYEES VALUES (104, 'Diana', 3, 106);
+INSERT INTO EMPLOYEES VALUES (105, 'Eva', 1, NULL);
+INSERT INTO EMPLOYEES VALUES (106, 'Frank', 3, NULL);
+INSERT INTO EMPLOYEES VALUES (107, 'Grace', NULL, NULL);
+
+-- DEPARTMENTS
+INSERT INTO DEPARTMENTS VALUES (1, 'HR');
+INSERT INTO DEPARTMENTS VALUES (2, 'IT');
+INSERT INTO DEPARTMENTS VALUES (3, 'Finance');
+INSERT INTO DEPARTMENTS VALUES (4, 'Marketing');
+
+-- PROJECTS
+INSERT INTO PROJECTS VALUES ('P1', 'Payroll System', 101);
+INSERT INTO PROJECTS VALUES ('P2', 'Website Redesign', 102);
+INSERT INTO PROJECTS VALUES ('P3', 'Audit Tool', 103);
+INSERT INTO PROJECTS VALUES ('P4', 'Mobile App', 110); -- invalid emp_id
+
+-- ASSETS
+INSERT INTO ASSETS VALUES ('A1', 101, 'Laptop');
+INSERT INTO ASSETS VALUES ('A2', 102, 'Desktop');
+INSERT INTO ASSETS VALUES ('A3', 104, 'Phone');
+INSERT INTO ASSETS VALUES ('A4', 108, 'Laptop'); -- invalid emp_id
+```
+
+---
+
+## 🧪 3. SET 1 – JOIN PRACTICE (Without Solutions)
+
+```sql
+-- Q1. INNER JOIN
+-- List all employees with their department names.
+
+-- Q2. LEFT OUTER JOIN
+-- List all employees and their department names (include unassigned employees).
+
+-- Q3. RIGHT OUTER JOIN
+-- List all departments and the employees in them (include departments with no employees).
+
+-- Q4. FULL OUTER JOIN
+-- List all employees and departments, even if no matching department or employee.
+
+-- Q5. SELF JOIN
+-- List each employee with their manager's name.
+
+-- Q6. THETA JOIN
+-- List employees who work in departments with DEPT_ID > 2.
+
+-- Q7. NATURAL JOIN or USING
+-- List employee names and their department names using USING(DEPT_ID) or NATURAL JOIN.
+
+-- Q8. JOIN with MISSING MATCHES
+-- List all assets with their employee names. Include unassigned assets.
+
+-- Q9. PROJECTS and EMPLOYEES
+-- List projects and assigned employee names (even if employee doesn’t exist).
+
+-- Q10. MULTI-TABLE JOIN
+-- List employee name, department name, and asset type (only if asset is assigned).
+```
+
+---
 
