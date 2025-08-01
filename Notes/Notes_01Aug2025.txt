@@ -561,12 +561,12 @@ FROM PRODUCTS;
 
 ---
 
-SUM(column)          → Total sum
-AVG(column)          → Average value
-MAX(column)          → Maximum value
-MIN(column)          → Minimum value
+SUM(columName)          → Total sum
+AVG(columName)          → Average value
+MAX(columName)          → Maximum value
+MIN(columName)          → Minimum value
 COUNT(*)             → Total number of rows
-COUNT(column)        → Count non-null values
+COUNT(columnName)        → Count non-null values
 
 Example:
 SELECT CATEGORY, COUNT(*), AVG(PRICE)
@@ -577,3 +577,123 @@ GROUP BY CATEGORY;
 
 Task:
 understand the various functions that can be used in SELECT.
+
+
+---------------------------------------------
+ORDER BY
+------------
+
+ORDER BY clause is used to sort the result by specified column(s) in ascending or descending order.
+
+Ascending is the default order.
+
+this clause appears at the last line of SELECT statement.
+
+
+
+Sure! Below are **hands-on exercises** for practicing the `ORDER BY` clause in SQL.
+
+---
+
+## 🧪 Hands-on Practice: `ORDER BY` Clause
+
+### ✅ Initial Setup: Create and Insert Sample Data
+
+```sql
+CREATE TABLE PRODUCTS (
+  ID        NUMBER PRIMARY KEY,
+  NAME      VARCHAR2(50),
+  CATEGORY  VARCHAR2(30),
+  PRICE     NUMBER(10,2),
+  STOCK     NUMBER
+);
+
+INSERT ALL
+  INTO PRODUCTS (ID, NAME, CATEGORY, PRICE, STOCK) VALUES (1, 'Pen', 'Stationery', 10.00, 200)
+  INTO PRODUCTS (ID, NAME, CATEGORY, PRICE, STOCK) VALUES (2, 'Notebook', 'Stationery', 50.00, 150)
+  INTO PRODUCTS (ID, NAME, CATEGORY, PRICE, STOCK) VALUES (3, 'Mouse', 'Electronics', 300.00, 40)
+  INTO PRODUCTS (ID, NAME, CATEGORY, PRICE, STOCK) VALUES (4, 'Keyboard', 'Electronics', 500.00, 35)
+  INTO PRODUCTS (ID, NAME, CATEGORY, PRICE, STOCK) VALUES (5, 'Pencil', 'Stationery', 5.00, 500)
+  INTO PRODUCTS (ID, NAME, CATEGORY, PRICE, STOCK) VALUES (6, 'Charger', 'Electronics', 800.00, 25)
+  INTO PRODUCTS (ID, NAME, CATEGORY, PRICE, STOCK) VALUES (7, 'Eraser', 'Stationery', 3.00, 300)
+  INTO PRODUCTS (ID, NAME, CATEGORY, PRICE, STOCK) VALUES (8, 'Monitor', 'Electronics', 7000.00, 10)
+SELECT * FROM DUAL;
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Sure! Here's the **hands-on practice set for `ORDER BY` clause** — **without solutions** as you requested:
+
+---
+
+## 🧪 SQL Hands-on: `ORDER BY` Clause – Practice Set (Without Solutions)
+
+### ✅ Use the following sample table:
+
+**Table Name:** `PRODUCTS`
+
+| ID | NAME     | CATEGORY    | PRICE   | STOCK |
+| -- | -------- | ----------- | ------- | ----- |
+| 1  | Pen      | Stationery  | 10.00   | 200   |
+| 2  | Notebook | Stationery  | 50.00   | 150   |
+| 3  | Mouse    | Electronics | 300.00  | 40    |
+| 4  | Keyboard | Electronics | 500.00  | 35    |
+| 5  | Pencil   | Stationery  | 5.00    | 500   |
+| 6  | Charger  | Electronics | 800.00  | 25    |
+| 7  | Eraser   | Stationery  | 3.00    | 300   |
+| 8  | Monitor  | Electronics | 7000.00 | 10    |
+
+---
+
+### ✍️ Tasks
+
+1. **List all products sorted by price in ascending order.**
+
+   ```sql
+   -- Your Query Here
+   ```
+
+---
+
+2. **Display all products sorted by stock in descending order.**
+
+   ```sql
+   -- Your Query Here
+   ```
+
+---
+
+3. **List all products sorted by category (alphabetically) and then by price (high to low).**
+
+   ```sql
+   -- Your Query Here
+   ```
+
+---
+
+4. **List all products whose stock is more than 100, sorted by name in reverse order.**
+
+   ```sql
+   -- Your Query Here
+   ```
+
+---
+
+5. **Display the names and prices of the top 3 most expensive products.**
+
+   ```sql
+   -- Your Query Here
+   ```
+
+---
