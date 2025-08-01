@@ -1,0 +1,205 @@
+Database Fundamentals - Oracle SQL & PL/SQL	
+Select statement with all clauses, Set Operators, Predefined functions, Joins, Sub queries, Indexs, Views
+
+------------------------------------
+Merge
+	is used in Oracle
+
+
+Suppose, you have a table called PRODUCTS
+
+you want to create another table called PRODUCTS_BACKUP, that has same set of columns as PRODUCTS
+
+every evening, your role is to take backup (a copy of all rows from PRODUCTS to PRODUCTS_BACKUP)
+
+Tell me how will you do?
+
+to add all rows from one table to another, we can use 
+	INSERT ALL
+
+MERGE syntax:
+------------------
+
+
+
+
+
+
+
+Demo:
+
+CREATE TABLE PRODUCTS (
+    ID NUMBER PRIMARY KEY,
+    NAME VARCHAR2(100),
+    PRICE NUMBER(10, 2),
+    CATEGORY VARCHAR2(50)
+);
+
+
+INSERT ALL
+    INTO PRODUCTS (ID, NAME, PRICE, CATEGORY) VALUES (1, 'Notebook A5', 45.00, 'Stationary')
+    INTO PRODUCTS (ID, NAME, PRICE, CATEGORY) VALUES (2, 'Gel Pen Pack', 120.00, 'Stationary')
+    INTO PRODUCTS (ID, NAME, PRICE, CATEGORY) VALUES (3, 'Stapler', 85.50, 'Stationary')
+    INTO PRODUCTS (ID, NAME, PRICE, CATEGORY) VALUES (4, 'Scientific Calculator', 650.00, 'Electronics')
+    INTO PRODUCTS (ID, NAME, PRICE, CATEGORY) VALUES (5, 'Bluetooth Mouse', 799.00, 'Electronics')
+    INTO PRODUCTS (ID, NAME, PRICE, CATEGORY) VALUES (6, 'Wireless Keyboard', 1199.00, 'Electronics')
+    INTO PRODUCTS (ID, NAME, PRICE, CATEGORY) VALUES (7, 'Sticky Notes', 35.00, 'Stationary')
+    INTO PRODUCTS (ID, NAME, PRICE, CATEGORY) VALUES (8, 'Laptop Stand', 950.00, 'Electronics')
+    INTO PRODUCTS (ID, NAME, PRICE, CATEGORY) VALUES (9, 'Correction Tape', 30.00, 'Stationary')
+    INTO PRODUCTS (ID, NAME, PRICE, CATEGORY) VALUES (10, 'USB Flash Drive 32GB', 499.00, 'Electronics')
+SELECT * FROM dual;
+
+
+
+
+
+CREATE TABLE PRODUCTS_BACKUP
+AS
+SELECT * FROM PRODUCTS;
+
+
+MERGE INTO PRODUCTS_BACKUP PB
+USING (SELECT * FROM PRODUCTS) P
+ON (PB.ID=P.ID)
+WHEN MATCHED THEN
+UPDATE SET PB.NAME=P.NAME, PB.PRICE=P.PRICE, PB.CATEGORY=P.CATEGORY
+WHEN NOT MATCHED THEN
+INSERT VALUES(P.ID, P.NAME, P.PRICE, P.CATEGORY);
+
+=================================
+Day 2: select statements
+
+SELECT statement is used to retrieve data from the database.
+it is read only access. Does not affect data in the db.
+
+select statement can be used to retrieve data from one or more tables or another queries, etc.
+
+SELECT in SQL
+------------------
+in RDBMS we have few operators:-
+	PROJECTION
+	SELECTION
+	UNION
+	UNION ALL
+	PRODUCT
+	INTERSECT
+	MINUS
+
+
+PROJECTION
+	a table or table(s) may have many columns,
+	but we may want to project only few columns, or derived values.
+
+	projecting those relevant columns to the user.
+
+	instead of using *, we use specific columns, expressions etc.
+
+SELECTION
+	a table may have many rows.
+	but i am selecting rows, that meet a condition or conditions.
+	where clause is used to do selection in select statement.
+
+
+UNION
+	addition in mathematics.
+	
+	we run 2 select statements and union them.
+
+	select .....
+	union
+	select .....
+
+if first query returns 5 rows
+and if second query returns 5 rows
+then union will add them and give upto 10 rows
+
+if there are some rows commonly found between these 2 select results, they appear only once.
+
+UNION ALL
+	5 + 5 is always 10
+
+	commonly found rows appear again and again and hence 5+5=10
+
+
+PRODUCT
+	if we want to see if all customers buy all products, then how many sales would have happen?
+
+whenever we join 2 tables, we get product of all records of those 2 tables.
+
+we can use join conditions to ensure that product will eliminate unrelated rows.
+
+
+
+
+23 locations
+27 department
+621
+
+
+INSERSECT
+-------------
+
+select * from hr.departments where location_id>=1800
+intersect
+select * from hr.departments where location_id between 1710 and 1850;
+
+
+
+MINUS
+--------
+All rows from 1st query
+minus, the intersect
+
+
+
+
+
+
+
+===================================
+===================================
+Sure! Below is the **two-part format** you requested for the `SELECT` statement hands-on tasks on **Projection** and **Selection** using Oracle SQL:
+
+---
+
+## ✅ Part 1: Hands-On Tasks – **Without Solutions**
+
+### 🔧 Initial Setup
+
+Create a table named `PRODUCTS` and insert sample data for 10 products (stationery and electronics).
+
+---
+
+### 🔹 Task Set: SELECT – Projection
+
+**Task 1.1:** Display only the `NAME` and `PRICE` of all products.
+
+**Task 1.2:** Display all columns of the `PRODUCTS` table.
+
+**Task 1.3:** Display the `NAME` and `PRICE` of products using aliases as `PRODUCT_NAME` and `COST`.
+
+---
+
+### 🔹 Task Set: SELECT – Selection (Filtering)
+
+**Task 2.1:** Display all products with a price greater than ₹500.
+
+**Task 2.2:** Display only the stationery products.
+
+**Task 2.3:** Display all products whose stock is more than 100 units.
+
+**Task 2.4:** Display products with price between ₹100 and ₹1000.
+
+**Task 2.5:** Display products where the name is either **"Mouse"** or **"Charger"**.
+
+**Task 2.6:** Display products whose name starts with the letter 'P'.
+
+**Task 2.7:** Display all products that do **not** belong to the **Electronics** category.
+
+---
+
+### 🔹 Task Set: SELECT – Projection + Selection Combined
+
+**Task 3.1:** Display the `NAME` and `PRICE` of all Electronics products that cost more than ₹1000.
+
+---
