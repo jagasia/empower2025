@@ -1359,6 +1359,86 @@ where category='Electronics');
 
 
 
-
-After lunch, we will start JOINs
+JOINS
 -----------------------------------
+why we need join?
+	whenever we need to retrieve data from multiple tables/ view/ sub queries, 
+	we need to use joins.
+
+ex:
+
+Livesql HR schema has many tables including
+	EMPLOYEES
+	DEPARTMENTS
+
+I want you to print 
+	EMPLOYEE_ID
+	FIRST_NAME
+	DEPARTMENT_NAME
+	
+
+Note:
+	DEPARTMENT_NAME is not present in the EMPLOYEES table.
+
+
+
+SELECT EMPLOYEE_ID, FIRST_NAME, DEPARTMENT_NAME
+FROM HR.EMPLOYEES, HR.DEPARTMENTS
+WHERE HR.EMPLOYEES.DEPARTMENT_ID=HR.DEPARTMENTS.DEPARTMENT_ID;
+
+
+The above join comes under:
+	equi join
+	inner join
+
+
+equi join
+	we use =	or != or any such comparison in join condition
+	
+inner join
+	only matching rows are returned
+
+we have used "comma" style join. The same we will try using "implicit" join syntax.
+
+SELECT EMPLOYEE_ID, FIRST_NAME, DEPARTMENT_NAME, HR.EMPLOYEES.DEPARTMENT_ID
+FROM HR.EMPLOYEES 
+JOIN 
+HR.DEPARTMENTS
+ON HR.EMPLOYEES.DEPARTMENT_ID=HR.DEPARTMENTS.DEPARTMENT_ID;
+
+
+
+A join is usually INNER JOIN
+
+so matching rows only come.
+
+one of the employee do not have department id so, it is not returned.
+
+now, left outer join
+
+SELECT EMPLOYEE_ID, FIRST_NAME, DEPARTMENT_NAME, HR.EMPLOYEES.DEPARTMENT_ID
+FROM HR.EMPLOYEES LEFT JOIN HR.DEPARTMENTS
+ON HR.EMPLOYEES.DEPARTMENT_ID=HR.DEPARTMENTS.DEPARTMENT_ID;
+
+All records from left side table.
+And matching rows from right side table.
+
+
+
+SELECT EMPLOYEE_ID, FIRST_NAME, DEPARTMENT_NAME, HR.DEPARTMENTS.DEPARTMENT_ID
+FROM HR.EMPLOYEES FULL JOIN HR.DEPARTMENTS
+ON HR.EMPLOYEES.DEPARTMENT_ID=HR.DEPARTMENTS.DEPARTMENT_ID;
+
+
+-- SELECT * FROM HR.DEPARTMENTS;
+
+Task:
+------
+Understand 
+	INNER
+	LEFT OUTER
+	RIGHT OUTER
+	FULL OUTER
+
+joins now.
+
