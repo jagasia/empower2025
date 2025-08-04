@@ -650,30 +650,235 @@ END;
 HANDSON
 -----------
 
-Got it — I’ll always give you **hands-on exercises without solutions first**, and only provide solutions if you ask. Here's your request:
-
 ---
 
-### 🔹 **PL/SQL BASIC LOOP – Hands-On (No Solutions)**
+### 🔹 **PL/SQL BASIC LOOP – Hands-On **
 
 **1.** Print numbers from 1 to 5 using a `BASIC LOOP`.
+DECLARE
+	X INT:=1;
+BEGIN
+    LOOP
+    	DBMS_OUTPUT.PUT_LINE(X);		
+    	EXIT WHEN X>=5;
+		X:=X+1;		
+    END LOOP;
+END;
+
+
 
 **2.** Calculate the sum of the first 10 natural numbers using a `BASIC LOOP`.
-
+DECLARE
+	X INT:=1;
+	TOTAL INT:=0;
+BEGIN
+    LOOP    		
+    	TOTAL:=TOTAL+X;
+    	EXIT WHEN X>=10;
+		X:=X+1;		
+    END LOOP;
+	DBMS_OUTPUT.PUT_LINE(TOTAL);
+END;
 ---
 
-### 🔹 **PL/SQL WHILE LOOP – Hands-On (No Solutions)**
+### 🔹 **PL/SQL WHILE LOOP – Hands-On**
 
 **3.** Display all even numbers between 2 and 10 using a `WHILE LOOP`.
+DECLARE
+    X INT:=2;
+BEGIN
+    WHILE X<=10 
+    LOOP
+    	DBMS_OUTPUT.PUT_LINE(X);
+		X:=X+2;
+    END LOOP;
+END;
 
 **4.** Find the factorial of number 5 using a `WHILE LOOP`.
+DECLARE
+    FACT INT:=1;
+	X INT:=5;
+BEGIN
+    WHILE X>=1
+    LOOP
+    	FACT:=FACT*X;
+		X:=X-1;
+    END LOOP;
+	DBMS_OUTPUT.PUT_LINE(FACT);
+END;
 
 ---
 
 ### 🔹 **PL/SQL FOR LOOP – Hands-On (No Solutions)**
 
 **5.** Print the squares of numbers from 1 to 5 using a `FOR LOOP`.
+DECLARE
+	X INT:=5;
+BEGIN
+    FOR X IN 1..5
+    LOOP
+    	DBMS_OUTPUT.PUT_LINE(X*X);
+    END LOOP;
+END;
 
 **6.** Print the characters from A to E using ASCII values inside a `FOR LOOP`.
+DECLARE
+	X INT;
+BEGIN
+    FOR X IN 65..69
+    LOOP
+    	DBMS_OUTPUT.PUT_LINE(CHR(X));
+    END LOOP;
+END;
+
 
 ---
+
+
+
+
+
+
+
+
+
+DECLARE
+	X INT:=1;
+	TOTAL INT:=0;
+BEGIN
+    LOOP    		
+    	TOTAL:=TOTAL+X;
+    	EXIT WHEN X>=10;
+		X:=X+1;		
+    END LOOP;
+	DBMS_OUTPUT.PUT_LINE(TOTAL);
+END;
+
+
+
+
+------------------------------------------------
+So far, we have created, 
+	PLSQL programs that are anonymous blocks
+	they were not stored in the database as db object at all
+	they are executed
+
+
+now, we are going to 
+	create procedures, functions, that are stored in the database as db objects
+	they are created.
+	they must be called to execute them
+	they have name. 	(named blocks)
+
+
+PROCEDURES
+-----------------
+How to create a simple procedure?
+
+
+CREATE OR REPLACE PROCEDURE PRC1
+AS
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('PRC procedure is executed now...');
+END;
+
+Procedure created.
+
+
+to call this procedure?
+	from a plsql block
+	from another procedure
+	from a function 
+	from a trigger
+
+
+begin
+	prc1;
+end;
+
+
+
+PARAMETERS
+-----------------
+Procedures can have parameters that are
+	IN parameters
+	OUT paramters
+	IN OUT parameters
+
+
+
+
+
+CREATE OR REPLACE PROCEDURE PRC1(eid INT)
+AS
+    --this is declare block
+    sal int;
+BEGIN
+    select salary into sal from hr.employees where employee_id=eid;
+	dbms_output.put_line(sal);
+END;
+
+
+
+
+to run, we use another plsql program:
+
+
+begin
+    prc1(101);
+end;
+
+
+
+procedures, does not have return value
+in c, c++, java those void functions does not return anything.
+	scanf() does not return anything. it is void.
+	but it will be able to update the value in the parameter we pass.
+
+
+int age=0;
+scanf("%d",&age);		//this scanf is updating something to "age" variable.
+
+the same way, a procedure in PLSQL can have parameters that are OUT parameters,
+where, the procedure is going to update the value to these parameters.
+
+
+
+CREATE OR REPLACE PROCEDURE PRC1(eid INT, sal OUT int)
+AS
+BEGIN
+    select salary into sal from hr.employees where employee_id=eid;
+	-- dbms_output.put_line(sal);
+END;
+
+
+
+how to call this procedure?
+	we must pass a "variable" to 2nd parameter
+	first parameter can be variable or constant
+
+
+declare
+    salary int;
+begin
+    prc1(100,salary);
+	dbms_output.put_line('THe output given by prc1 is '||salary);
+end;
+
+
+Task:
+-------
+
+Create a Procedure that accepts 3 arguments
+		x, y, z
+
+all are int
+
+x is input
+
+y and z are output
+
+y is square of x
+z is cube of x
+
+call this procedure from a plsql program and display the outputs.
