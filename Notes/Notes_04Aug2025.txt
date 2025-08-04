@@ -991,8 +991,256 @@ Errors chapter we will later.
 
 
 
-https://forms.cloud.microsoft/r/pNDcGRbBEu
 
-https://forms.cloud.microsoft/r/EvrX3w9gMi
+we have learned procedures, functions.
+
+Now, we learn		CURSORS
 
 
+CURSOR
+---------
+What is a cursor?
+	pointer that points to a particular row, among a set of rows.
+
+every DML we do, will use a cursor.
+	for ex:
+		if we do UPDATE, that affects 20 rows
+		then there will be a cursor, moving from 0 position 
+			to 1 row at a time and progress while updating.
+
+	these DML cursors are called as IMPLICIT cursor.	The name of
+	that implicit cursor is "SQL"
+
+cursors are useful to get some information about the dml that happened.
+
+example for implicit cursor:-
+
+
+begin
+    update products set price=price+100 where id>5;
+	dbms_output.put_line(SQL%ROWCOUNT);
+end;
+
+
+
+ROWCOUNT is an attribute of CURSOR.
+Similarly there are many attributes.
+
+
+ROWCOUNT
+FOUND
+NOTFOUND
+ISOPEN
+
+
+Life of cursor
+
+1) define cursor
+2) open cursor
+3) fetch one row into a variable
+4) close cursor
+
+
+----------------------------------------
+Demo:
+--------
+declare
+    CURSOR cur1 IS SELECT * FROM HR.EMPLOYEES;
+	X HR.EMPLOYEES%ROWTYPE;
+begin
+    OPEN cur1;
+	FETCH cur1 INTO X;
+	DBMS_OUTPUT.PUT_LINE(X.FIRST_NAME);
+	CLOSE cur1;
+end;
+
+
+
+
+
+
+
+
+
+declare
+    CURSOR cur1 IS SELECT * FROM HR.EMPLOYEES;
+	X HR.EMPLOYEES%ROWTYPE;
+begin
+    OPEN cur1;
+	LOOP
+		FETCH cur1 INTO X;
+		IF cur1%FOUND THEN
+			DBMS_OUTPUT.PUT_LINE(X.FIRST_NAME);
+		ELSE
+            EXIT;
+		END IF;
+		-- EXIT WHEN cur1%NOTFOUND;
+	END LOOP;
+	CLOSE cur1;
+end;
+
+
+
+
+
+
+
+
+
+declare
+    CURSOR cur1 IS SELECT * FROM HR.EMPLOYEES;
+	X HR.EMPLOYEES%ROWTYPE;
+begin
+    OPEN cur1;
+	FETCH cur1 INTO X;
+	WHILE cur1%FOUND
+	LOOP		
+		DBMS_OUTPUT.PUT_LINE(X.FIRST_NAME);
+		FETCH cur1 INTO X;
+
+	END LOOP;
+	CLOSE cur1;
+end;
+
+
+
+
+
+
+
+
+
+
+declare
+    CURSOR cur1 IS SELECT * FROM HR.EMPLOYEES;
+begin
+    FOR X IN cur1
+	LOOP
+			DBMS_OUTPUT.PUT_LINE(X.FIRST_NAME||' '||X.LAST_NAME);
+	END LOOP;
+end;
+
+
+
+
+
+
+
+If we want to update the current row, fetched by the cursor, we should use
+	FOR UPDATE OF clause in our cursor definition
+
+
+
+
+
+declare
+    CURSOR cur1 IS SELECT * FROM PRODUCTS;
+begin
+    FOR X IN cur1
+	LOOP
+    	IF X.PRICE >=1000 THEN
+    		DBMS_OUTPUT.PUT_LINE('Updating '||X.PRICE);	
+			update products set price=0 WHERE CURRENT OF cur1;
+    	END IF;
+	END LOOP;
+end;
+
+above code gives error!!!
+
+
+
+declare
+    CURSOR cur1 IS SELECT * FROM PRODUCTS for update of price;
+begin
+    FOR X IN cur1
+	LOOP
+    	IF X.PRICE >=1000 THEN
+    		DBMS_OUTPUT.PUT_LINE('Updating '||X.PRICE);	
+			update products set price=0 WHERE CURRENT OF cur1;
+    	END IF;
+	END LOOP;
+end;
+
+
+
+magic tables:
+	:new
+	:old
+
+
+
+
+
+
+CREATE OR REPLACE TRIGGER TRG1
+AFTER INSERT ON SALES
+    FOR EACH ROW
+    DECLARE
+    p int;
+	q int;
+BEGIN
+
+	p:=:new.pid;
+	q:=:new.qty;
+	UPDATE PRODUCT SET STOCK=STOCK-Q WHERE ID=P;
+	dbms_output.put_line('trigger...');
+END;
+
+
+
+
+
+
+
+
+Your trigger syntax has **two issues**:
+
+1. **Variable declarations** must go inside a `DECLARE` block.
+2. You don’t need to `SELECT` from `SALES` — the `:NEW` record already contains the values from the row being inserted.
+
+---
+
+## ✅ **Corrected Version of Your Trigger**
+
+```plsql
+CREATE OR REPLACE TRIGGER trg1
+AFTER INSERT ON SALES
+FOR EACH ROW
+DECLARE
+    p INT;
+    q INT;
+BEGIN
+    -- You can directly access :NEW.pid and :NEW.qty
+    p := :NEW.pid;
+    q := :NEW.qty;
+
+    DBMS_OUTPUT.PUT_LINE('Trigger fired... PID: ' || p || ', QTY: ' || q);
+END;
+```
+
+---
+
+## 🔍 Explanation
+
+| Part                        | Purpose                                                |
+| --------------------------- | ------------------------------------------------------ |
+| `AFTER INSERT ON SALES`     | Trigger fires after a new row is inserted into `SALES` |
+| `FOR EACH ROW`              | Required to access `:NEW` and `:OLD` values            |
+| `:NEW.pid`, `:NEW.qty`      | Values from the row being inserted                     |
+| `DECLARE ... BEGIN ... END` | Proper PL/SQL block with variable declarations         |
+
+---
+
+### ✅ Example Insertion
+
+```sql
+INSERT INTO SALES (ID, PID, QTY) VALUES (6, 3, 2);
+```
+
+🔁 Output (if `DBMS_OUTPUT` is enabled):
+
+```
+Trigger fired... PID: 3, QTY: 2
+```
+
+---
