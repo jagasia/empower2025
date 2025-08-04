@@ -1,0 +1,112 @@
+PL/SQL Basics, Cursors, Procedures, Functions, Triggers
+----------------------------------------------------------------
+PLSQL stands for Procedural Language extension for SQL
+
+what is missing in SQL? that PL/SQL gives us?
+	if, switch, while, for
+	variables, constants
+	user defined functions or procedures
+	throwing or catching errors
+	
+
+Certainly! Here's a **notepad-friendly comparison** showing what SQL can't do and how PL/SQL handles it — plain, clean, and ready to copy:
+
+---
+
+### 🔹 What SQL **Cannot** Do:
+
+```sql
+-- SQL Example (simple query)
+SELECT * FROM CUSTOMERS WHERE CITY = 'Chennai';
+```
+
+This just fetches data.
+But what if you want to process each row, apply conditions, update something, and handle errors?
+
+You **can't** do that with plain SQL.
+
+---
+
+### 🔹 What PL/SQL **Can** Do:
+
+```sql
+-- PL/SQL Block Example
+DECLARE
+   v_name  VARCHAR2(100);
+   v_credit NUMBER;
+   CURSOR c1 IS
+       SELECT NAME, CREDIT_LIMIT FROM CUSTOMERS WHERE CITY = 'Chennai';
+BEGIN
+   FOR rec IN c1 LOOP
+       IF rec.CREDIT_LIMIT > 10000 THEN
+           DBMS_OUTPUT.PUT_LINE('VIP Customer: ' || rec.NAME);
+           -- You can UPDATE, INSERT, etc.
+       ELSE
+           DBMS_OUTPUT.PUT_LINE('Regular Customer: ' || rec.NAME);
+       END IF;
+   END LOOP;
+EXCEPTION
+   WHEN OTHERS THEN
+       DBMS_OUTPUT.PUT_LINE('Something went wrong: ' || SQLERRM);
+END;
+/
+```
+
+---
+
+### 🔹 Summary of What PL/SQL Adds:
+
+* ✅ Variables: `DECLARE v_name VARCHAR2(100);`
+* ✅ Loops: `FOR rec IN cursor LOOP ... END LOOP;`
+* ✅ Conditions: `IF ... THEN ... ELSE ... END IF;`
+* ✅ Exception Handling: `WHEN OTHERS THEN ...`
+* ✅ Modularity: `Procedures`, `Functions`, `Packages`
+
+---
+
+
+a plsql program must have
+	BEGIN
+		
+	END;
+
+
+if there is no BEGIN...END, then it is not PL/SQL code.
+
+there are optional blocks like
+	DECLARE
+	EXCEPTION
+
+so a plsql program may have
+
+DECLARE
+	......
+	......
+BEGIN
+	.....
+	.....
+EXCEPTION
+	.....
+	.....
+END;
+
+
+
+Demo:
+lets write a hello world program for PL/SQL.
+
+BEGIN
+	DBMS_OUTPUT.PUT_LINE('Hello world');
+END;
+
+
+in sql plus, output is disabled.
+
+we need to enable:
+	SET SERVEROUTPUT ON;
+
+------------------------------------
+Data types:
+
+Activity:
+	Identify as many data types that are used in PL/SQL programs.
