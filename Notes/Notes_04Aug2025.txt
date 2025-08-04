@@ -882,3 +882,117 @@ y is square of x
 z is cube of x
 
 call this procedure from a plsql program and display the outputs.
+----------------------------------------------------
+
+
+CREATE OR REPLACE PROCEDURE PRC2(X INT, Y OUT INT, Z OUT INT)
+AS 
+BEGIN
+    Y:=X*X;
+	Z:=Y*X;
+END;
+
+
+
+DECLARE
+	S INT;
+	C INT;
+BEGIN
+    	PRC2(2,S,C);
+	DBMS_OUTPUT.PUT_LINE(S);
+	DBMS_OUTPUT.PUT_LINE(C);
+END;
+
+-------------------------------------------
+FUNCTIONS
+---------------
+What is the difference between procedure and function?
+	procedures can have output parameters.
+	functions do not have output parameters, but must return a value.
+		A return statement is compulsory in a function.
+
+
+
+CREATE OR REPLACE FUNCTION FN1
+RETURN NUMBER
+AS
+BEGIN 
+    RETURN 100;
+END;
+
+Function created.
+
+
+select employee_id, salary, salary*fn1() from hr.employees;
+
+
+How to call a function?
+	you can call a function from
+		a plsql block and capture the result in a variable or in a function
+		another function
+		a procedure
+		select statement
+		DML also
+
+
+
+Task:
+create a function that calculates the bonus of the employee.
+
+function has a paramter "eid" 
+
+returns the bonus that is calculated using the following:
+	salary + (salary * commission_pct)
+
+if commission_pct is null, then consider it as 0.
+	so their bonus will be same as salary
+
+
+
+CREATE OR REPLACE FUNCTION FNBONUS(EID INT)
+RETURN NUMBER
+AS
+    CP NUMBER;
+	SAL INT;
+	BONUS NUMBER;
+BEGIN
+    SELECT SALARY, COMMISSION_PCT INTO SAL, CP 
+    FROM HR.EMPLOYEES WHERE EMPLOYEE_ID=EID;
+	IF CP IS NULL THEN
+		CP:=0;
+    END IF;
+	BONUS:=SAL+(SAL*CP);
+    RETURN BONUS;
+END;
+
+
+
+SELECT EMPLOYEE_ID, SALARY, FNBONUS(EMPLOYEE_ID), COMMISSION_PCT FROM HR.EMPLOYEES;
+
+
+
+
+DECLARE
+    X HR.EMPLOYEES%ROWTYPE;
+BEGIN
+    SELECT * INTO X FROM HR.EMPLOYEES;
+	DBMS_OUTPUT.PUT_LINE(X.SALARY);
+EXCEPTION
+    WHEN TOO_MANY_ROWS THEN
+    	DBMS_OUTPUT.PUT_LINE('SELECT RETURNED MORE THAN 1 ROW');
+    WHEN NO_DATA_FOUND THEN
+    	DBMS_OUTPUT.PUT_LINE('Employee id is invalid');
+    WHEN OTHERS THEN
+    DBMS_OUTPUT.PUT_LINE('Your select statement did not return 1 row');
+END;
+
+
+Errors chapter we will later.
+
+
+
+https://forms.cloud.microsoft/r/pNDcGRbBEu
+
+https://forms.cloud.microsoft/r/EvrX3w9gMi
+
+
