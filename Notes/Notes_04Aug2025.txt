@@ -110,3 +110,203 @@ Data types:
 
 Activity:
 	Identify as many data types that are used in PL/SQL programs.
+
+
+
+
+Here’s a **notepad-friendly version** of PL/SQL data types — simple layout, plain text, ready to copy into Notepad:
+
+---
+
+```
+PL/SQL DATA TYPES
+
+-------------------------------
+1. SCALAR DATA TYPES
+-------------------------------
+-- Single value data types
+
+NUMBER(p,s)       -- Numeric with precision & scale
+VARCHAR2(n)       -- Variable-length character
+CHAR(n)           -- Fixed-length character
+DATE              -- Date and time
+BOOLEAN           -- TRUE / FALSE / NULL (only in PL/SQL)
+
+-- Examples:
+v_salary   NUMBER(7,2);
+v_name     VARCHAR2(50);
+v_flag     CHAR(1);
+v_dob      DATE;
+v_active   BOOLEAN;
+
+
+-------------------------------
+2. COMPOSITE DATA TYPES
+-------------------------------
+-- Used to group multiple values
+
+RECORD           -- Like a table row
+TABLE            -- Indexed collection (associative array)
+VARRAY           -- Fixed-size array
+
+-- RECORD Example:
+DECLARE
+  TYPE emp_rec IS RECORD (
+    emp_id    NUMBER,
+    emp_name  VARCHAR2(50),
+    emp_sal   NUMBER
+  );
+  v_emp emp_rec;
+BEGIN
+  v_emp.emp_id := 101;
+  v_emp.emp_name := 'Ravi';
+  v_emp.emp_sal := 50000;
+  DBMS_OUTPUT.PUT_LINE('Name: ' || v_emp.emp_name);
+END;
+/
+
+-- TABLE Example:
+DECLARE
+  TYPE name_table IS TABLE OF VARCHAR2(30) INDEX BY BINARY_INTEGER;
+  v_names name_table;
+BEGIN
+  v_names(1) := 'John';
+  v_names(2) := 'Alice';
+  DBMS_OUTPUT.PUT_LINE(v_names(1));
+END;
+/
+
+-- VARRAY Example:
+DECLARE
+  TYPE grade_array IS VARRAY(5) OF NUMBER(3);
+  v_grades grade_array := grade_array(85, 90, 75);
+BEGIN
+  DBMS_OUTPUT.PUT_LINE(v_grades(2));  -- Output: 90
+END;
+/
+
+-------------------------------
+3. LOB AND REFERENCE TYPES
+-------------------------------
+
+CLOB         -- Character Large Object
+BLOB         -- Binary Large Object
+REF CURSOR   -- Pointer to a query result set
+
+-- REF CURSOR Example:
+DECLARE
+  TYPE emp_cursor IS REF CURSOR;
+  c_emp emp_cursor;
+BEGIN
+  OPEN c_emp FOR SELECT * FROM employees;
+  -- Process rows here
+  CLOSE c_emp;
+END;
+/
+
+-------------------------------
+4. SUBTYPE (User-defined)
+-------------------------------
+-- Custom type based on existing data type
+
+SUBTYPE emp_name IS VARCHAR2(100);
+v_empname emp_name;
+
+```
+
+
+
+
+dEMO:
+
+DECLARE
+    X INT;
+BEGIN
+    	-- SELECT * FROM HR.EMPLOYEES;	--Without INTO,?/? not allowed
+    SELECT SALARY INTO X FROM HR.EMPLOYEES WHERE EMPLOYEE_ID=100;
+    DBMS_OUTPUT.PUT_LINE(X);
+END;
+
+
+
+
+
+
+
+DECLARE
+    EID INT:=102;
+    SAL INT;
+	NAME VARCHAR2(50);
+BEGIN
+    SELECT FIRST_NAME||' '||LAST_NAME,SALARY INTO NAME, SAL FROM HR.EMPLOYEES WHERE EMPLOYEE_IDEID;
+    DBMS_OUTPUT.PUT_LINE('SALARY OF '||NAME||' IS '||SAL);
+END;=
+
+
+
+
+
+DECLARE
+    EID INT:=101;
+	TYPE emp_rec IS RECORD(
+    	NAME VARCHAR2(50),
+    	SAL INT,
+    	JOB VARCHAR2(50)
+    );
+	X emp_rec;
+BEGIN
+    SELECT FIRST_NAME||' '||LAST_NAME,SALARY, JOB_ID INTO X FROM HR.EMPLOYEES WHERE EMPLOYEE_ID=EID;
+        DBMS_OUTPUT.PUT_LINE('SALARY OF '||X.NAME||' IS '||X.SAL||' He/ She is '||X.JOB);
+END;
+
+
+
+
+
+
+
+Here are the **questions only** for 5 hands-on exercises from the **PL/SQL Data Types** chapter:
+
+---
+
+### 🔹 **Hands-On 1: Scalar Data Types**
+
+**Task:**
+Declare variables for an employee's ID, name, joining date, and active status using appropriate scalar data types.
+Assign values to them and display all values using `DBMS_OUTPUT.PUT_LINE`.
+
+---
+
+### 🔹 **Hands-On 2: RECORD Type**
+
+**Task:**
+Create a user-defined `RECORD` type to store employee details like ID, name, and salary.
+Assign values to the record fields and print them.
+
+---
+
+### 🔹 **Hands-On 3: TABLE Type (Indexed Collection)**
+
+**Task:**
+Create an indexed table to store names of at least three departments.
+Display each department name using a `FOR` loop.
+
+---
+
+### 🔹 **Hands-On 4: VARRAY Type**
+
+**Task:**
+Define a VARRAY to store five subject marks of a student.
+Calculate and display the total marks using a loop.
+
+---
+
+### 🔹 **Hands-On 5: REF CURSOR**
+
+**Task:**
+Declare and use a REF CURSOR to select employee names from a table (e.g., `employees`) where the department ID is a specific value.
+Fetch and print each name inside a loop.
+
+---
+
+Let me know when you're ready for the **solutions with explanations**, or if you want **more hands-on questions** for each data type.
