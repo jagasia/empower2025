@@ -260,14 +260,7 @@ BEGIN
 END;
 
 
-
-
-
-
-
-Here are the **questions only** for 5 hands-on exercises from the **PL/SQL Data Types** chapter:
-
----
+--
 
 ### 🔹 **Hands-On 1: Scalar Data Types**
 
@@ -309,4 +302,378 @@ Fetch and print each name inside a loop.
 
 ---
 
-Let me know when you're ready for the **solutions with explanations**, or if you want **more hands-on questions** for each data type.
+
+Here are **5 Notepad-friendly hands-on exercises** for the **PL/SQL Data Types** chapter. Each one helps learners practice with a different data type.
+
+---
+
+### 🔹 **Hands-On 1: Declare and Display Scalar Types**
+
+```sql
+-- Task: Declare variables of scalar types and display their values
+
+DECLARE
+   v_id       NUMBER := 101;
+   v_name     VARCHAR2(50) := 'Priya';
+   v_joined   DATE := SYSDATE;
+   v_active   BOOLEAN := TRUE;
+BEGIN
+   DBMS_OUTPUT.PUT_LINE('ID: ' || v_id);
+   DBMS_OUTPUT.PUT_LINE('Name: ' || v_name);
+   DBMS_OUTPUT.PUT_LINE('Join Date: ' || v_joined);
+   IF v_active THEN
+      DBMS_OUTPUT.PUT_LINE('Status: Active');
+   ELSE
+      DBMS_OUTPUT.PUT_LINE('Status: Inactive');
+   END IF;
+END;
+/
+```
+
+---
+
+### 🔹 **Hands-On 2: Use RECORD to Store Employee Details**
+
+```sql
+-- Task: Create a RECORD type for employee details and display them
+
+DECLARE
+   TYPE emp_rec IS RECORD (
+      emp_id    NUMBER,
+      emp_name  VARCHAR2(100),
+      salary    NUMBER
+   );
+   v_emp emp_rec;
+BEGIN
+   v_emp.emp_id := 2001;
+   v_emp.emp_name := 'Karthik';
+   v_emp.salary := 60000;
+
+   DBMS_OUTPUT.PUT_LINE('Employee ID: ' || v_emp.emp_id);
+   DBMS_OUTPUT.PUT_LINE('Name: ' || v_emp.emp_name);
+   DBMS_OUTPUT.PUT_LINE('Salary: ' || v_emp.salary);
+END;
+/
+```
+
+---
+
+### 🔹 **Hands-On 3: Indexed Table of Department Names**
+
+```sql
+-- Task: Store and display multiple department names using a TABLE type
+
+DECLARE
+   TYPE dept_tab IS TABLE OF VARCHAR2(30) INDEX BY BINARY_INTEGER;
+   v_depts dept_tab;
+   i INTEGER;
+BEGIN
+   v_depts(1) := 'Sales';
+   v_depts(2) := 'HR';
+   v_depts(3) := 'IT';
+
+   FOR i IN 1 .. 3 LOOP
+      DBMS_OUTPUT.PUT_LINE('Department ' || i || ': ' || v_depts(i));
+   END LOOP;
+END;
+/
+```
+
+---
+
+### 🔹 **Hands-On 4: VARRAY for Student Marks**
+
+```sql
+-- Task: Store marks of a student in a VARRAY and calculate total
+
+DECLARE
+   TYPE marks_array IS VARRAY(5) OF NUMBER(3);
+   v_marks marks_array := marks_array(80, 90, 85, 70, 75);
+   total NUMBER := 0;
+   i     INTEGER;
+BEGIN
+   FOR i IN 1 .. v_marks.COUNT LOOP
+      total := total + v_marks(i);
+   END LOOP;
+
+   DBMS_OUTPUT.PUT_LINE('Total Marks: ' || total);
+END;
+/
+```
+
+---
+
+### 🔹 **Hands-On 5: REF CURSOR with SELECT Query**
+
+```sql
+-- Task: Use REF CURSOR to fetch and display employee names from a table
+
+DECLARE
+   TYPE emp_cur IS REF CURSOR;
+   c_emp emp_cur;
+   v_name employees.first_name%TYPE;
+BEGIN
+   OPEN c_emp FOR SELECT first_name FROM employees WHERE department_id = 10;
+   LOOP
+      FETCH c_emp INTO v_name;
+      EXIT WHEN c_emp%NOTFOUND;
+      DBMS_OUTPUT.PUT_LINE('Employee: ' || v_name);
+   END LOOP;
+   CLOSE c_emp;
+END;
+/
+```
+================================
+Procedural features of PLSQL
+
+IF condition:
+--------------
+
+
+DECLARE
+    SAL INT;
+BEGIN
+    SELECT SALARY INTO SAL FROM HR.EMPLOYEES WHERE EMPLOYEE_ID=100;
+	IF SAL>20000 THEN
+        DBMS_OUTPUT.PUT_LINE('High');
+	ELSE
+        DBMS_OUTPUT.PUT_LINE('Low');
+	END IF;
+END;
+
+
+
+
+
+
+
+DECLARE
+    SAL INT;
+BEGIN
+    SELECT SALARY INTO SAL FROM HR.EMPLOYEES WHERE EMPLOYEE_ID=100;
+	DBMS_OUTPUT.PUT_LINE(SAL);
+	IF SAL>20000 THEN
+        DBMS_OUTPUT.PUT_LINE('High');
+	ELSIF SAL>15000 THEN
+        DBMS_OUTPUT.PUT_LINE('Medium');
+	ELSE
+        DBMS_OUTPUT.PUT_LINE('Low');
+	END IF;
+END;
+
+--------------------------------
+
+SELECT CASE
+-----------------
+First we will see SQL SELECT CASE
+It is used in SELECT statement.
+
+
+
+display the designation of employees
+	AD_PRES			President
+	AD_VP			Vice President
+	IT_PROG			Programmer
+
+
+
+
+select JOB_ID, 
+    CASE JOB_ID 
+    WHEN 'AD_PRES' THEN 'President' 
+    WHEN 'AD_VP' THEN 'Vice President' 
+    WHEN 'IT_PROG' THEN 'Programmer'
+    ELSE 'Employee'
+    END
+    from hr.employees;
+
+
+In PL/SQL,
+
+
+DECLARE
+    DESIGNATION VARCHAR2(50);
+BEGIN
+select  
+    CASE JOB_ID 
+    WHEN 'AD_PRES' THEN 'President' 
+    WHEN 'AD_VP' THEN 'Vice President' 
+    WHEN 'IT_PROG' THEN 'Programmer'
+    ELSE 'Employee'
+    END
+    INTO DESIGNATION
+    from hr.employees
+    WHERE EMPLOYEE_ID=100;
+
+	DBMS_OUTPUT.PUT_LINE(DESIGNATION);
+END;
+
+
+
+
+
+DECLARE
+    JOB_ID VARCHAR2(50):='AD_PRES';
+    DESIGNATION VARCHAR2(50);
+BEGIN
+select  
+    CASE 
+    WHEN JOB_ID='AD_PRES' THEN 'President' 
+    WHEN JOB_ID='AD_VP' THEN 'Vice President' 
+    WHEN JOB_ID='IT_PROG' THEN 'Programmer'
+    ELSE 'Employee'
+    END
+    INTO DESIGNATION
+    from hr.employees
+    WHERE EMPLOYEE_ID=100;
+
+	DBMS_OUTPUT.PUT_LINE(DESIGNATION);
+END;
+
+
+
+
+SELECT JOB_ID, DECODE(JOB_ID,'AD_PRES','President','AD_VP','Vice President','IT_PROG','Programmer','Employee') designation
+from hr.employees;
+
+
+
+NULL related functions in Oracle SQL:
+------------------------------------------
+NVL()		Replace NULL with given value
+NVL2()
+NULLIF()
+COALESCE()
+
+
+
+
+select employee_id,SALARY, commission_pct, SALARY+salary*NVL(commission_pct,0) BONUS from hr.employees;
+if first parameter is null then second parameter
+if first parameter is not null then first parameter
+
+select employee_id,SALARY, commission_pct, SALARY+salary*NVL2(commission_pct,1,0) BONUS from hr.employees;
+if first parameter is null, then 3rd parameter
+if first parameter is not null, then 2nd parameter
+
+SELECT NULLIF(21,2) FROM DUAL;
+returns NULL if both parameters are equal. Otherwise, first parameter
+
+COALESCE function can have any number of parameters
+it will return the first not null found, ignoring remaining arguments
+if all are null, then returns null.
+
+
+
+
+You have understood,
+	IF
+	IF ELSE
+	IF ELSIF ELSE
+	IF ELSIF ELSIF ELSE
+
+	CASE
+		WHEN THEN
+		WHEN THEN
+	END CASE
+
+Now, lets learn,
+LOOPs
+
+
+
+
+
+
+DECLARE
+    EID HR.EMPLOYEES.EMPLOYEE_ID%TYPE:=100;
+	FNAME HR.EMPLOYEES.FIRST_NAME%TYPE;
+	SAL HR.EMPLOYEES.SALARY%TYPE;
+BEGIN
+    LOOP
+    SELECT FIRST_NAME, SALARY INTO FNAME, SAL
+    	FROM HR.EMPLOYEES WHERE EMPLOYEE_ID=EID;
+	DBMS_OUTPUT.PUT_LINE('SALARY OF '||FNAME||' IS '||SAL||' Their Eid is '||EID);
+	EID:=EID+1;
+	EXIT WHEN EID>110;
+    END LOOP;
+END;
+
+
+-----------------
+WHILE LOOP
+
+
+
+WHILE <<condition>>
+LOOP
+
+END LOOP;
+
+
+
+Example:
+-----------
+DECLARE
+    EID HR.EMPLOYEES.EMPLOYEE_ID%TYPE:=100;
+	FNAME HR.EMPLOYEES.FIRST_NAME%TYPE;
+	SAL HR.EMPLOYEES.SALARY%TYPE;
+BEGIN
+    WHILE EID<=110
+    LOOP
+    SELECT FIRST_NAME, SALARY INTO FNAME, SAL
+    	FROM HR.EMPLOYEES WHERE EMPLOYEE_ID=EID;
+	DBMS_OUTPUT.PUT_LINE('SALARY OF '||FNAME||' IS '||SAL||' Their Eid is '||EID);
+	EID:=EID+1;
+	-- EXIT WHEN EID>110;
+    END LOOP;
+END;
+
+---------------------
+FOR LOOP
+-------------
+
+DECLARE
+    EID HR.EMPLOYEES.EMPLOYEE_ID%TYPE:=100;
+	FNAME HR.EMPLOYEES.FIRST_NAME%TYPE;
+	SAL HR.EMPLOYEES.SALARY%TYPE;
+BEGIN
+    FOR EID IN 100..110
+    LOOP
+    SELECT FIRST_NAME, SALARY INTO FNAME, SAL
+    	FROM HR.EMPLOYEES WHERE EMPLOYEE_ID=EID;
+	DBMS_OUTPUT.PUT_LINE('SALARY OF '||FNAME||' IS '||SAL||' Their Eid is '||EID);
+    END LOOP;
+END;
+
+-----------------
+HANDSON
+-----------
+
+Got it — I’ll always give you **hands-on exercises without solutions first**, and only provide solutions if you ask. Here's your request:
+
+---
+
+### 🔹 **PL/SQL BASIC LOOP – Hands-On (No Solutions)**
+
+**1.** Print numbers from 1 to 5 using a `BASIC LOOP`.
+
+**2.** Calculate the sum of the first 10 natural numbers using a `BASIC LOOP`.
+
+---
+
+### 🔹 **PL/SQL WHILE LOOP – Hands-On (No Solutions)**
+
+**3.** Display all even numbers between 2 and 10 using a `WHILE LOOP`.
+
+**4.** Find the factorial of number 5 using a `WHILE LOOP`.
+
+---
+
+### 🔹 **PL/SQL FOR LOOP – Hands-On (No Solutions)**
+
+**5.** Print the squares of numbers from 1 to 5 using a `FOR LOOP`.
+
+**6.** Print the characters from A to E using ASCII values inside a `FOR LOOP`.
+
+---
