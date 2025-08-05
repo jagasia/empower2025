@@ -365,3 +365,174 @@ public class Dice2 {
 	}
 }
 
+
+
+int x=20;
+x++;			//increment alone
+System.out.println(x);		//what is x?		x is 21
+
+
+
+-------------------
+
+
+int x=20;
+int y=x++;		//x is assigned to y and then x increments by 1
+System.out.println(y);	//what is y?		y is 20
+
+
+
+--------------------
+
+int x=20;
+int y=++x;		//x increments by 1 and then x is assigned to y
+System.out.println(y);	//what is y?		y is 21
+
+
+
+whenever an expression uses multiple operators, then it will use BODMAS rule
+
+3/2*5		=	
+
+in java, int types always result int		no decimal places
+
+
+int i=3;
+int j=2;
+
+int k=i/j;			//is 1			not 1.5
+====================but==========
+
+double i=3;
+double j=2;
+double k=3/2;				it is 1.5
+
+
+---------------------------
+
+
+Memory structures in java.
+
+int i=20;			int is primitive type.
+
+
+	=============================================
+Arrays
+--------
+Arrays are used to store multiple values or references of same (data)type.
+
+arrays can be primitive or reference type.
+
+array name is the reference to 1st element of the array.
+
+index is used to refer to the relatively how many locations, we need to shift to find that element.
+
+For example:
+arr is the name of array
+
+arr refers to 1st element				0 is the index
+you have move 1 more location for second element	1 is the index 
+
+
+
+arrays have advantage:
+	1) lot of values referred by single name
+	2) we can find any element directly using index
+	
+
+arrays have disadvantage:
+	1) fixed length		we should know the size of array in prior
+
+		can we change the length of array?
+			Mithun says yes. How mithun?
+
+syntax for arrays.
+
+1) declare the array
+	int []arr;			//we have declared the array
+
+	Employee [][]employees;		//2 dimensional
+
+2) sizing the array
+	arr=new int[10];
+	employees=new Employee[10][];	//10 rows and each row can be of diff
+
+
+
+
+int []arr=new int[10];
+
+arr[0]	is first element of the array. it is an int variable only
+
+arr[9]	is the last element of the array
+
+
+
+
+int arr[]=new int[10];		//correct
+
+int []arr= {81,29,13,41,25,63,47};
+
+
+
+
+How will you sort an array?
+	Array related operations are provided by Arrays class
+
+import java.util.Arrays;
+
+
+
+
+
+package arrays;
+
+import java.util.Arrays;
+
+public class App {
+
+	public static void main(String[] args) {
+		int []arr= {81,29,13,41,25,63,47};
+		
+		Arrays.sort(arr);
+		
+		System.out.println(Arrays.toString(arr));
+	}
+
+}
+
+
+
+package arrays;
+
+import java.util.Arrays;
+
+public class App {
+
+	public static void main(String[] args) {
+		Integer []arr= {81,29,13,41,25,63,47};
+		
+		Arrays.sort(arr);
+
+//		for(int i=arr.length-1;i>=0;i--) {
+//			System.out.println(arr[i]);
+//		}
+		
+		for(Integer x:arr) {
+			System.out.println(x);
+		}
+	}
+
+}
+
+
+Task:
+-------
+Ask the user to enter the number of countries.	x
+
+then accept x inputs from the user and store each country in an array. 	arr
+
+sort the arr by alphabetical order.
+
+display all the countries found in arr.
+

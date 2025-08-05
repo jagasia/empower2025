@@ -1,7 +1,17 @@
 import java.util.Scanner;
 
+class Employee{
+	int id;			//where
+	String name;	//where
+	
+}
+
+
 public class Dice2 {
 	public static void main(String[] args) {
+		Employee raja;
+		raja=new Employee();
+		
 		Scanner sc=new Scanner(System.in);
 		System.out.println("Enter Value 1:");
 		int value1=sc.nextInt();
