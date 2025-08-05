@@ -1,0 +1,36 @@
+PLSQL Triggers (continued)
+
+we have 
+	before trigger
+	after trigger
+	instead of trigger
+
+
+FOR EACH ROW		trigger	can access magic tables 	(:new, :old)
+vs
+STATEMENT 		trigger
+
+
+INSTEAD OF TRIGGER CAN FIRE ONLY FOR "VIEW"s
+
+
+---------------------------
+ERRORs
+---------
+
+we can raise application error whenever we find something is not ok.
+
+raise_application_error(-20000,"this is not ok");	
+
+pragma exception_init		is used to associate a name of exception to a number
+
+EXCEPTION block is used to handle the exception.
+
+
+Task:
+------
+1) try instead of trigger
+2) raise error if some condition is true
+3) associate names to error codes using pragma exception init
+4) handle exceptions using EXCEPTION block
+
