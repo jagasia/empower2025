@@ -116,3 +116,125 @@ we can use IDEs like
 create a hello world program in java and run in cmd prompt.
 write code in notepad
 
+public class Hello{
+	public static void main(String []jags){
+		System.out.println("Hello Jag");
+	}
+}
+
+=========================
+Java primitive data types:-
+-----------------------------
+boolean		1 bit		false, true
+
+byte		1 byte		-128 to 127
+short		2 bytes		-32768 to 32767
+int		4 bytes		-2,14,74,83,647 to 2,14,74,83,646
+long (8 bytes)	-9,223,372,036,854,775,808	9,223,372,036,854,775,807
+
+float		4 bytes
+double		8 bytes
+
+char		2 bytes
+
+
+
+Programming constructs:
+
+if
+if else
+if else if else
+if else if else if else
+
+switch case
+
+while loop
+
+do while loop
+
+for loop
+
+for each loop
+
+
+
+
+conditions need operators
+
++
+-
+*
+/
+%
+
+++
+--
+
+=
+!=
++=
+-=
+*=
+/=
+%=
+
+>
+<
+>=
+<=
+
+!
+&&
+||
+
+>>
+<<
+
+
+Activity:
+understand the use of the above operators and programming constructs.
+
+
+
+Handson for if:
+-----------------
+
+Dice Game I
+
+Each player will be allowed to throw  a dice 2 times. The points for each player will be calculated as follows :
+If the values thrown are different, the points scored is equal to the sum of the 2 values.
+If the values thrown are the same, the points scored is equal to double the sum of the 2 values.
+
+Write a program to calculate the points scored by a player.
+
+Input and Output Format:
+
+Input consists of 2 integers. The valid range of inputs is from 0 to 6. [ Both 0 and 6 inclusive]
+Output the points scored. In case of invalid inputs, print “Invalid Input”.
+
+Refer sample input and output for formatting specificaions.
+
+[All text in bold corresponds to input and the rest corresponds to output.]
+Sample Input and Output 1:
+
+Enter Value 1:
+5
+Enter Value 2:
+6
+The points scored is 11
+
+Sample Input and Output 2:
+
+Enter Value 1:
+5
+Enter Value 2:
+5
+The points scored is  20
+
+Sample Input and Output 3:
+
+Enter Value 1:
+8
+Enter Value 2:
+6
+Invalid Input 

@@ -1,5 +1,6 @@
 public class Hello{
 	public static void main(String []jags){
-		System.out.println("Hello Jag");
+		byte x=127;
+		System.out.println(++x);	//output is 
 	}
 }
