@@ -743,3 +743,39 @@ int x=0;			//complete
 Product p=null;		//not complete
 p=new Product();		//complete
 
+
+
+
+
+https://github.com/jagasia/empower2025/blob/jag/Java/Java_Handson_1.docx
+
+
+
+To convert an int to String
+------------------------------
+	String.valueOf(int)
+	int i=545;
+	String str=String.valueOf(i);
+
+	(or)
+
+	int i=545;
+	String str=i+"";
+
+
+String members can be accessed using:
+		charAt(index)
+
+	str.chatAt(0)		is first character
+	str.charAt(1)		is second character
+
+
+StringBuilder or StringBuffer
+	they have reverse() method that reverses a String
+
+String has toCharArray() method
+	char []arr=str.toCharArray();
+
+then you can loop index i to arr.length-1
+and access each character using index in for loop
+
