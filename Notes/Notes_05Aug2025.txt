@@ -34,3 +34,85 @@ Task:
 3) associate names to error codes using pragma exception init
 4) handle exceptions using EXCEPTION block
 
+==========================================
+Java
+-----
+Sun microsystems developed a new language to address the issues found in c++,
+and they used most of the syntax of c, c++ and added new features also.
+in 1995
+
+Oracle corporation adopted Sun microsystems 
+
+java 1.1		to 1.4			Java 2
+
+major change happened 	in 		java 5		(1.5 = 5)
+major:
+
+	Java 5		for-each		generics
+	Java 8		
+	Java 11
+	Java 17
+	Java 21
+
+these are called as LTS versions of java
+
+java is platform independent
+
+Linux	/ Android
+MacOs
+Windows
+
+how it is possible?
+
+java programs are compiled to "byte" code which is not specific to any platform.
+
+at runtime, it is further compiled again into machine specific code 
+
+who does this compilation?
+	at run time, JRE (Java runtime environment)
+		uses JIT (Just In Time) compiler to convert byte code to final machine code
+
+
+JVM	is a process, that contains threads like
+	Garbage Collector, Class Loader, JIT Compilers
+
+JRE 	Java Runtime Environment
+
+we can download jre to run any java code.
+
+JDK vs JRE
+	JDK is complete, we developer need jdk to 
+		compile
+		execute
+
+	JRE is just runtime to
+		execute 
+
+
+
+Lab setup:
+------------
+jdk is already installed in your computer
+
+Microsoft Windows [Version 10.0.19045.6093]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\rjaga>java --version
+java 21.0.2 2024-01-16 LTS
+Java(TM) SE Runtime Environment (build 21.0.2+13-LTS-58)
+Java HotSpot(TM) 64-Bit Server VM (build 21.0.2+13-LTS-58, mixed mode, sharing)
+
+
+
+we can use IDEs like
+	Eclipse
+	Spring Tool Suite	(is also an eclipse only)
+	Visual Studio code
+	IntelliJ
+	
+
+ Task:
+------
+create a hello world program in java and run in cmd prompt.
+write code in notepad
+
