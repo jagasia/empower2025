@@ -48,7 +48,7 @@ java 1.1		to 1.4			Java 2
 major change happened 	in 		java 5		(1.5 = 5)
 major:
 
-	Java 5		for-each		generics
+	Java 5		for-each		generics		Scanner
 	Java 8		
 	Java 11
 	Java 17
@@ -238,3 +238,98 @@ Enter Value 1:
 Enter Value 2:
 6
 Invalid Input 
+
+
+
+
+
+
+
+
+To get input from the user,
+	we use Scanner class (java.util package)
+
+
+Scanner sc=new Scanner(System.in);			//System.in refers to input 							device
+
+
+
+
+
+import java.util.Scanner;
+
+public class App1 {
+
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		System.out.println("Enter Value 1:");
+		int value1=sc.nextInt();
+		System.out.println("Enter Value 2:");
+		int value2=sc.nextInt();
+		
+		if(value1<0 || value1>6 || value2<0 || value2>6) {
+			System.out.println("Invalid Input");
+//			System.exit(0);
+			return;		//returns main method means, end of program execution
+		}
+		//if above if is not true, then only the below lines are executed.
+		int sum=value1+value2;
+		/*
+		 *  int points=sum; if(value1==value2) { // points=sum*2;
+		 * this is same as below points*=2; }
+		 * 
+		 * System.out.printf("The points scored is %d",points);
+		 */
+		
+		System.out.printf("The points scored is %d",(value1==value2)?2*sum:sum);
+	}
+
+}
+
+
+
+
+
+
+
+Dice Game II
+Each player will be allowed to throw a dice 2 times. The points for each player will be calculated as follows :
+The points scored is the absolute difference between 8 and the sum of the 2 values, provided the sum of the 2 values is less than 8.
+In all other cases, the point  scored is double the absolute difference between 8 and the sum of the 2 values.
+
+Write a program to calculate the points scored by a player.
+
+Input and Output Format:
+Input consists of 2 integers. The valid range of inputs is from 0 to 6.
+Output the points scored. In case of invalid inputs, print “Invalid Input”.
+
+Refer sample input and output for formatting specificaions.
+
+[All text in bold corresponds to input and the rest corresponds to output.]
+Sample Input and Output 1:
+
+Enter Value 1:
+5
+Enter Value 2:
+6
+The points scored is 6
+
+Sample Input and Output 2:
+
+Enter Value 1:
+3
+Enter Value 2:
+2
+The points scored is  3
+
+Sample Input and Output 3:
+
+Enter Value 1:
+8
+Enter Value 2:
+6
+Invalid Input 
+
+
+
+
