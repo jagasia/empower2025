@@ -536,3 +536,210 @@ sort the arr by alphabetical order.
 
 display all the countries found in arr.
 
+
+sample input:
+5
+India
+Australia
+New zealand
+Sri lanka
+Japan
+
+
+package arrays;
+
+import java.util.Scanner;
+
+public class Countries {
+
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		int noOfCountries=sc.nextInt();
+		String []arr=new String[noOfCountries];
+		for(int i=0;i<noOfCountries;i++) {
+			arr[i]=sc.nextLine();
+			if(arr[i].equals("")) {
+				arr[i]=sc.nextLine();
+			}
+		}
+		
+		//display all countries
+		
+		for(String x:arr) {
+			System.out.println(x);
+		}
+	}
+
+}
+
+
+
+
+
+We should discuss about scanner next methods
+
+
+You are using scanner methods like
+	nextInt
+	next
+	nextLine
+
+you need to understand the delimiters used by scanner methods.
+
+scanner method capture the input until a delimiter is found.
+
+what are the delimiters
+	space		' '
+	tab		\t	
+	new line		\n
+
+
+when we give input as
+1 raja 20
+
+nextLine() is the only method of Scanner that will capture inputs that contains space and tab.	this nextLine captures input until a new line is found.	<enter> key is 
+
+
+all other methods
+	nextInt
+	nextFloat
+	nextDouble
+	nextLong
+
+etc
+will capture until a space or tab or new line is found.
+
+
+so, if you use nextLine() after any other next methods, your nextLine will capture the empty input.
+
+Demo:
+--------
+
+import java.util.Scanner;
+
+public class App {
+
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		Scanner sc2=new Scanner(System.in);
+		System.out.print("Enter your employee id:");
+		int employeeId=sc.nextInt();
+		
+		System.out.print("Enter your name:");
+		String name=sc2.nextLine();
+		name=sc.nextLine();
+		System.out.print("Enter your score:");
+		float score=sc.nextFloat();
+		
+		System.out.printf("Employee id:%d\nEmployee Name:%s\nScore:%f\n",employeeId,name,score);
+		
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import java.util.Scanner;
+
+public class App {
+
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		System.out.print("Enter your employee id:");
+		int employeeId=sc.nextInt();
+		
+		System.out.print("Enter your name:");
+		String name=sc.nextLine();
+		if(name.equals("")) {
+			name=sc.nextLine();
+		}
+		System.out.print("Enter your score:");
+		float score=sc.nextFloat();
+		
+		System.out.printf("Employee id:%d\nEmployee Name:%s\nScore:%f\n",employeeId,name,score);
+		
+	}
+
+}
+
+
+
+
+classes
+---------
+a class wraps data and logic together as single type
+
+how to create a class?
+	class <<classname>>
+
+
+
+
+
+primitives can never be null.		There are default values for primitives
+
+
+private		members are only accessible within the class
+default		members are only accessible within the package
+protected		members are only accessible within the package and also by sub 			classes of any package
+public		members are only accessible from anywhere
+
+
+
+
+
+
+
+public class Product {
+	private Integer id;
+	String name;				//package scope
+	protected String category;	//same package + sub classes of any package
+	public Double price;
+	
+	public void display() {
+		//here, id, name, category, price all are visible
+	}
+}
+
+
+POJO		Plain Old Java Object
+
+	does not inherit any super class
+	does not implement any interface
+
+
+
+
+
+int arr[]=new int[10];			//complete
+Product parr[]=new Product[10];		//not complete
+
+parr[0]=new Product();			//you have to do that
+
+
+
+
+int x=0;			//complete
+
+Product p=null;		//not complete
+p=new Product();		//complete
+
