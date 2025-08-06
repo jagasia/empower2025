@@ -560,3 +560,61 @@ volatile		thread-safe
 
 https://github.com/jagasia/empower2025/blob/jag/Java/Java_Mock_11.docx
 
+
+
+System.out.printf("%d",20);
+System.out.format("The output is %d",20);
+String.format("The sum of %d and %d is %d",2,3,5);
+
+
+
+
+str1.equals(str2);
+
+c1.equals(c2);		//true or false
+
+
+
+int i=20;
+float f=i;		//allowed.	implicit casting
+
+i=f;		//error.		
+
+i=(int)f;		//explicit casting
+
+
+
+
+Number		is the super class for
+	Byte
+	Short
+	Integer
+	Long
+	Float
+	Double
+
+
+
+casting allowed only within the compatible types
+
+int i=20;
+String str=(String)i;			//not possible
+
+i=(int) str;					//not possible
+
+
+
+
+
+
+
+	SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy");
+	//	to convert a String into java.util.Date
+	Date dt=sdf.parse(str);
+
+
+	//	to convert Date into String
+	String str=sdf.format(dt);
+
+parse()
+format()

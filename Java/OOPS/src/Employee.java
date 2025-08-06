@@ -7,43 +7,23 @@ public class Employee {
 	private static String department;
 	private static String companyName="Empower";	//why? this is static
 	
-	public Employee() {
-		//here we can write initialization code that is
-		//automatically called during object creation
+	
+	
+	
+	
+	
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", name=" + name + "]";
 	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
+	public Employee(Integer id, String name) {
+		super();
 		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
 		this.name = name;
 	}
-
-	public String getDepartment() {
-		return department;
+	public Employee() {
+		super();
 	}
-
-	public void setDepartment(String department) {
-		this.department = department;
-	}
-
-	public String getCompanyName() {
-		return companyName;
-	}
-
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
-	}
-	
 	public static void display() {
 		//i want to update the department
 		department="IT";
