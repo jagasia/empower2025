@@ -557,3 +557,6 @@ volatile		thread-safe
 
 
 
+
+https://github.com/jagasia/empower2025/blob/jag/Java/Java_Mock_11.docx
+
