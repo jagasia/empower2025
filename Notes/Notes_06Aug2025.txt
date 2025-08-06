@@ -125,3 +125,166 @@ check if a string is palindrome?
 
 reverse method is there in StringBuilder
 
+-------------------------------------
+OOPS	Object Oriented Programming System.
+
+class		is a blue print for creating objects
+		properties and methods
+
+object		is an instance of class
+		all objects share the same behavior but different identity
+
+Inheritance
+Encapsulation
+Abstraction
+Polymorphism
+
+
+
+
+Abstraction
+-------------
+public methods that are allowed 
+other members of a class are hidden
+
+Encapsulation
+---------------
+enclose all data and functions inside a type (class/interface)
+
+
+Inheritance
+-------------
+Parent - Child
+
+allows us to create classes from existing class.
+create interfaces from existing interface.
+
+we do not need to create a class from the scratch. Rather, we can dervice it from another class. So that we get benefits of parent class and add features in child class.
+
+
+super class
+	a class becomes super class, when any other class, inherits this class.
+	this is parent class.
+	this is base class
+
+sub class
+	a class that is derived FROM another class, becomes a sub class for that another
+	child
+	derived class
+
+Java does not allow multiple inheritance.
+	a class can inherit only 1 super class
+
+	multiple inheritance means, a class inherits more than 1 super class (in c++)
+
+Object
+	is the super class for any class that do not inherit a super class
+
+class Employee
+{}
+	the above Employee class does not inherit any super class, so	
+		Object is the super class for Employee
+
+
+Object class has some methods
+	toString()
+	hashCode()
+	equals()
+	
+
+multiple inheritance	NOT ALLOWED
+muliple sub classes		ALLOWED
+multi level 		ALLOWED
+hybrid			NOT ALLOWED
+
+how to inherit a class
+	use 	"extends" keyword
+
+
+Polymorphism:
+-----------------
+is the ability to behave differently in different situation
+
+sum(2,3)			=	5
+
+sum("raj","kumar")		=	rajkumar
+
+
+when i passed numeric arguments it added (sum)
+when i passed string arguments it concatenated (append)
+
+this is different behavior
+
+static polymorphism
+-----------------------
+during compilation itself 2 versions are available means, static polymorphism
+
+method overloading
+	is an example for static polymorphism
+
+
+
+
+
+class Maths
+{
+	public int sum(int i, int j) {
+		return i+j;
+	}
+	
+	public String sum(String s1, String s2) {
+		return s1+s2;
+	}
+}
+
+
+the above example for method overloading, there is difference in signature.
+
+signature:
+	argument/parameters
+	number of parameters
+	type of parameters
+	order or type of parameters
+
+
+
+return type is not signature.
+	return type may be same or difference that does not decide polymorphism
+
+
+
+public int sum(int i, int j)		
+public int sum(int j, int i)			//NOT ALLOWED. both are same
+
+
+
+public float sum(int i, float f)
+public int sum(int i, float f)			//NOT ALLOWED. return type only is diff
+
+
+public int sum(int i, int j, int k)
+public int sum(int i, int j)			//ALLOWED. difference in no of arg
+
+
+
+
+
+Demo:
+--------
+Shape class		(super class)
+
+Triangle class		(sub class)
+Rectange class		(sub class)
+
+Triangle:
+	calculateArea()
+		should print	"1/2*b*h"
+
+Rectange:
+	calculateArea()
+		should print	"l*b"
+
+App.java
+	ask user what they want to draw?
+accordingly 
+	call the calculateArea() method of either triangle or rectangle

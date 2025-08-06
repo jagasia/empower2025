@@ -8,8 +8,8 @@ public class App {
 		String str1=sc.next();
 		String str2=sc.next();
 		
-		char[] carr1 = str1.toCharArray();
-		char[] carr2 = str2.toCharArray();
+		char[] carr1 = str1.toLowerCase().toCharArray();
+		char[] carr2 = str2.toLowerCase().toCharArray();
 		
 		Arrays.sort(carr1);
 		Arrays.sort(carr2);
