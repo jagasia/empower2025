@@ -288,3 +288,100 @@ App.java
 	ask user what they want to draw?
 accordingly 
 	call the calculateArea() method of either triangle or rectangle
+
+
+
+
+A super class have abstract method:
+	sub class is forced to override the method
+	if sub class does not override that method, then a copy of abstract method is
+		present in sub class. so sub class must be declared as abstract
+			or override that abstract method to hide it
+
+
+Abstract method can be present only in abstract class
+A class can have 0 or more abstract methods and can also have concrete methods
+
+
+
+
+Employee mithun=new Employee();
+mithun=new ProjectLeader();
+mithun=new ProjectManager();
+
+
+
+
+Interface
+----------
+all inside the interface, all PUBLIC by default. Even if you don't mention also
+before java 8, interfaces can have methods that are abstract only.
+
+from java 8 onwards, default and static methods with body are allowed.
+
+Can interface contain variables?
+	NO
+
+Only constants are allowed
+	
+all data members of an interface are 
+	public static final		//even if you do not mention also
+
+
+
+
+
+
+
+multiple inheritance benefits achieved using interface
+	YES
+but how?
+let me tell you.
+
+
+in multiple inheritance, we will be able to call 
+	method of 2 class from 1 object
+
+
+A		B
+
+	C
+
+
+
+
+
+public interface Person{
+	void speak();
+	int AGE=20;		//allowed
+}
+
+
+public class Student implements Person{
+	public void speak()	{
+		System.out.println("Student speaks");
+	}
+}
+
+public class App{
+	public static void main(String []args)
+	{
+		Student raja=new Student();
+		raja.speak();
+	}
+}
+
+
+
+
+Overriding rules:
+	overriding method (sub class) cannot reduce the visibility
+	signature must be same
+	return type must be same
+	method name must be same.
+	
+---------------------------
+We will discuss about interfaces in java 8+ after handson.
+
+Hands on tasks:
+--------------------
