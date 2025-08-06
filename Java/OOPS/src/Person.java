@@ -1,4 +1,4 @@
 
 public interface Person {
-	int AGE=20;
+	int AGE=Integer.MAX_VALUE;
 }

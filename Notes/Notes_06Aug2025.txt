@@ -320,7 +320,8 @@ before java 8, interfaces can have methods that are abstract only.
 from java 8 onwards, default and static methods with body are allowed.
 
 Can interface contain variables?
-	NO
+	NO. 		but methods inside interface can have variables.
+	ex:		static methods, default methods of interface can have variable, for loops, while, etc
 
 Only constants are allowed
 	
@@ -385,3 +386,61 @@ We will discuss about interfaces in java 8+ after handson.
 
 Hands on tasks:
 --------------------
+
+https://github.com/jagasia/empower2025/blob/jag/Java/Java_Handson_1.docx
+
+
+How to convert String into int?
+	String str="120";
+	int i=Integer.parseInt(str);		//returns int
+
+Integer.valueOf(str)		returns Integer
+
+Float.parseFloat(str)	returns float
+
+
+
+Integer.MAX_VALUE		returns the largest integer value
+
+
+Wrapper class:
+for each primitive data type, corresponding wrapper class is there in java, to provide the support for operations related to those primitive type.
+
+boolean	Boolean
+byte	Byte
+short	Short
+int	Integer
+long	Long
+float	Float
+double	Double
+char	Character
+
+
+
+Character.isDigit()			//digits are single digit numbers
+Character.isLetter()
+Character.isNumber()
+
+
+https://forms.cloud.microsoft/r/0UWQTtfgpj
+
+https://forms.cloud.microsoft/r/FgSbw6Eir6
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
