@@ -422,25 +422,138 @@ Character.isLetter()
 Character.isNumber()
 
 
-https://forms.cloud.microsoft/r/0UWQTtfgpj
-
-https://forms.cloud.microsoft/r/FgSbw6Eir6
-
-
-
-
-
-
+--------------------------------------------------------
+Java 8 interfaces
+--------------------
+from java 8 onwards, interfaces can have
+	method with body	when the method is 
+		static method (or)
+		default method
 
 
 
+static
+final
+
+static:
+	lets understand static
+
+static variables
+static methods
+static blocks
+
+static variables:
+------------------
+	what is a static variable?
+		in java, static variables must be at class level. Not inside a 			method.	(in c++, static variables can be inside 				method)
+
+
+static is opposite to instance	(instance means object)
+
+
+
+public class Employee {
+	private Integer id;
+	private String name;
+	private String department;
+	private static String companyName;	//why? this is static
+	
+	public Employee() {
+		//here we can write initialization code that is
+		//automatically called during object creation
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+	
+	
+}
 
 
 
 
+static members of a class are shared by all object of the class. ie., it is one for the class. not separate for every object.
+
+
+public class Employee {
+	private Integer id;
+	private String name;
+	private String department;
+	private static String companyName;	//why? this is static
+
+}
+
+
+if i create 2 objects of Employee
+
+
+Employee raja=new Employee();
+Employee john=new Employee();
+
+raja can have separate id, name, department
+john can have separate id, name, department
+
+but both have same companyName, because, it is static
 
 
 
+
+static method:
+-----------------
+	a static method is called using classname but not object name
+
+
+
+final
+------
+	final data member
+		is CONSTANT
+		cannot be changed
+
+	ex:
+		Integer.MAX_VALUE
+
+	final method
+		cannot be overridden
+	final class
+		cannot be inherited
+
+
+
+
+static
+final
+transient		non-persistent
+volatile		thread-safe	
 
 
 
