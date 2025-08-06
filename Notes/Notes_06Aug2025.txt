@@ -618,3 +618,401 @@ i=(int) str;					//not possible
 
 parse()
 format()
+
+
+Refer my solution:
+https://github.com/jagasia/empower2025/tree/jag/Java/java-mock-11-req-1
+
+Few more handson documents uploaded in "Java" folder for your practice.
+
+
+-----------------------------------
+Exceptions
+-------------
+What are exceptions?
+	when we run the program, the program encounters something abnormal, and does not know how to proceed, then it is exception.
+
+exceptions allow us to handle.
+
+What are errors?
+	errors are also abnormal events, but we cannot handle them,
+
+Both errors and exceptions are derived from Throwable.
+
+
+Object
+	Throwable
+		Error
+		Exception
+
+
+
+Exception is the super class for all checked exceptions.
+
+RuntimeException is the super class for all unchecked exceptions.
+
+Checked exceptions:
+----------------------
+are checked by the compiler.
+IOException, ParseException, SQLException, InterruptedException
+
+
+Unchecked exceptions:
+--------------------------
+are not checked by the compiler. 
+
+ArithmeticException
+
+
+All exception classes that are derived from RuntimeException are unchecked exceptions. They can be handled or leave as unhandled.
+
+
+Any unhandled exception will terminate the program.
+
+What is exception handling?
+	providing the program, an alternate path to continue, whenever exception occurs.
+
+How to handle exception?
+	try block
+	catch blocks
+	finally block
+
+
+A try block
+	is a guarded section in which any exception occurred are handled by subsequent catch blocks if any.
+	A try block can have 0 or more catch blocks
+	A try block can have max 1 finally block
+	A try block can have catch or finally or both
+
+
+
+Demo:
+--------
+
+
+
+public class App1 {
+
+	public static void main(String[] args) {
+		int i=20;
+		int j=0;
+		int k=i/j;
+		
+		System.out.println(k);
+	}
+
+}
+
+
+
+when we run this program:
+
+Exception in thread "main" java.lang.ArithmeticException: / by zero
+	at App1.main(App1.java:7)
+
+
+why this exception occurred?
+	because, java does not know what to do when you divide a number by 0
+
+	it knows that it is abnormal. But what to do? it does not know.
+	So, it is throwing exception, to notify us to take care of this,
+	we need to handle the exception.
+
+
+
+
+solution:
+
+
+public class App1 {
+
+	public static void main(String[] args) {
+		int i=20;
+		int j=0;
+		
+		
+		int k=0;
+		
+		
+		try {
+			k=i/j;
+		}catch(ArithmeticException ex) {
+			System.out.println("Arithmetic exception occurred. Error message is :"+ex.getMessage());
+		}
+		
+		System.out.println("This is last line");
+	}
+
+}
+
+
+now, when you run this code, the exception is handled. Hence the program continues and reach the last line.
+
+
+If you have not handled the exception, then the program terminates abruptly.
+
+
+
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class App1 {
+
+	public static void main(String[] args) {
+		
+		int i=20;
+		int j=0;
+		try {
+		j=new Scanner(System.in)
+.nextInt();	
+		}catch(NumberFormatException ex) {
+			System.out.println("data entered is invalid");
+			return;
+		}finally {
+			System.out.println("This is first finally");
+		}
+		
+		int k=0;
+		
+		
+		try {
+			k=i/j;
+		}catch(ArithmeticException ex) {
+			System.out.println("Arithmetic exception occurred. Error message is :"+ex.getMessage());
+		}
+		finally {
+			System.out.println("This is finally");
+		}
+		
+		System.out.println("This is last line");
+	}
+
+}
+
+
+
+
+try
+{
+}finally{}
+
+
+
+try{
+}catch(){
+}finally{}
+
+
+
+
+try(){		//try method
+
+we can declare objects whose scope is only this block
+}
+
+
+
+
+--------------------------
+How to create userdefined exception classes?
+we can create userdefined
+	checked exception classes by inheriting Exception class
+	unchecked exception classes by inheriting RuntimeException class
+
+Demo:
+--------
+create an employee class
+	id
+	name
+	email
+	phone
+
+
+email must have @ . etc
+valid emails:
+	raja@yahoo.com
+	suresh@gmail.com
+
+invalid emals:
+	raja@.com
+	suresh_gmail.com
+
+
+phone must be 10 digit number
+only number
+
+
+these rules must be checked in the setter methods.
+
+
+Solution:
+-----------
+
+
+
+public class InvalidEmailException extends RuntimeException
+{
+	public InvalidEmailException(String message) {
+		super(message);
+	}
+}
+
+
+
+
+public class InvalidPhoneException extends Exception {
+
+	public InvalidPhoneException(String message) {
+		super(message);
+	}
+}
+
+
+
+
+
+public class Employee {
+	private Long id;
+	private String name;
+	private String email;
+	private String phone;
+	
+	public Employee() {}
+
+	public Employee(Long id, String name, String email, String phone) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		this.phone = phone;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) throws Exception {
+		//check the logic
+//		email must have @ . etc
+//		valid emails:
+//			raja@yahoo.com
+//			suresh@gmail.com
+//
+//		invalid emals:
+//			raja@.com
+//			suresh_gmail.com
+
+		String regex="[A-Za-z]+[A-Za-z0-9]*[@][A-Za-z]+[.][a-z]{2,3}";
+		
+		if(email.matches(regex)) {
+			this.email = email;	
+		}else {
+			throw new InvalidEmailException("Email address is invalid");
+		}
+		
+		
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) throws InvalidPhoneException {
+		String regex="[0-9]{10}";
+		if(phone.matches(regex))
+			this.phone = phone;
+		else
+			throw new InvalidPhoneException("Phone number is invalid");
+	}
+
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", name=" + name + ", email=" + email + ", phone=" + phone + "]";
+	}
+	
+}
+
+
+
+
+
+import java.util.Scanner;
+
+public class App2 {
+
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		Employee emp=new Employee();
+		Long id=sc.nextLong();
+		emp.setId(id);
+		
+		String name=sc.nextLine();
+		if(name.equals(""))
+			name=sc.nextLine();
+		emp.setName(name);
+		
+		String email=sc.nextLine();
+		try {
+			emp.setEmail(email);
+		} catch (Exception e) {
+			System.out.println("Did you enter valid email?. Look at the message: "+e.getMessage());
+		}
+		
+		String phone=sc.nextLine();
+		try {
+			emp.setPhone(phone);
+		} catch (InvalidPhoneException e) {
+			System.out.println("Did you enter valid phone?. Look at the message: "+e.getMessage());
+		}
+		
+		System.out.println(emp);
+		
+	}
+
+}
+
+
+
+
+
+
+Regular Expression
+----------------------
+regex is used to check if the string matches given pattern or not.
+
+String class has matches method for this
+
+
+
+
+
+throws
+	is used to inform the compile that this method is
+		throwing these exceptions and does not handle
+	the calling method must handle these exceptions.
+
+
+throw
+	is used to throw an object of any sub class of exception classes
+
+
+
+
+
