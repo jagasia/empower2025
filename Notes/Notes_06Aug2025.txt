@@ -1,0 +1,127 @@
+String
+-------
+like already we have discussed, String is peculiar
+
+String str1="hello";		//hello is not a value. it is an object	constant object
+
+"hello" is a String literal
+
+String str1="hello";		
+String str2="hello";
+
+str1 and str2 refers to same memory locations. 
+so		str1==str2		true
+
+str1.equals(str2)				true
+
+
+equals method is code in such a way, the literals are compared. 
+
+------------------
+String class
+--------------
+is immutable.
+means, cannot update.
+
+
+
+String str1="equals method is code in such a way, the literals are compared. ";
+str1="equals method is code on such a way, the literals are compared. ";
+
+
+String is not editable.
+
+str1="hello";
+str1="hi";		
+
+
+matches() method		returns true, if the string matches a regex pattern
+
+Activity:
+String methods and properties
+
+length()
+substring()
+charAt()
+matches()
+toUpperCase()
+toLowerCase()
+indexOf()
+
+
+
+str1=str1.toUpperCase();
+
+StringBuilder/ StringBuffer
+
+Difference between them 
+	StringBuffer is synchronized. So it is thread-safe. But slow, because it locks 
+
+StringBuilder is fast. But not thread safe
+
+
+
+	
+
+Demo:
+
+Accept 2 string inputs from user and check if they are "anagrams"
+
+eat
+ate
+
+
+team
+meat
+
+
+abcd
+bcda
+
+solution1:
+------------
+if both string lengths are not same, then result is false
+sort the characters in alphabetical order of both string
+now, if they are same then they are anagrams
+
+
+
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class App {
+
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		String str1=sc.next();
+		String str2=sc.next();
+		
+		char[] carr1 = str1.toCharArray();
+		char[] carr2 = str2.toCharArray();
+		
+		Arrays.sort(carr1);
+		Arrays.sort(carr2);
+		
+		//convert char array into string
+		
+		String x=new String(carr1);
+		String y=new String(carr2);
+		
+		if(x.equals(y)) {
+			System.out.println("Anagrams");
+		}else {
+			System.out.println("Not anagrams");
+		}
+		
+	}
+
+}
+
+
+
+
+
+check if a string is palindrome?
+
+reverse method is there in StringBuilder
+
