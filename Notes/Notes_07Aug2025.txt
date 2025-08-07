@@ -1,0 +1,189 @@
+Collections in java
+-----------------------
+what are the limitations of array?
+	fixed length		(correct)
+	same data type or type	(not a limitation. every collection also)
+	insertion and deletion may require shifting elements
+	array elements are stored in contiguous memory locations
+	slow compared to others (collections)
+
+
+	
+
+Object arr[]=new Object[10];
+arr[0]=new Integer(20);		//
+arr[1]="Raja";
+arr[2]=new Date();
+
+
+Integer i=(Integer)arr[0];
+
+
+
+Now, you are conviced to learn collections chapter to overcome the limitations of arrays.
+
+Collections
+------------
+java provides lot of collections classes, interfaces, they are called as collection API.
+they belong to java.util package
+
+Categories of collections:
+List
+Set
+
+List and Set are interfaces that are derived from Collection interface
+
+Map is an application of Collection
+	Key is set
+	Value is collection
+
+Difference between List and Set
+------------------------------------
+
+List
+	is ordered (means, the order in which elements are added are remembered)
+	Order does not mean, asc or desc order
+
+	allows DUPLICATES
+	allows SORTING the elements (after they are added)
+	Collections.sort() works only for List
+	ListIterator works only for List	
+
+	has index. we can directly access elements using their index
+
+	ArrayList
+	LinkedList
+	Vector
+	Stack
+
+
+Set
+	reject duplicates
+	does not allow sorting the elements. (once they are added, their position changing is not possible)
+	Set actually uses some algorithm to decide where to place an element.
+	do not have index
+
+
+
+
+	HashSet
+		the order of elements are decided by
+			hashCode() and equals() method
+	TreeSet
+	LinkedHashSet
+
+
+
+
+
+Demo:
+	ArrayList
+
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class App {
+
+	public static void main(String[] args) {
+		List<Integer> marks = new ArrayList<>();
+		marks.add(90);
+		marks.add(10);
+		marks.add(10);
+		marks.add(10);
+		marks.add(20);
+		marks.add(10);
+		marks.add(30);
+		
+		
+//		System.out.println(marks.size()); 		//output is 7
+		
+		Collections.sort(marks);
+		System.out.println(marks);
+	}
+
+}
+
+
+
+how to iterate collections?
+	iterate means, visiting each element once
+	
+we can use
+	for each loop for all collections	(not good idea)
+		will give ConcurrentModificationException if you remove elements inside 			for-each loop
+
+	for loop with index		only for List
+
+	iterator
+		is the best way to iterate any collection
+		we can remove current element during iteration
+
+there are 2 types of iterators
+	Iterator
+	ListIterator		(works only for List)
+
+
+Iterator		has only 4 methods
+	hasNext()		returns true if there is any more element to traverse
+	next()			returns the next element
+	remove()			removes the current element
+	forEachRemaining
+
+
+ListIterator
+	hasNext
+	next
+	remove
+	hasPrevious
+	previous
+
+
+	ListIterator is used to traverse in both directions
+
+
+	
+import java.util.List;
+import java.util.ListIterator;
+
+public class App2 {
+
+	public static void main(String[] args) {
+		List<Integer> list=List.of(11,2,5,3,9,12,7,8,10);
+
+		ListIterator<Integer> it = list.listIterator(list.size());
+		
+		while(it.hasNext()) {
+			Integer current = it.next();
+			System.out.println(current);
+		}
+		System.out.println("............");
+		
+		while(it.hasPrevious()) {
+			Integer x = it.previous();
+			System.out.println(x);
+		}
+	}
+
+}
+
+
+
+--------------------
+Task:
+List
+	create an array list of String (countries) and add countries
+	and display them
+
+to display
+	try using
+		for loop with index
+		for each loop
+		iterator
+		list iterator
+
+Observe that the output is in same order of which they are added.
+
+and duplicates are also added.
+
