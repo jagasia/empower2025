@@ -1018,3 +1018,40 @@ public class App {
 	}
 
 }
+
+
+
+
+
+Comparator
+Map
+Generics
+Lambda
+Method Reference
+Stream API
+
+
+
+Challenge:
+----------
+
+Accept a String input from the user and display each character and its count.
+
+Sample input:
+this is an input entered by the user
+
+Sample output:
+t	4
+h	2
+i	3
+s	3
+ 	7
+a	1
+n	3
+p	1
+u	2
+e	4
+r	2
+d	1
+b	1
+y	1
