@@ -710,7 +710,7 @@ public class Task3 {
 
 * Create a `List<String>` of country names.
 * Sort alphabetically using `Collections.sort()`.
-* Check if the sorting is case-sensitive.
+* Check if the sorting is case-insensitive.
 
 ---
 
