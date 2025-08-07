@@ -820,11 +820,29 @@ public class Task6 {
 ---
 
 ### 🧪 Task 8: TreeSet with Natural and Reverse Order
-
 **Objective**:
-
 * Create a `TreeSet<Integer>` to store random numbers.
 * Use default order first.
 * Then use a constructor to provide a reverse order using `Collections.reverseOrder()` or `Comparator`.
 
+hint:
+	Collections.sort(tree,Collections.reverseOrder());
 ---
+
+After lunch:
+=============
+Comparator
+Map
+Generics
+Lambda
+Method Reference
+Stream API
+
+
+Challenge:
+------------
+Java Mock 11	Requirement 5
+
+Hint:
+use Comparable and Comparator
+
