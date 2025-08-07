@@ -1,6 +1,7 @@
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -28,10 +29,13 @@ public class App {
 		
 		switch(choice) {
 		case 1:		//sort by name
+			Collections.sort(colleges); 		//Comparable
 			break;
 		case 2:		//sort by number of departments
+			Collections.sort(colleges, new DepartmentComparator());
 			break;
 		case 3:		//sort by starting date
+			Collections.sort(colleges, new StartingDateComparator());
 			break;
 		}
 		
