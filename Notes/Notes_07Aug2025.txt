@@ -187,3 +187,250 @@ Observe that the output is in same order of which they are added.
 
 and duplicates are also added.
 
+
+
+for loop with index
+
+	list.get(index)		return element at index 
+
+
+
+
+List<Integer> list=new ArrayList<>();
+list.add(1);
+list.add(2);
+list.add(3);
+
+list.remove(1);		//what will be removed?	2 is removed
+list.remove(new Integer(1)); //what will be removed?	1 is removed
+
+
+
+
+remove(index)
+remove(object)
+
+
+
+===================
+Here’s a **complete Java "Collections - List" chapter** covering:
+
+1. **Conceptual content** with subtopics
+2. **Hands-on practice tasks (without solutions)**
+
+   * Exercises target key concepts: `ArrayList`, `LinkedList`, indexing, iteration, sorting, searching, etc.
+   * Ideal for corporate trainees or students to practice independently.
+
+---
+
+## ✅ Java Collections: **List Interface**
+
+### 📘 1. Introduction to List Interface
+
+* The `List` interface is part of the Java Collections Framework.
+* It allows **ordered** collection of elements (maintains insertion order).
+* Allows **duplicates**.
+* Elements can be accessed via **index**.
+
+```java
+List<String> names = new ArrayList<>();
+names.add("Alice");
+names.add("Bob");
+System.out.println(names.get(0)); // Output: Alice
+```
+
+---
+
+### 📘 2. Implementations of List
+
+| Implementation | Characteristics                                  |
+| -------------- | ------------------------------------------------ |
+| `ArrayList`    | Fast random access, slow insert/delete in middle |
+| `LinkedList`   | Good for frequent insert/delete, slower access   |
+| `Vector`       | Synchronized, thread-safe, legacy class          |
+
+---
+
+### 📘 3. Common List Methods
+
+| Method                 | Description                  |
+| ---------------------- | ---------------------------- |
+| `add(element)`         | Adds to end                  |
+| `add(index, element)`  | Adds at index                |
+| `remove(index)`        | Removes by index             |
+| `remove(Object)`       | Removes first occurrence     |
+| `get(index)`           | Get element                  |
+| `set(index, element)`  | Replace element              |
+| `contains(element)`    | Checks if exists             |
+| `indexOf(element)`     | Returns index of first match |
+| `lastIndexOf(element)` | Returns index of last match  |
+| `size()`               | Number of elements           |
+| `clear()`              | Removes all elements         |
+| `isEmpty()`            | Checks if list is empty      |
+
+---
+
+### 📘 4. Iterating a List
+
+```java
+for (int i = 0; i < list.size(); i++) {
+    System.out.println(list.get(i));
+}
+
+for (String name : list) {
+    System.out.println(name);
+}
+
+list.forEach(System.out::println);
+
+Iterator<String> it = list.iterator();
+while(it.hasNext()) {
+    System.out.println(it.next());
+}
+```
+
+---
+
+### 📘 5. Sorting and Searching
+
+* `Collections.sort(list)`
+* `Collections.reverse(list)`
+* `Collections.binarySearch(list, element)` – **list must be sorted**
+
+---
+
+### 📘 6. Converting List to Array and Vice Versa
+
+```java
+List<String> list = Arrays.asList("A", "B", "C");
+String[] array = list.toArray(new String[0]);
+List<String> newList = Arrays.asList(array);
+```
+
+---
+
+### 📘 7. List vs Set vs Map (Quick Compare)
+
+| Feature         | List       | Set            | Map                         |
+| --------------- | ---------- | -------------- | --------------------------- |
+| Duplicates      | Allowed    | Not allowed    | Keys not allowed duplicates |
+| Order           | Maintained | Not guaranteed | Key-value pair              |
+| Access by index | Yes        | No             | No                          |
+
+---
+
+## 🛠️ Hands-on Tasks (Without Solutions)
+
+These tasks are for independent coding practice. They gradually increase in complexity and cover key aspects of `List`.
+
+---
+
+### 🧪 Task 1: Basic List Operations
+
+**Objective**: Create an `ArrayList` of strings and perform the following:
+
+* Add 5 names.
+* Insert a name at index 2.
+* Remove a name by value.
+* Print the size of the list.
+* Display all names using a loop.
+
+---
+
+### 🧪 Task 2: Integer List Analysis
+
+**Objective**: Create a `List<Integer>` to store 10 numbers.
+
+* Print the even numbers.
+* Find and print the sum of all numbers.
+* Find the max and min number.
+* Replace all odd numbers with zero.
+
+---
+
+### 🧪 Task 3: Search and Indexing
+
+**Objective**:
+
+* Ask the user to input 5 city names.
+* Search if “Chennai” exists in the list.
+* If yes, print its index.
+* Else, print “City not found”.
+
+---
+
+### 🧪 Task 4: Sorting Student Marks
+
+**Objective**:
+
+* Create a `List<Integer>` with student marks.
+* Sort the marks in ascending and descending order.
+* Remove the lowest mark.
+* Add a new mark at the second position.
+
+---
+
+### 🧪 Task 5: Custom Object List
+
+**Objective**:
+
+* Create a `Student` class with fields: `id`, `name`, `marks`.
+* Store 3 `Student` objects in a `List<Student>`.
+* Iterate using `for` loop and `Iterator`.
+* Print the student with the highest marks.
+
+---
+
+### 🧪 Task 6: Using LinkedList
+
+**Objective**:
+
+* Create a `LinkedList<String>` of programming languages.
+* Add languages at the beginning, end, and middle.
+* Remove the first and last element.
+* Convert it to `ArrayList` and print all elements.
+
+---
+
+### 🧪 Task 7: Sorting Custom Objects
+
+**Objective**:
+
+* Use `Comparator` or `Comparable` to sort a list of `Employee` objects by name and salary.
+
+```java
+class Employee {
+   int id;
+   String name;
+   double salary;
+}
+```
+
+---
+
+### 🧪 Task 8: Remove Duplicates from List
+
+**Objective**:
+
+* Input: `["Apple", "Banana", "Apple", "Orange", "Banana"]`
+* Output: List with duplicates removed but order preserved.
+
+---
+
+### 🧪 Task 9: Filter List using Stream API
+
+**Objective**:
+
+* Given a `List<String>` of names, print only the names that start with `S` and have more than 5 characters.
+
+---
+
+### 🧪 Task 10: Convert List to Map
+
+**Objective**:
+
+* Create a list of `Product` objects with `id`, `name`, `price`.
+* Convert it into a `Map<Integer, String>` where key is `id`, and value is `name`.
+
+---
+
