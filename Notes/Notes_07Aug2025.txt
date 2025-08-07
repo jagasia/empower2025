@@ -337,6 +337,34 @@ These tasks are for independent coding practice. They gradually increase in comp
 
 ---
 
+Solution:
+-----------
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Task1 {
+
+	public static void main(String[] args) {
+		List<String> list=new ArrayList<>();
+		list.add("Sachin");
+		list.add("Arjun");
+		list.add("Jadeja");
+		list.add("Robin");
+		list.add("Kapil");
+		
+		list.remove("Jadeja");
+		
+		System.out.println(list.size());
+		
+		for(int i=0;i<list.size();i++) {
+			System.out.println(list.get(i));
+		}
+	}
+
+}
+
+
 ### 🧪 Task 2: Integer List Analysis
 
 **Objective**: Create a `List<Integer>` to store 10 numbers.
@@ -345,6 +373,46 @@ These tasks are for independent coding practice. They gradually increase in comp
 * Find and print the sum of all numbers.
 * Find the max and min number.
 * Replace all odd numbers with zero.
+
+
+Solution:
+----------
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class Task2 {
+
+	public static void main(String[] args) {
+		List<Integer> list=Arrays.asList(15,42,33,42,15,96,78,78,96,50);
+		int sum=0;
+		int max=Integer.MIN_VALUE;
+		int min=Integer.MAX_VALUE;
+		System.out.println("Printing all even numbers:");
+		for(Integer x:list)
+		{
+			sum+=x;
+			if(x>max) {
+				max=x;
+			}
+			if(x<min) {
+				min=x;
+			}
+			if(x%2==0) {
+				System.out.println(x);
+			}else
+			{
+				x=0;
+			}
+		}
+		
+		System.out.println("Sum of all numbers:"+sum);
+		System.out.printf("Max is %d and min is %d",max,min);
+		
+	}
+
+}
+
 
 ---
 
@@ -357,6 +425,28 @@ These tasks are for independent coding practice. They gradually increase in comp
 * If yes, print its index.
 * Else, print “City not found”.
 
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Task3 {
+
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		System.out.println("Enter 5 city names:");
+		List<String> cities=new ArrayList<>();
+		for(int i=0;i<5;i++) {
+			String city=sc.nextLine();
+			cities.add(city);
+		}
+		int index=cities.indexOf("Chennai");
+		
+		System.out.println((index!=-1)?index:"City not found");
+	}
+
+}
+
 ---
 
 ### 🧪 Task 4: Sorting Student Marks
@@ -367,6 +457,27 @@ These tasks are for independent coding practice. They gradually increase in comp
 * Sort the marks in ascending and descending order.
 * Remove the lowest mark.
 * Add a new mark at the second position.
+
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+public class Task4 {
+
+	public static void main(String[] args) {
+		List<Integer> marks=Arrays.asList(80,75,68,94,64,59,50);
+		Collections.sort(marks);		//sort to asc
+		Collections.reverse(marks);		//reverse to get desc
+		//remove the lowest mark. lowest is the last element
+		marks.remove(marks.size()-1);		//removing last element
+		marks.add(1, 100);		//add at 2nd position
+		
+	}
+
+}
+
+
 
 ---
 
