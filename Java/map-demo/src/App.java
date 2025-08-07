@@ -1,7 +1,9 @@
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Scanner;
+import java.util.Set;
 
 public class App {
 
@@ -24,11 +26,24 @@ public class App {
 			map.put(c, map.getOrDefault(c, 0)+1);
 		}
 		
-		//print the output
-		for(Entry<Character, Integer> entry:map.entrySet())
-		{
-			System.out.println(entry.getKey()+"\t"+entry.getValue());
+//		//print the output
+//		for(Entry<Character, Integer> entry:map.entrySet())
+//		{
+//			System.out.println(entry.getKey()+"\t"+entry.getValue());
+//		}
+		
+		Set<Character> keys = map.keySet();
+//		for(Character key:keys) {
+//			System.out.println(key+"\t"+map.get(key));
+//		}
+		
+		Iterator<Character> it = keys.iterator();
+		
+		while(it.hasNext()) {
+			Character key = it.next();
+			System.out.println(key+"\t"+map.get(key));
 		}
+		
 	}
 
 }
