@@ -503,7 +503,7 @@ public class Task4 {
 
 ---
 
-### 🧪 Task 7: Sorting Custom Objects
+### 🧪 Task 7: Sorting Custom Objects (Try this after morning break)
 
 **Objective**:
 
@@ -536,7 +536,7 @@ class Employee {
 
 ---
 
-### 🧪 Task 10: Convert List to Map
+### 🧪 Task 10: Convert List to Map		(Do this after Map chapter)
 
 **Objective**:
 
@@ -545,3 +545,150 @@ class Employee {
 
 ---
 
+After break:
+
+Convert List to Set and vice versa
+	constructors of List and Set provide this option
+
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
+
+public class App3 {
+
+	public static List<Integer> removeDuplicates(List<Integer> input) {
+		//write your code here
+		//convert list into set
+		Set<Integer> set=new LinkedHashSet<>(input);
+		//convert set into list. then return that list
+		List<Integer> result=new ArrayList<>(set);
+		return result;
+	}
+	public static void main(String[] args) {
+		List<Integer> list=Arrays.asList(91,28,73,46,54,54,35,62);
+		List<Integer> result = removeDuplicates(list);
+		System.out.println(result);
+	}
+
+}
+
+
+
+
+Comparable and Comparator
+equals method
+
+-----------------------------
+Comparable and Comparator
+	are useful
+		Collections.sort()
+		TreeSet
+
+
+
+
+Understood. From now on, all hands-on tasks will strictly stick to the requested topic and avoid referencing **future or unrelated topics** such as Map unless specifically asked.
+
+---
+
+Here’s your **hands-on exercises** focused **only on `Comparable`** (for use with `Collections.sort`) and **`TreeSet`**, with **no solutions** and **no Map concepts involved**.
+
+---
+
+## 🛠️ Hands-On: `Comparable` and `Collections.sort()`
+
+### 📌 Goal: Understand how to sort custom objects using `Comparable` interface.
+
+---
+
+### 🧪 Task 1: Sort Custom Class Using `Comparable`
+
+**Objective**:
+
+* Create a class `Book` with fields: `int id`, `String title`, `double price`.
+* Implement `Comparable<Book>` to sort books by price in ascending order.
+* Create a `List<Book>` with 5 sample books.
+* Sort the list using `Collections.sort()` and print the sorted result.
+
+---
+
+### 🧪 Task 2: Sort Custom Class by Name Alphabetically
+
+**Objective**:
+
+* Create a class `Person` with `String name`, `int age`.
+* Implement `Comparable<Person>` to sort by `name` alphabetically.
+* Create a list of 5 persons and display the sorted names.
+
+---
+
+### 🧪 Task 3: Sort List of Integers with Collections.sort
+
+**Objective**:
+
+* Create a `List<Integer>` with 10 values.
+* Sort them in ascending order using `Collections.sort()`.
+* Then reverse the list using `Collections.reverse()`.
+
+---
+
+### 🧪 Task 4: Sort List of Strings
+
+**Objective**:
+
+* Create a `List<String>` of country names.
+* Sort alphabetically using `Collections.sort()`.
+* Check if the sorting is case-sensitive.
+
+---
+
+---
+
+## 🛠️ Hands-On: `TreeSet`
+
+### 📌 Goal: Understand how `TreeSet` maintains sorted order and does not allow duplicates.
+
+---
+
+### 🧪 Task 5: TreeSet with Integers
+
+**Objective**:
+
+* Create a `TreeSet<Integer>` and add 10 integers in random order.
+* Print all elements and observe the order.
+* Try adding a duplicate element and note the result.
+
+---
+
+### 🧪 Task 6: TreeSet with Strings
+
+**Objective**:
+
+* Create a `TreeSet<String>` and add city names.
+* Try adding duplicates.
+* Print the contents of the set to verify sorting.
+
+---
+
+### 🧪 Task 7: TreeSet with Custom Class Using Comparable
+
+**Objective**:
+
+* Create a class `Student` with fields: `int rollNo`, `String name`.
+* Implement `Comparable<Student>` to sort by `rollNo`.
+* Add multiple students to a `TreeSet<Student>` and print the contents.
+
+---
+
+### 🧪 Task 8: TreeSet with Natural and Reverse Order
+
+**Objective**:
+
+* Create a `TreeSet<Integer>` to store random numbers.
+* Use default order first.
+* Then use a constructor to provide a reverse order using `Collections.reverseOrder()` or `Comparator`.
+
+---

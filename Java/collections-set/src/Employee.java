@@ -1,6 +1,6 @@
 import java.util.Objects;
 
-public class Employee {
+public class Employee implements Comparable<Employee> {
 	private Long id;
 	private String name;
 	private String department;
@@ -68,6 +68,11 @@ public class Employee {
 			return false;
 		Employee other = (Employee) obj;
 		return Objects.equals(id, other.id);
+	}
+
+	@Override
+	public int compareTo(Employee o) {
+		return this.getId().compareTo(o.getId());
 	}
 	
 	
