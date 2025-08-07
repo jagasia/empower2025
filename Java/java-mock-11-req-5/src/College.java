@@ -1,3 +1,5 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class College {
@@ -80,6 +82,20 @@ public class College {
 		return "College [name=" + name + ", website=" + website + ", mobile=" + mobile + ", founder=" + founder
 				+ ", location=" + location + ", numberOfDept=" + numberOfDept + ", startingDate=" + startingDate + "]";
 	}
-	
+
+	static College createCollege(String detail) throws ParseException {
+		College college=null;
+		SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy");
+		String[] arr = detail.split(",");
+//		IIT Guwahati,www.iitg.ac.in/,9876543214,Govt of India,10,Guwahati,17-05-1994
+		college.setName(arr[0]);
+		college.setWebsite(arr[1]);
+		college.setMobile(arr[2]);
+		college.setFounder(arr[3]);
+		college.setNumberOfDept(Integer.valueOf(arr[4]));
+		college.setLocation(arr[5]);
+		college.setStartingDate(sdf.parse(arr[6]));
+		return college;
+	}
 	
 }
