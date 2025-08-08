@@ -2,7 +2,8 @@ Generics
 Lambda
 Method Reference
 Stream API
-
+Annotations
+Reflection
 
 Generics
 -----------
@@ -75,3 +76,115 @@ Syntax:
 ? extends SomeClass → Upper-bounded wildcard
 
 ? super SomeClass → Lower-bounded wildcard
+
+
+-----------------------------------
+Java 8 feature - Lambda
+
+->
+
+
+Lambda is used in java, to provide a quick implementation of functional interface.
+
+What is functional interface?
+	an interface that has only 1 abstract method 
+		ex:
+			Comparator
+			Runnable
+			Predicate
+			
+
+what is marker interface?
+	an interface that has no abstract method.
+		ex:
+			Serializable
+
+
+
+
+
+lets create our own functional interface now.
+
+
+
+
+public interface Person {
+	void speak();
+}
+
+
+
+
+
+public class App {
+
+	public static void main(String[] args) {
+		Person raja;
+		
+		raja=()->{	System.out.println("Mithun speaks");};
+		raja.speak();
+		
+		//below is the anonymouos implementation that was followed before Java 1.8
+		raja=new Person() {
+			
+			@Override
+			public void speak() {
+				// TODO Auto-generated method stub
+				
+			}
+		};
+	}
+
+}
+
+
+
+Task:
+------
+Here are **two hands-on tasks** you can give learners for **Java Lambda Expressions** — both are practical and show real-world benefits.
+
+---
+
+## **📝 Task 1 — Filter and Print with Lambda**
+
+**Objective:** Use a lambda expression with `stream().filter()` to print only even numbers from a list.
+
+### Requirements:
+
+1. Create a `List<Integer>` with values `1` to `10`.
+2. Use a **lambda expression** to filter only even numbers.
+3. Print them using `forEach()` and a lambda.
+
+**Expected Output:**
+
+```
+2
+4
+6
+8
+10
+```
+
+---
+
+## **📝 Task 2 — Sorting with Lambda**
+
+**Objective:** Use a lambda expression with `Collections.sort()` or `stream().sorted()` to sort strings by length.
+
+### Requirements:
+
+1. Create a `List<String>` with values: `"banana"`, `"apple"`, `"kiwi"`, `"strawberry"`.
+2. Sort them in **ascending order of length** using a lambda.
+3. Print the sorted list.
+
+**Expected Output:**
+
+```
+kiwi
+apple
+banana
+strawberry
+```
+
+---
+
