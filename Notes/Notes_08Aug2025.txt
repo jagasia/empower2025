@@ -141,50 +141,83 @@ public class App {
 
 Task:
 ------
-Here are **two hands-on tasks** you can give learners for **Java Lambda Expressions** — both are practical and show real-world benefits.
+Got it ✅ — you don’t want `Stream API` yet, just **pure lambda expression usage** with functional interfaces.
+Here are **two hands-on lambda-only tasks** in the classic *interface → lambda implementation* style.
 
 ---
 
-## **📝 Task 1 — Filter and Print with Lambda**
+## **📝 Task 1 — Calculator with Lambda**
 
-**Objective:** Use a lambda expression with `stream().filter()` to print only even numbers from a list.
+**Objective:** Implement a functional interface for basic arithmetic using a lambda expression.
 
 ### Requirements:
 
-1. Create a `List<Integer>` with values `1` to `10`.
-2. Use a **lambda expression** to filter only even numbers.
-3. Print them using `forEach()` and a lambda.
+1. Create a **functional interface**:
+
+```java
+@FunctionalInterface
+interface Operation {
+    int perform(int a, int b);
+}
+```
+
+2. In `main()`, create **two lambda expressions**:
+
+   * One for addition
+   * One for multiplication
+3. Use them to:
+
+   * Add `10` and `5` → print result
+   * Multiply `10` and `5` → print result
 
 **Expected Output:**
 
 ```
-2
-4
-6
-8
-10
+Addition: 15
+Multiplication: 50
 ```
 
 ---
 
-## **📝 Task 2 — Sorting with Lambda**
+## **📝 Task 2 — Greeting Service**
 
-**Objective:** Use a lambda expression with `Collections.sort()` or `stream().sorted()` to sort strings by length.
+**Objective:** Implement a functional interface to greet a person using a lambda expression.
 
 ### Requirements:
 
-1. Create a `List<String>` with values: `"banana"`, `"apple"`, `"kiwi"`, `"strawberry"`.
-2. Sort them in **ascending order of length** using a lambda.
-3. Print the sorted list.
+1. Create a **functional interface**:
+
+```java
+@FunctionalInterface
+interface GreetService {
+    void greet(String name);
+}
+```
+
+2. In `main()`, create a **lambda** that:
+
+   * Accepts a name
+   * Prints `"Hello, <name>! Welcome to Lambda Expressions."`
+3. Call the lambda for:
+
+   * `"Alice"`
+   * `"Bob"`
 
 **Expected Output:**
 
 ```
-kiwi
-apple
-banana
-strawberry
+Hello, Alice! Welcome to Lambda Expressions.
+Hello, Bob! Welcome to Lambda Expressions.
 ```
+
+---
+
+These two tasks:
+
+* Require **only** lambda syntax + functional interfaces
+* Are simple enough for beginners
+* Don’t require `Stream API`
+* Still demonstrate **replacing anonymous classes with lambdas**
 
 ---
 
