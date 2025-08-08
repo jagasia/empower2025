@@ -260,3 +260,174 @@ These two tasks:
 ---
 
 
+I have pushed to solutions to git. Please check and ask doubts.
+
+
+
+---------------------------------------------------
+Method Reference
+----------------------
+
+
+@FunctionalInterface
+public interface Operation {
+	int perform(int a, int b);
+}
+
+class JMaths{
+	public int add(int a, int b) {
+		return a+b;
+	}
+	
+	public static int difference(int a, int b) {
+		return a-b;
+	}
+}
+
+public class AppReq1 {
+
+	public static void main(String[] args) {
+		Operation op1=(x,y)->x+y;		//lambda, so, i wrote implementation here
+		Operation op2=(x,y)->x*y;		//lambda, so, i wrote implementation here
+//		System.out.println(op1.perform(10, 5));
+//		System.out.println(op2.perform(10, 5));
+		
+		JMaths m=new JMaths();
+		Operation op3=m::add;		//method reference
+		Operation op4=JMaths::difference;
+//		System.out.println(op3.perform(5, 6));
+		System.out.println(op4.perform(6, 3));
+	}
+}
+
+
+
+
+
+
+
+
+
+Hands on:
+-----------
+
+Handson examples that work with **static methods**, **instance methods**, and **constructors** — so learners see all the method reference forms.
+
+---
+
+## **📝 Task 1 — Static Method Reference**
+
+**Objective:** Use a method reference to call a static method.
+
+### Requirements:
+
+1. Create a functional interface:
+
+```java
+@FunctionalInterface
+interface StringPrinter {
+    void print(String s);
+}
+```
+
+2. Create a static method `display(String s)` in a class that prints `"Message: "` followed by the string.
+3. Use a **method reference** (`ClassName::methodName`) to call `display` via the interface.
+
+**Expected Output:**
+
+```
+Message: Hello World
+```
+
+---
+
+## **📝 Task 2 — Instance Method Reference (Particular Object)**
+
+**Objective:** Use a method reference to call an instance method of a specific object.
+
+### Requirements:
+
+1. Create a functional interface:
+
+```java
+@FunctionalInterface
+interface Calculator {
+    int operate(int a, int b);
+}
+```
+
+2. Create a class with an **instance method** `sum(int a, int b)` that returns the sum.
+3. Create an object of the class, then use **method reference** (`objectRef::methodName`) to assign `sum` to the interface and execute it.
+
+**Expected Output:**
+
+```
+15
+```
+
+---
+
+## **📝 Task 3 — Instance Method Reference (Arbitrary Object of a Type)**
+
+**Objective:** Use a method reference to call an instance method on an arbitrary object of a given type.
+
+### Requirements:
+
+1. Create a functional interface:
+
+```java
+@FunctionalInterface
+interface StringOperation {
+    String apply(String s);
+}
+```
+
+2. Use the **method reference** `String::toUpperCase` to assign to the interface.
+3. Call it with `"hello"` and print the result.
+
+**Expected Output:**
+
+```
+HELLO
+```
+
+---
+
+## **📝 Task 4 — Constructor Reference**
+
+**Objective:** Use a constructor reference to create objects.
+
+### Requirements:
+
+1. Create a class `Person` with:
+
+   * `String name` field
+   * Constructor that takes `String name`
+   * `toString()` method that returns `"Person: <name>"`
+2. Create a functional interface:
+
+```java
+@FunctionalInterface
+interface PersonFactory {
+    Person create(String name);
+}
+```
+
+3. Use a **constructor reference** (`ClassName::new`) to assign to the interface.
+4. Create a `Person` named `"Alice"` and print it.
+
+**Expected Output:**
+
+```
+Person: Alice
+```
+
+---
+
+These **four tasks** cover:
+
+1. **Static method reference**
+2. **Instance method reference (specific object)**
+3. **Instance method reference (arbitrary object)**
+4. **Constructor reference**
+
