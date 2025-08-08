@@ -571,3 +571,422 @@ public class App {
 		.forEach((t)->System.out.println(t));
 	}
 }
+
+
+
+Task:
+Look at the above example.
+
+Try to solve below problem.
+
+A list of String
+
+display all strings whose length is above 5
+
+
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+class App2 {
+
+	public static void main(String[] args) {
+		List<String> countries=Arrays.asList("India","Australia","Sri lanka","Pakistan","Bangladesh");
+		List<String> result = countries.stream()
+		.filter((t)->t.length()>5)
+		.map((t)->t.toUpperCase())
+		.collect(Collectors.toList());
+		
+		for(String c:result) {
+			System.out.println(c);
+		}
+	}
+
+}
+
+----------------------------------------------
+
+
+
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+class App2 {
+
+	public static void main(String[] args) {
+		List<String> countries=Arrays.asList("India","Australia","Sri lanka","Pakistan","Bangladesh");
+		List<String> result = countries.stream()
+		.collect(Collectors.toList());
+		
+		for(String c:result) {
+			System.out.println(c);
+		}
+	}
+
+}
+
+-----------------------------------------------
+User defined type collections and Streams
+
+
+
+
+WHERE				.filter
+ORDER BY			.sorted
+SELECT name FROM Product
+	
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class App3 {
+
+	public static void main(String[] args) {
+		List<Product> products=Arrays.asList(
+				new Product(25L, "Pen", "Stationery", 10.0),
+				new Product(14L, "Pencil", "Stationery", 10.0),
+				new Product(53L, "Ridge guard", "Grocery", 10.0),
+				new Product(45L, "Bitter guard", "Grocery", 10.0),
+				new Product(55L, "Mango", "Fruits", 10.0),
+				new Product(65L, "Grapes", "Fruits", 10.0)
+				);
+		
+		products.stream()
+		.map((t)->t.getName())
+		.forEach(System.out::println);
+	}
+
+}
+
+
+
+
+
+How to the following?
+---------------------------
+SELECT category, SUM(price)
+	FROM Product
+	GROUP BY category;
+
+
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.stream.Collectors;
+
+public class App4 {
+
+	public static void main(String[] args) {
+		List<Product> products=Arrays.asList(
+				new Product(25L, "Pen", "Stationery", 20.0),
+				new Product(14L, "Pencil", "Stationery", 10.0),
+				new Product(53L, "Ridge guard", "Grocery", 25.0),
+				new Product(45L, "Bitter guard", "Grocery", 18.0),
+				new Product(55L, "Mango", "Fruits", 33.3),
+				new Product(65L, "Grapes", "Fruits", 100.0)
+				);
+
+		//find category wise average price
+		
+		Map<String, Double> result = products.stream()
+		.collect(Collectors.groupingBy(Product::getCategory, Collectors.averagingDouble(Product::getPrice)));
+
+		for(Entry<String, Double> e:result.entrySet()) {
+			System.out.println(e.getKey()+"\t"+e.getValue());
+		}
+		
+	}
+
+}
+
+
+
+
+
+
+
+Complete notes for Stream API:-
+=======================
+Here’s a **roadmap-style summary** of what you should learn in the **Java Stream API** so you can move from beginner to advanced comfortably.
+
+---
+
+## **1. Basics of Stream API**
+
+* **What is a Stream?** (vs Collection — stream is for processing, not storing data)
+* **Creating Streams**:
+
+  * From collections (`list.stream()` / `list.parallelStream()`)
+  * From arrays (`Arrays.stream(arr)`)
+  * Using `Stream.of()`
+  * Infinite streams (`Stream.iterate()`, `Stream.generate()`)
+* **Stream Pipeline Structure**:
+
+  1. **Source** (collection, array, generator)
+  2. **Intermediate operations** (transform/filter data)
+  3. **Terminal operation** (produces result, ends the stream)
+
+---
+
+## **2. Intermediate Operations** (returns another Stream)
+
+* **`filter(Predicate)`** → keep only matching elements
+* **`map(Function)`** → transform each element
+* **`flatMap(Function)`** → flatten nested structures (e.g., `List<List<T>>` → `List<T>`)
+* **`distinct()`** → remove duplicates
+* **`sorted()` / `sorted(Comparator)`** → sort data
+* **`peek(Consumer)`** → debug/inspect without changing stream
+* **`limit(n)`** / **`skip(n)`** → take or skip elements
+
+---
+
+## **3. Terminal Operations** (returns a result, ends the stream)
+
+* **Iteration**: `forEach()`, `forEachOrdered()`
+* **Reduction**:
+
+  * `reduce(identity, accumulator)`
+  * `reduce(accumulator)` (optional identity)
+* **Collection**:
+
+  * `collect(Collectors.toList())`
+  * `collect(Collectors.toSet())`
+  * `collect(Collectors.toMap())`
+* **Counting & Matching**:
+
+  * `count()`
+  * `anyMatch()`, `allMatch()`, `noneMatch()`
+* **Finding**:
+
+  * `findFirst()`
+  * `findAny()`
+* **Min/Max**:
+
+  * `min(Comparator)`
+  * `max(Comparator)`
+
+---
+
+## **4. Collectors (java.util.stream.Collectors)**
+
+* **Basic**:
+
+  * `toList()`, `toSet()`, `toMap()`
+  * `joining()`
+* **Aggregation**:
+
+  * `counting()`
+  * `summingInt()`, `summingDouble()`, `averagingInt()`, `averagingDouble()`
+* **Grouping & Partitioning**:
+
+  * `groupingBy(classifier)`
+  * `groupingBy(classifier, downstream collector)`
+  * `partitioningBy(predicate)`
+* **Reducing**:
+
+  * `reducing(identity, mapper, accumulator)`
+
+---
+
+## **5. Primitive Streams**
+
+* `IntStream`, `LongStream`, `DoubleStream`
+
+  * Avoids boxing/unboxing overhead
+  * Special methods like `sum()`, `average()`
+
+---
+
+## **6. Parallel Streams**
+
+* Creating with `parallelStream()` or `stream().parallel()`
+* When to use & pitfalls (thread-safety, ordering, overhead)
+
+---
+
+## **7. Advanced Concepts**
+
+* Custom collectors (`Collector.of()`)
+* Lazy evaluation (operations are not executed until terminal op)
+* Short-circuiting (`limit()`, `findFirst()`, `anyMatch()`)
+
+---
+
+## **8. Common Patterns & Use Cases**
+
+* Filtering and mapping
+* Transforming data types
+* Grouping and summarizing
+* Finding top-N elements
+* Flattening nested collections
+* Joining strings from objects
+
+---
+
+
+
+
+Yes ✅
+That diagram I gave you is already **Notepad-friendly** — just plain text with ASCII boxes and arrows, so you can paste it into Notepad or even in a console without losing formatting.
+
+If you want, I can slightly tighten the spacing so it looks cleaner for copy-paste.
+
+Here’s the **notepad-polished** version:
+
+```
+[Original Collection]     (Data source, e.g., List, Set, Array)
+        |
+        |  .stream()
+        v
+   +-----------------------+
+   |   Stream Pipeline     |   (No data stored here)
+   +-----------------------+
+        |
+        |  Intermediate Operations (lazy)
+        |  -------------------------------
+        |   filter(x -> condition)
+        |   map(x -> transform)
+        |   sorted()
+        |   distinct()
+        |
+        v
+  [Still no elements processed yet!]
+        |
+        |  Terminal Operation (triggers processing)
+        |  ----------------------------------------
+        |   collect(...)
+        |   forEach(...)
+        |   reduce(...)
+        |   count()
+        |
+        v
+[Final Result]   (List, Set, printed output, reduced value, etc.)
+```
+
+And the **example** in a notepad-friendly way:
+
+```java
+List<String> names = List.of("Alice", "Bob", "Charlie", "David");
+
+List<String> filteredNames = names.stream()       // Source
+    .filter(name -> name.startsWith("C"))         // Intermediate (lazy)
+    .map(String::toUpperCase)                     // Intermediate (lazy)
+    .toList();                                    // Terminal (processing starts)
+
+System.out.println(filteredNames);
+```
+
+---
+
+Hands-on:-
+-------------
+
+Got it — I’ll give you **two separate hands-on tasks** for Stream API:
+
+* **Task 1:** `filter` + `sorted` in one program.
+* **Task 2:** `groupingBy` + `having`-style logic (Java doesn’t have SQL’s `HAVING`, but we can simulate it by filtering after grouping).
+
+---
+
+## **Hands-on 1: Filter + Sort Together**
+
+**Requirement:**
+From a list of `Employee` objects, find employees with salary greater than 50,000 and sort them by name in ascending order, then print the result.
+
+**Starter Code (Notepad Friendly):**
+
+```java
+import java.util.*;
+import java.util.stream.*;
+
+class Employee {
+    String name;
+    double salary;
+
+    Employee(String name, double salary) {
+        this.name = name;
+        this.salary = salary;
+    }
+
+    public String toString() {
+        return name + " - " + salary;
+    }
+}
+
+public class App1 {
+    public static void main(String[] args) {
+        List<Employee> employees = Arrays.asList(
+            new Employee("John", 45000),
+            new Employee("Alice", 60000),
+            new Employee("David", 75000),
+            new Employee("Bob", 50000)
+        );
+
+        // TODO: Filter salary > 50000 and sort by name
+    }
+}
+```
+
+**Expected Output Example:**
+
+```
+Alice - 60000.0
+David - 75000.0
+```
+
+---
+
+## **Hands-on 2: GroupingBy with "Having" style condition**
+
+**Requirement:**
+From a list of `Product` objects, group products by category and calculate the total price for each category. Then, only display categories whose total price is greater than 100.
+
+**Starter Code (Notepad Friendly):**
+
+```java
+import java.util.*;
+import java.util.stream.*;
+import java.util.Map.Entry;
+
+class Product {
+    String name;
+    String category;
+    double price;
+
+    Product(String name, String category, double price) {
+        this.name = name;
+        this.category = category;
+        this.price = price;
+    }
+}
+
+public class App2 {
+    public static void main(String[] args) {
+        List<Product> products = Arrays.asList(
+            new Product("Pen", "Stationery", 20.0),
+            new Product("Pencil", "Stationery", 10.0),
+            new Product("Notebook", "Stationery", 80.0),
+            new Product("Mango", "Fruits", 50.0),
+            new Product("Grapes", "Fruits", 60.0),
+            new Product("Apple", "Fruits", 40.0)
+        );
+
+        // TODO: Group by category, sum price, and filter categories with total > 100
+    }
+}
+```
+
+**Expected Output Example:**
+
+```
+Stationery - 110.0
+Fruits - 150.0
+```
+
+---

@@ -8,6 +8,7 @@ public class App {
 		marks.stream()
 		.filter((t)->t%2!=0)
 		.sorted()
+		.distinct()
 //		.forEach((t)->System.out.println(t));
 		.forEach(System.out::println);
 	}
