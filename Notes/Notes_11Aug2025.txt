@@ -1327,3 +1327,25 @@ public class AppSyncMethod {
 
 
 
+
+Activity:
+
+Understand the life cycle of Thread
+	sleep
+	wait
+	join
+	notify
+	notifyAll
+	yield
+	setPriority
+	getPriority
+
+synchronized method
+synchronized block
+
+volatile
+	a variable declared as volatile will be thread safe variable
+	usually, threads keep the variable in their cache.
+		a volatile variable will not be cached by the threads.
+		they access these variables everytime from main memory.
+
