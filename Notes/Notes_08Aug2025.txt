@@ -940,6 +940,11 @@ Alice - 60000.0
 David - 75000.0
 ```
 
+employees.stream()
+        .filter((t)->t.salary>50000)
+        .sorted((x,y)->(int)(x.salary-y.salary))
+        .forEach(System.out::println);
+
 ---
 
 ## **Hands-on 2: GroupingBy with "Having" style condition**
@@ -990,3 +995,111 @@ Fruits - 150.0
 ```
 
 ---
+
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.stream.Collectors;
+
+public class App2 {
+    public static void main(String[] args) {
+        List<Product> products = Arrays.asList(
+            new Product("Pen", "Stationery", 20.0),
+            new Product("Pencil", "Stationery", 10.0),
+            new Product("Notebook", "Stationery", 80.0),
+            new Product("Mango", "Fruits", 50.0),
+            new Product("Grapes", "Fruits", 60.0),
+            new Product("Apple", "Fruits", 40.0)
+        );
+
+        // TODO: Group by category, sum price, and filter categories with total > 100
+        Map<Object, Double> result = products.stream()
+        .collect(Collectors.groupingBy((t)->t.category, Collectors.summingDouble((t)->t.price)));;
+ 
+        result=result.entrySet().stream()
+        .filter((t)->t.getValue()>100)
+        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+        
+        for(Entry<Object, Double> e:result.entrySet()) {
+        	System.out.println(e);
+        }
+        
+    }
+}
+
+
+
+------------------------------------------
+Annotations
+
+
+//this is single line comment
+/* this is 
+*
+*
+*multi line
+*/
+
+
+Comments are ignored by the compiler
+
+
+@Entity
+@Table(name="EMP")
+public class Employee
+{
+	@Id
+	private Integer id;
+	private String name;
+	private String department;
+	@Transient			//dont consider this as column
+	private Double salary;
+
+}
+
+
+
+
+Annotations
+
+Retention
+	SOURCE
+	RUNTIME
+	CLASS
+
+
+
+When we create annotations,
+	we need to decide
+		Target
+
+			class
+			method
+			constructor
+			parameter
+			variable
+
+
+		Retention
+
+
+
+
+Reflection	=	reading metadata
+
+
+
+
+Task:
+
+1) Stream api practice
+2) Annotations and Reflection
+	i will give demo on how to create user defined annotations
+3) Java PF practice
+
+
+
+How to create annotations?
+
