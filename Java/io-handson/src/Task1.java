@@ -21,7 +21,8 @@ public class Task1 {
 				}
 			}
 		}else {
-			dir.createNewFile();	//create if not exists
+//			dir.createNewFile();	//create if not exists
+			dir.mkdir();
 		}
 	}
 
