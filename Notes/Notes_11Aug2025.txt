@@ -912,3 +912,151 @@ If you compile and run them **in order**:
 
 ---
 
+-----------------
+Threads chapter
+-------------------
+
+When we run a program, what happens?
+	the program becomes a PROCESS
+
+
+Process:
+	is a running instance of a program.
+
+
+CPU allocates resources to these processes.
+what are resources?
+	time
+	memory	(space)
+
+
+so far, we created lot of java programs,
+and wherever, main method was there, we were able to run them,
+they became process, and that process had one thread (main thread)
+
+they are single threaded processes.
+
+now, lets see what is Multi-threading?
+
+	a process that contains, more than 1 thread (ie., in addition to main thread), are
+		called as multi-threaded processes
+
+
+But why?
+
+	threads share the CPU resources.
+
+CPU utilization:	0%
+
+
+there are 2 threads
+
+
+
+50%
+
+
+3 threads
+
+66%
+
+4 threads
+
+75%
+
+
+
+
+Performance
+	effective utilization of resource
+
+simultaneous execution
+	concurrent
+	parallel
+
+
+
+how to create a thread?
+	
+	Thread t1=new Thread(new MyRunnable());	//MyRunnable implements Runnable
+
+	MyThread t2=new MyThread();		//MyThread extends Thread
+
+
+
+
+run() method is where we define the work of thread
+
+
+Runnable interface (Functional Interface)
+	public void run()
+
+
+
+Thread class
+	public void run()
+
+
+Demo:
+
+create 2 threads 
+	first thread should print "ODD"
+	second thread should print "EVEN"
+
+
+
+
+
+class MyThread extends Thread{
+
+	@Override
+	public void run() {
+		for(int i=0;i<10;i++) {
+			System.out.println("ODD");
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+}
+
+class MyRunnable implements Runnable{
+
+	@Override
+	public void run() {
+		for(int i=0;i<10;i++) {
+			System.out.println("EVEN");
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
+}
+
+public class App {
+
+	public static void main(String[] args) {
+		MyThread t1=new MyThread();
+		Thread t2=new Thread(new MyRunnable());
+		
+		t1.start();
+		t2.start();
+	}
+
+}
+
+
+
+Task:
+------
+create 2 threads and run them simultaneously.
+
