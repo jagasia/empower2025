@@ -1060,3 +1060,73 @@ Task:
 ------
 create 2 threads and run them simultaneously.
 
+
+
+
+
+
+---
+
+## **Hands-on Task Instructions: Multi-threaded Counter Race**
+
+**Objective:**
+Create a Java program with **three threads** that count from 1 to 5 with different speeds and priorities.
+
+**Requirements:**
+
+1. **Thread 1**: Created by implementing `Runnable` (fast, sleep 300ms).
+2. **Thread 2**: Created by extending `Thread` (slow, sleep 700ms).
+3. **Thread 3**: Created by implementing `Runnable` (medium, sleep 500ms).
+4. Set **Thread 1** priority to `MAX_PRIORITY`, **Thread 2** to `MIN_PRIORITY`, and **Thread 3** to `NORM_PRIORITY`.
+5. All threads should print their **name** and **current count**.
+
+---
+
+### **Starter Code (with blanks to fill in)**
+
+```java
+// TODO: Create class FastCounter that implements Runnable
+// Should count from 1 to 5, sleep 300ms between counts
+
+// TODO: Create class SlowCounter that extends Thread
+// Should count from 1 to 5, sleep 700ms between counts
+
+public class ThreadRace {
+    public static void main(String[] args) {
+        // TODO: Create Thread 1 (Runnable)
+        
+        // TODO: Create Thread 2 (Thread subclass)
+        
+        // TODO: Create Thread 3 (Runnable)
+
+        // TODO: Set priorities
+
+        // TODO: Start threads
+    }
+}
+```
+
+---
+
+### **What the Participant Must Do**
+
+* Implement **FastCounter** (Runnable)
+* Implement **SlowCounter** (Thread subclass)
+* Implement **MediumCounter** (Runnable)
+* Create them in `main()`
+* Set priorities using `setPriority()`
+* Start all threads
+* Verify the output shows different speeds and mixed execution order
+
+---
+
+
+
+
+
+
+https://forms.cloud.microsoft/r/qWp0Pg2NV1
+
+https://forms.cloud.microsoft/r/BSRNt331i9
+
+
