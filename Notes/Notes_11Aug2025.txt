@@ -273,3 +273,136 @@ Understand the usage of
 	InputStreamReader
 	OutputStreamWriter
 
+
+
+
+Handson:
+==========
+---
+
+## 1️⃣ **File**
+
+**Task:**
+Write a program to check if a directory named `reports` exists in your project folder.
+If it does not exist, create it. Then, list all files inside the directory and print their **name**, **size (bytes)**, and **last modified date**.
+
+**Hint:**
+
+* Use `File` class to check existence, create directories, and get file metadata.
+* Use `listFiles()` to iterate over files.
+
+---
+
+## 2️⃣ **FileInputStream**
+
+**Task:**
+Write a program to read a `.txt` file named `notes.txt` **byte by byte** and print its content to the console.
+
+**Hint:**
+
+* Use `FileInputStream` and `read()` in a loop until it returns `-1`.
+* Convert bytes to characters using `(char) byteValue`.
+
+---
+
+## 3️⃣ **FileOutputStream**
+
+**Task:**
+Write a program that asks the user to enter some text from the console and **saves it** into `output.txt`.
+
+**Hint:**
+
+* Use `FileOutputStream` and `write(byte[])`.
+* Convert `String` to bytes using `.getBytes()`.
+
+---
+
+## 4️⃣ **FileReader**
+
+**Task:**
+Write a program to read `story.txt` **character by character** and count the number of vowels in it.
+
+**Hint:**
+
+* Use `FileReader` to read characters directly (no byte conversion needed).
+* Increment vowel count whenever you find `a, e, i, o, u` (case-insensitive).
+
+---
+
+## 5️⃣ **FileWriter**
+
+**Task:**
+Write a program that creates a file `diary.txt` and writes **three lines** of text into it.
+
+**Hint:**
+
+* Use `FileWriter` and `write(String)`.
+* Call `flush()` or close the writer to ensure data is saved.
+
+---
+
+## 6️⃣ **BufferedInputStream**
+
+**Task:**
+Write a program that reads an image file `photo.jpg` using `BufferedInputStream` and counts how many total bytes are read.
+
+**Hint:**
+
+* Wrap `FileInputStream` inside `BufferedInputStream` for efficiency.
+* Use `available()` before reading for progress display.
+
+---
+
+## 7️⃣ **BufferedOutputStream**
+
+**Task:**
+Write a program that copies a file `source.pdf` to `copy.pdf` using `BufferedInputStream` and `BufferedOutputStream`.
+
+**Hint:**
+
+* Wrap both input and output streams with buffered versions.
+* Read in chunks (e.g., `byte[1024]`) for better performance.
+
+---
+
+## 8️⃣ **DataInputStream**
+
+**Task:**
+Write a program to read **primitive data** from a file `data.bin` that contains: an `int`, a `double`, and a `UTF string`.
+Print them in the console.
+
+**Hint:**
+
+* Use `DataOutputStream` first to create the file (see Task 9).
+* Then use `DataInputStream` to read the same sequence.
+
+---
+
+## 9️⃣ **DataOutputStream**
+
+**Task:**
+Write a program that writes an `int`, a `double`, and a `UTF string` into `data.bin`.
+
+**Hint:**
+
+* Use `writeInt()`, `writeDouble()`, `writeUTF()` in the same order you will read them later.
+
+---
+
+## 🔟 **InputStreamReader & OutputStreamWriter** (Combined Task)
+
+**Task:**
+Write a program that:
+
+1. Takes a line of text input from the user (console, UTF-8 encoded).
+2. Saves it into a file `utf_data.txt` using `OutputStreamWriter` (UTF-8).
+3. Reads it back using `InputStreamReader` and prints to console.
+
+**Hint:**
+
+* Wrap `System.in` with `InputStreamReader` for reading console text.
+* Wrap `FileOutputStream` with `OutputStreamWriter` for writing with encoding.
+* Wrap `FileInputStream` with `InputStreamReader` for reading back.
+
+---
+
