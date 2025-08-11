@@ -1349,3 +1349,81 @@ volatile
 		a volatile variable will not be cached by the threads.
 		they access these variables everytime from main memory.
 
+--------------------------------------
+=========================
+JDBC
+
+is an API		Application Programming Interface
+
+it is a layer between java code and DB 
+
+Steps:
+	load the driver	(optional)
+	get connection	
+	create a statement			object rep of sql statement
+		Statement	
+		PreparedStatement
+		CallableStatement
+	execute the statement		
+		execute()			void method
+		executeQuery()		returns ResultSet
+		executeUpdate()		returns int		how many rows affected
+
+
+	connection should be closed after completion
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CREATE TABLE PRODUCT (
+    ID        NUMBER(5) PRIMARY KEY,
+    NAME      VARCHAR2(50),
+    CATEGORY  VARCHAR2(30),
+    PRICE     NUMBER(10,2)
+);
+
+INSERT ALL
+    INTO PRODUCT (ID, NAME, CATEGORY, PRICE) VALUES (1,  'Laptop Pro 14',      'Electronics', 1299.99)
+    INTO PRODUCT (ID, NAME, CATEGORY, PRICE) VALUES (2,  'Smartphone X',       'Electronics',  899.50)
+    INTO PRODUCT (ID, NAME, CATEGORY, PRICE) VALUES (3,  'Bluetooth Speaker',  'Electronics',  149.99)
+    INTO PRODUCT (ID, NAME, CATEGORY, PRICE) VALUES (4,  'Gaming Mouse',       'Electronics',   59.99)
+    INTO PRODUCT (ID, NAME, CATEGORY, PRICE) VALUES (5,  'Mechanical Keyboard','Electronics',   89.99)
+    INTO PRODUCT (ID, NAME, CATEGORY, PRICE) VALUES (6,  'Office Chair',       'Furniture',    249.00)
+    INTO PRODUCT (ID, NAME, CATEGORY, PRICE) VALUES (7,  'Standing Desk',      'Furniture',    499.99)
+    INTO PRODUCT (ID, NAME, CATEGORY, PRICE) VALUES (8,  'Bookshelf',          'Furniture',    149.50)
+    INTO PRODUCT (ID, NAME, CATEGORY, PRICE) VALUES (9,  'LED Monitor 27"',    'Electronics',  279.00)
+    INTO PRODUCT (ID, NAME, CATEGORY, PRICE) VALUES (10, 'Wireless Earbuds',   'Electronics',  119.99)
+    INTO PRODUCT (ID, NAME, CATEGORY, PRICE) VALUES (11, 'Running Shoes',      'Sportswear',    89.50)
+    INTO PRODUCT (ID, NAME, CATEGORY, PRICE) VALUES (12, 'Tennis Racket',      'Sportswear',   139.00)
+    INTO PRODUCT (ID, NAME, CATEGORY, PRICE) VALUES (13, 'Football',           'Sportswear',    49.99)
+    INTO PRODUCT (ID, NAME, CATEGORY, PRICE) VALUES (14, 'Yoga Mat',           'Sportswear',    29.99)
+    INTO PRODUCT (ID, NAME, CATEGORY, PRICE) VALUES (15, 'Blender 900W',       'Appliances',   159.00)
+    INTO PRODUCT (ID, NAME, CATEGORY, PRICE) VALUES (16, 'Microwave Oven',     'Appliances',   249.99)
+    INTO PRODUCT (ID, NAME, CATEGORY, PRICE) VALUES (17, 'Refrigerator 300L',  'Appliances',   699.00)
+    INTO PRODUCT (ID, NAME, CATEGORY, PRICE) VALUES (18, 'Air Conditioner',    'Appliances',   899.00)
+    INTO PRODUCT (ID, NAME, CATEGORY, PRICE) VALUES (19, 'Vacuum Cleaner',     'Appliances',   199.50)
+    INTO PRODUCT (ID, NAME, CATEGORY, PRICE) VALUES (20, 'Dishwasher',         'Appliances',   599.00)
+SELECT * FROM dual;
+
+SELECT * FROM PRODUCT;
+
