@@ -1,0 +1,143 @@
+scrollable and writable result set
+
+
+JDBC DAO layer CRUD 
+-----------------------------
+Driver driver=new OracleDriver();
+in java new versions, the driver is automatically loaded by jdbc based on the URL
+
+String url="jdbc:oracle:thin:@localhost:1521:XE";
+		String username="sys as sysdba";
+		String password="password";
+Connection con = DriverManager.getConnection(url, username, password);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Driver driver=new OracleDriver();
+    	String url="jdbc:oracle:thin:@localhost:1521:XE";
+//for mysql
+//	String url="jdbc:mysql://localhost:3306/dbname";
+		String username="sys as sysdba";
+		String password="password";
+		Connection con = DriverManager.getConnection(url, username, password);
+		Statement st = con.createStatement();
+		ResultSet rs = st.executeQuery("SELECT * FROM PRODUCT");
+		while(rs.next()) {
+			System.out.printf("%d\t%-25s\t%-15s\t%.2f\n",rs.getInt(1), rs.getString(2), rs.getString(3), rs.getFloat(4));
+		}
+		con.close();
+        System.out.println( "Hello World!" );
+
+
+
+Statement types:
+	Statement
+	PreparedStatement
+	CallableStatement
+
+
+
+Statement
+	is used for representing any SQL statement that is not dependent on runtime inputs.
+	it is prone to SQL injection.
+
+PreparedStatement
+	is used for parameterized queries.
+	it addresses sql injection problem
+
+CallableStatement
+	to call stored procedures and function
+
+
+
+
+
+
+CREATE TABLE USER_MASTER
+(
+USERNAME VARCHAR2(30) PRIMARY KEY,
+PASSWORD VARCHAR2(30) NOT NULL,
+NAME VARCHAR2(30)
+);
+
+
+
+
+
+
+
+ResultSet rs = st.executeQuery("SELECT * FROM USER_MASTER WHERE USERNAME='"+uid+"' AND PASSWORD='"+pwd+"'");
+
+
+
+
+SELECT * FROM USER_MASTER 
+WHERE USERNAME='"+uid+"' AND PASSWORD='"+pwd+"'"
+
+
+SELECT * FROM USER_MASTER 
+WHERE USERNAME='idontknow' or 1=1 --' AND PASSWORD='inevercare'"
+
+
+
+
+
+
+now, we use prepared statement to address sql injection as follows:
+
+package com.empower.demo;
+
+import java.sql.Connection;
+import java.sql.Driver;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Scanner;
+
+import oracle.jdbc.driver.OracleDriver;
+
+public class AppSqlInjection2 {
+
+	public static void main(String[] args) throws SQLException {
+		Scanner sc=new Scanner(System.in);
+		String uid=sc.nextLine();
+		String pwd=sc.nextLine();
+		Driver driver = new OracleDriver();
+		String url = "jdbc:oracle:thin:@localhost:1521:XE";
+		String username = "sys as sysdba";
+		String password = "password";
+		Connection con = DriverManager.getConnection(url, username, password);
+//		Statement st = con.createStatement();
+//		ResultSet rs = st.executeQuery("SELECT * FROM USER_MASTER WHERE USERNAME='"+uid+"' AND PASSWORD='"+pwd+"'");
+		
+		PreparedStatement st=con.prepareStatement("SELECT * FROM USER_MASTER WHERE USERNAME=? AND PASSWORD=?");
+		st.setString(1, uid);
+		st.setString(2, pwd);
+		
+		ResultSet rs = st.executeQuery();
+		
+		if(rs.next()){
+			System.out.println("Login successful");
+		}else {
+			System.out.println("Login failed");
+		}
+		con.close();
+	}
+
+}
+
+
+
