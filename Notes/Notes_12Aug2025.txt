@@ -342,3 +342,45 @@ You need to:
 * **Java JDBC Program**: Using `CallableStatement` to call the procedure.
 
 ---
+
+
+
+
+select max(substr(flight_id,4,4)) from flight
+where flight_name='AIR INDIA';
+
+
+
+
+
+CREATE OR REPLACE PROCEDURE generate_flight_id(
+    p_flight_name IN  VARCHAR2,
+    p_flight_id   OUT VARCHAR2
+)
+IS
+    v_prefix  VARCHAR2(3);
+    v_max_no  NUMBER;
+    
+BEGIN
+    -- TODO: Extract prefix from p_flight_name (remove spaces, take first 3 chars, uppercase)
+    SELECT SUBSTR(p_flight_name,1,3) INTO v_prefix FROM DUAL;
+    -- TODO: Check for existing flights with that prefix
+    -- TODO: Find max numeric part and increment, or start at 1 if none found
+    SELECT MAX(SUBSTR(FLIGHT_ID,4,4)) INTO v_max_no FROM FLIGHT
+        WHERE FLIGHT_NAME=p_flight_name;
+        IF v_max_no IS NULL THEN
+            --First flight
+            p_flight_id:=v_prefix||'0001';
+        ELSE
+            v_max_no:=v_max_no+1;
+            IF v_max_no<10 THEN
+                p_flight_id:=v_prefix||'000'||v_max_no;
+            ELSIF v_max_no<100 THEN
+                p_flight_id:=v_prefix||'00'||v_max_no;
+            ELSIF v_max_no<1000 THEN
+                p_flight_id:=v_prefix||'0'||v_max_no;
+            END IF;
+        END IF;
+    -- TODO: Build p_flight_id as PREFIX || LPAD(number, 4, '0')
+END;
+/
