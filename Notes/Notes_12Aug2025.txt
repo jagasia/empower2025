@@ -798,13 +798,46 @@ referring to my sample product dao code,
 
 create a maven project for customer dao.
 
-username 	(string)	primary key
-password		(string)
-email		(string)
-phone		(string)
-
 
 create a table in oracle.
+
+
+
+
+CREATE TABLE CUSTOMER (
+    CUSTOMER_ID   NUMBER PRIMARY KEY,
+    CUSTOMER_NAME VARCHAR2(50) NOT NULL,
+    EMAIL         VARCHAR2(100),
+    PHONE         VARCHAR2(15),
+    CITY          VARCHAR2(50)
+);
+
+
+
+
+INSERT ALL
+    INTO CUSTOMER (CUSTOMER_ID, CUSTOMER_NAME, EMAIL, PHONE, CITY) VALUES (1, 'John Smith',    'john.smith@example.com',   '9876543210', 'New York')
+    INTO CUSTOMER (CUSTOMER_ID, CUSTOMER_NAME, EMAIL, PHONE, CITY) VALUES (2, 'Alice Johnson', 'alice.johnson@example.com','9876500001', 'Los Angeles')
+    INTO CUSTOMER (CUSTOMER_ID, CUSTOMER_NAME, EMAIL, PHONE, CITY) VALUES (3, 'Robert Brown',  'robert.brown@example.com', '9876500002', 'Chicago')
+    INTO CUSTOMER (CUSTOMER_ID, CUSTOMER_NAME, EMAIL, PHONE, CITY) VALUES (4, 'Maria Garcia',  'maria.garcia@example.com', '9876500003', 'Houston')
+    INTO CUSTOMER (CUSTOMER_ID, CUSTOMER_NAME, EMAIL, PHONE, CITY) VALUES (5, 'David Wilson',  'david.wilson@example.com', '9876500004', 'Phoenix')
+    INTO CUSTOMER (CUSTOMER_ID, CUSTOMER_NAME, EMAIL, PHONE, CITY) VALUES (6, 'Linda Martinez','linda.martinez@example.com','9876500005', 'Philadelphia')
+    INTO CUSTOMER (CUSTOMER_ID, CUSTOMER_NAME, EMAIL, PHONE, CITY) VALUES (7, 'James Taylor',  'james.taylor@example.com', '9876500006', 'San Antonio')
+    INTO CUSTOMER (CUSTOMER_ID, CUSTOMER_NAME, EMAIL, PHONE, CITY) VALUES (8, 'Barbara Lee',   'barbara.lee@example.com',  '9876500007', 'San Diego')
+    INTO CUSTOMER (CUSTOMER_ID, CUSTOMER_NAME, EMAIL, PHONE, CITY) VALUES (9, 'Michael Harris','michael.harris@example.com','9876500008','Dallas')
+    INTO CUSTOMER (CUSTOMER_ID, CUSTOMER_NAME, EMAIL, PHONE, CITY) VALUES (10,'Elizabeth Clark','elizabeth.clark@example.com','9876500009','San Jose')
+    INTO CUSTOMER (CUSTOMER_ID, CUSTOMER_NAME, EMAIL, PHONE, CITY) VALUES (11,'William Lewis', 'william.lewis@example.com','9876500010', 'Austin')
+    INTO CUSTOMER (CUSTOMER_ID, CUSTOMER_NAME, EMAIL, PHONE, CITY) VALUES (12,'Patricia Walker','patricia.walker@example.com','9876500011','Jacksonville')
+    INTO CUSTOMER (CUSTOMER_ID, CUSTOMER_NAME, EMAIL, PHONE, CITY) VALUES (13,'Christopher Hall','christopher.hall@example.com','9876500012','Fort Worth')
+    INTO CUSTOMER (CUSTOMER_ID, CUSTOMER_NAME, EMAIL, PHONE, CITY) VALUES (14,'Jennifer Allen','jennifer.allen@example.com','9876500013', 'Columbus')
+    INTO CUSTOMER (CUSTOMER_ID, CUSTOMER_NAME, EMAIL, PHONE, CITY) VALUES (15,'Matthew Young', 'matthew.young@example.com','9876500014', 'Charlotte')
+    INTO CUSTOMER (CUSTOMER_ID, CUSTOMER_NAME, EMAIL, PHONE, CITY) VALUES (16,'Sarah King',    'sarah.king@example.com',   '9876500015', 'San Francisco')
+    INTO CUSTOMER (CUSTOMER_ID, CUSTOMER_NAME, EMAIL, PHONE, CITY) VALUES (17,'Daniel Wright', 'daniel.wright@example.com','9876500016', 'Indianapolis')
+    INTO CUSTOMER (CUSTOMER_ID, CUSTOMER_NAME, EMAIL, PHONE, CITY) VALUES (18,'Nancy Scott',   'nancy.scott@example.com',  '9876500017', 'Seattle')
+    INTO CUSTOMER (CUSTOMER_ID, CUSTOMER_NAME, EMAIL, PHONE, CITY) VALUES (19,'Mark Green',    'mark.green@example.com',   '9876500018', 'Denver')
+    INTO CUSTOMER (CUSTOMER_ID, CUSTOMER_NAME, EMAIL, PHONE, CITY) VALUES (20,'Susan Adams',   'susan.adams@example.com',  '9876500019', 'Washington')
+SELECT * FROM dual;
+
 
 
 
