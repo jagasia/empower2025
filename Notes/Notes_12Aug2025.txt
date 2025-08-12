@@ -233,3 +233,114 @@ public class AppCallableStatement {
 
 
 
+Kindly refer my example code. But create a slightly different stored procedure in oracle
+
+Write jdbc code to use callable statement and call the procedure and display the output
+
+Handson:
+-----------
+-----------
+
+Got it ✅ — I’ll give you the **full JDBC hands-on task**, but **without** providing the Java code.
+Learners will be writing the JDBC `CallableStatement` part themselves.
+
+Here’s the revised **JDBC-focused hands-on**:
+
+---
+
+## **Hands-on: Generating Flight IDs Using JDBC CallableStatement**
+
+### **Part 1 – Create the FLIGHT Table**
+
+```sql
+CREATE TABLE FLIGHT (
+    FLIGHT_ID   VARCHAR2(10) PRIMARY KEY,
+    FLIGHT_NAME VARCHAR2(50) NOT NULL
+);
+
+-- Insert 20 sample flights following first-three-letter rule
+INSERT ALL
+    INTO FLIGHT (FLIGHT_ID, FLIGHT_NAME) VALUES ('AIR0001', 'AIR INDIA')
+    INTO FLIGHT (FLIGHT_ID, FLIGHT_NAME) VALUES ('AIR0002', 'AIR INDIA')
+    INTO FLIGHT (FLIGHT_ID, FLIGHT_NAME) VALUES ('IND0001', 'INDIGO')
+    INTO FLIGHT (FLIGHT_ID, FLIGHT_NAME) VALUES ('IND0002', 'INDIGO')
+    INTO FLIGHT (FLIGHT_ID, FLIGHT_NAME) VALUES ('SPI0001', 'SPICEJET')
+    INTO FLIGHT (FLIGHT_ID, FLIGHT_NAME) VALUES ('SPI0002', 'SPICEJET')
+    INTO FLIGHT (FLIGHT_ID, FLIGHT_NAME) VALUES ('VIS0001', 'VISTARA')
+    INTO FLIGHT (FLIGHT_ID, FLIGHT_NAME) VALUES ('VIS0002', 'VISTARA')
+    INTO FLIGHT (FLIGHT_ID, FLIGHT_NAME) VALUES ('GOA0001', 'GO AIR')
+    INTO FLIGHT (FLIGHT_ID, FLIGHT_NAME) VALUES ('GOA0002', 'GO AIR')
+    INTO FLIGHT (FLIGHT_ID, FLIGHT_NAME) VALUES ('AIR0003', 'AIR INDIA')
+    INTO FLIGHT (FLIGHT_ID, FLIGHT_NAME) VALUES ('IND0003', 'INDIGO')
+    INTO FLIGHT (FLIGHT_ID, FLIGHT_NAME) VALUES ('SPI0003', 'SPICEJET')
+    INTO FLIGHT (FLIGHT_ID, FLIGHT_NAME) VALUES ('VIS0003', 'VISTARA')
+    INTO FLIGHT (FLIGHT_ID, FLIGHT_NAME) VALUES ('GOA0003', 'GO AIR')
+    INTO FLIGHT (FLIGHT_ID, FLIGHT_NAME) VALUES ('AIR0004', 'AIR INDIA')
+    INTO FLIGHT (FLIGHT_ID, FLIGHT_NAME) VALUES ('IND0004', 'INDIGO')
+    INTO FLIGHT (FLIGHT_ID, FLIGHT_NAME) VALUES ('SPI0004', 'SPICEJET')
+    INTO FLIGHT (FLIGHT_ID, FLIGHT_NAME) VALUES ('VIS0004', 'VISTARA')
+    INTO FLIGHT (FLIGHT_ID, FLIGHT_NAME) VALUES ('GOA0004', 'GO AIR')
+SELECT * FROM dual;
+```
+
+---
+
+### **Part 2 – Create the Procedure**
+
+Create a stored procedure `generate_flight_id` in Oracle that:
+
+1. Accepts **IN** parameter `p_flight_name` (flight name).
+2. Returns **OUT** parameter `p_flight_id` (generated flight ID).
+3. Generates the flight ID as:
+
+   * Prefix: First three letters of the flight name (spaces removed, converted to uppercase).
+   * Number: Next available 4-digit number (`0001` if no existing flight with that prefix).
+4. Does **not insert** into the table, only returns the generated ID.
+
+**Procedure Skeleton (to be completed by learner):**
+
+```sql
+CREATE OR REPLACE PROCEDURE generate_flight_id(
+    p_flight_name IN  VARCHAR2,
+    p_flight_id   OUT VARCHAR2
+)
+IS
+    v_prefix  VARCHAR2(3);
+    v_max_no  NUMBER;
+BEGIN
+    -- TODO: Extract prefix from p_flight_name (remove spaces, take first 3 chars, uppercase)
+    -- TODO: Check for existing flights with that prefix
+    -- TODO: Find max numeric part and increment, or start at 1 if none found
+    -- TODO: Build p_flight_id as PREFIX || LPAD(number, 4, '0')
+END;
+/
+```
+
+---
+
+### **Part 3 – JDBC Task for Learners**
+
+You need to:
+
+1. Write a **Java JDBC program** that:
+
+   * Connects to the Oracle database.
+   * Calls `generate_flight_id` using `CallableStatement`.
+   * Passes a flight name (e.g., `"AIR INDIA"`) as the input parameter.
+   * Retrieves the generated flight ID from the output parameter.
+   * Prints the generated flight ID.
+2. Ensure the JDBC program:
+
+   * Uses the correct **Oracle JDBC driver** (`ojdbc7` for Oracle 11g or `ojdbc11` for 19c).
+   * Closes all resources properly.
+   * Handles `SQLException`.
+
+---
+
+### **Part 4 – Deliverables**
+
+* **SQL Script**: Table creation + insert statements.
+* **Stored Procedure**: `generate_flight_id`.
+* **Java JDBC Program**: Using `CallableStatement` to call the procedure.
+
+---
