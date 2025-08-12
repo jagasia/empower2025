@@ -384,3 +384,126 @@ BEGIN
     -- TODO: Build p_flight_id as PREFIX || LPAD(number, 4, '0')
 END;
 /
+
+
+
+------------YOU NEED TO COMPLETE THIS HANDSON-----------
+
+Statement
+PreparedStatement
+CallableStatement
+
+
+
+execute			void	any sql statement
+executeUpdate		int	no of row affected 	DML
+executeQuery		ResultSet		SELECT
+
+
+
+Basically result set is read only
+	writable
+
+result set is forward only
+
+
+A result set is forward only, read only 		by default
+
+scrollable	is opposite to forward-only
+
+
+
+
+package com.empower.demo;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class AppScrollable {
+
+	public static void main(String[] args) throws SQLException {
+    	String url="jdbc:oracle:thin:@localhost:1521:XE";
+		String username="sys as sysdba";
+		String password="password";
+		Connection con = DriverManager.getConnection(url, username, password);
+		Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+//		Statement st = con.createStatement();
+		ResultSet rs = st.executeQuery("SELECT * FROM PRODUCT");
+		rs.afterLast();
+		while(rs.previous()) {
+			System.out.println(rs.getString(2));
+		}
+
+	}
+
+}
+
+
+
+Handson
+----------
+Try this scrollable result set in prepared statement
+
+
+
+
+
+database metadata
+resultset metadata
+dao
+
+
+--------------------------
+what is metadata?
+	data about itself
+
+using database metadata, we can get information about the database
+
+		Connection con = DriverManager.getConnection(url, username, password);
+		DatabaseMetaData dbmd = con.getMetaData();
+		System.out.println(dbmd.getDatabaseProductName());
+		System.out.println(dbmd.getDatabaseProductVersion());
+		System.out.println(dbmd.getDriverName());
+
+
+
+ResultSetMetaData
+
+
+
+CRUD		
+	create		INSERT
+	read		SELECT
+	update		UPDATE
+	delete		DELETE
+
+
+
+Product.java
+	id		Long
+	name		String
+	category		String
+	price		Double
+
+
+ProductDao.java		interface
+
+ProductDaoImpl.java	class implements above interface
+	addProduct()
+	updateProduct()
+	deleteProduct()
+	findProductById()
+	retrieveAllProducts()
+
+
+
+
+Task:
+
+Use 
+	Data base metadata
+	Result set metadata
+

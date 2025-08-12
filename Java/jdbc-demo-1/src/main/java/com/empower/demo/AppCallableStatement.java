@@ -25,6 +25,7 @@ public class AppCallableStatement {
 		Double price;
 		
 		st.execute();
+		
 		name=st.getString(2);
 		category=st.getString(3);
 		price=st.getDouble(4);
