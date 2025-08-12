@@ -841,3 +841,237 @@ SELECT * FROM dual;
 
 
 
+
+===================
+=================
+
+================
+
+
+
+
+---
+
+## **1. Fundamentals (Fundas)**
+
+* **Data types & variables** (`int`, `double`, `boolean`, `char`, `String`)
+* **Operators** (arithmetic, relational, logical, ternary)
+* **Type casting**
+* **Basic input/output** (`Scanner`, `System.out`)
+
+---
+
+## **2. Control Statements**
+
+* **Decision making**: `if`, `if-else`, `switch`
+* **Loops**: `for`, `while`, `do-while`
+* **Loop control**: `break`, `continue`, **labels**
+
+---
+
+## **3. Arrays**
+
+* **1D arrays**: declaration, initialization, traversal
+* **2D arrays**: nested loops
+* **Enhanced for loop**
+* **Array utility methods** (`Arrays.sort`, `Arrays.copyOf`)
+
+---
+
+## **4. Strings**
+
+* String creation (`new String()` vs literals)
+* **Immutable nature**
+* Common methods: `.length()`, `.substring()`, `.indexOf()`, `.equals()`, `.split()`
+* **StringBuilder / StringBuffer** for mutable strings
+
+---
+
+## **5. OOP Concepts**
+
+* **Class & object creation**
+* **Constructors** (default, parameterized, overloading)
+* **`this` keyword**
+* **Encapsulation** (getters/setters)
+* **Inheritance** (`extends`)
+* **Polymorphism** (method overloading/overriding)
+* **Abstraction** (`abstract class`, `interface`)
+* **`super` keyword**
+* **`final` keyword**
+
+---
+
+## **6. Exception Handling**
+
+* **try-catch-finally**
+* **Multiple catch blocks**
+* **throw** vs **throws**
+* **Custom exceptions**
+
+---
+
+## **7. Collections**
+
+* **List**, **Set**, **Map** interfaces
+* Implementations: `ArrayList`, `HashSet`, `HashMap`, `TreeMap`
+* Iteration: `for-each`, `Iterator`
+* Utility class: `Collections`
+
+---
+
+## **8. Collections with Generics**
+
+* Creating type-safe collections
+* Generic methods
+* Generic classes
+
+---
+
+## **9. I/O Streams**
+
+* **Byte streams**: `FileInputStream`, `FileOutputStream`
+* **Character streams**: `FileReader`, `FileWriter`
+* **Buffered streams**
+* **Serialization / Deserialization**
+
+---
+
+## **10. Multithreading**
+
+* Thread creation (`Thread` class, `Runnable` interface)
+* Thread lifecycle
+* Synchronization
+* Thread-safe collections
+
+---
+
+## **11. JDBC (DAO Layer CRUD)**
+
+* JDBC steps: Load driver, connect, prepare statement, execute, close
+* DAO pattern structure:
+
+  * **Model**: `Customer`
+  * **DAO interface**
+  * **DAO implementation** (CRUD operations)
+* Use **PreparedStatement**
+* Use **CallableStatement** for stored procedures
+* Scrollable and updatable result sets
+
+---
+
+
+
+new oracle.jdbc.driver.OracleDriver();
+new oracle.jdbc.OracleDriver();
+Driver driver=new com.mysql.jdbc.Driver();
+
+con.close();		//forgotten
+con.deregister(driver);	//solved the problem
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import java.io.Serializable;
+
+public class Product implements Serializable {
+	private Long id;
+	private String name;
+	private String category;
+	private Double price;
+	public Product() {
+	
+	}
+	public Product(Long id, String name, String category, Double price) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.category = category;
+		this.price = price;
+	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	public Double getPrice() {
+		return price;
+	}
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", name=" + name + ", category=" + category + ", price=" + price + "]";
+	}
+	
+	
+}
+
+
+
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+
+public class App {
+
+	public static void main(String[] args) throws FileNotFoundException, IOException {
+		File f=new File("abhishek");
+		Product product=new Product(1L, "Pen", "Stationery", 15.0);
+		
+		ObjectOutputStream oos=new ObjectOutputStream(new FileOutputStream(f));
+		oos.writeObject(product);
+		oos.flush();
+		oos.close();
+		
+	}
+
+}
+
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+
+public class App2 {
+
+	public static void main(String[] args) throws FileNotFoundException, IOException, ClassNotFoundException {
+		ObjectInputStream ois=new ObjectInputStream(new FileInputStream("abhishek"));
+		Product p= (Product) ois.readObject();
+		System.out.println(p);
+	}
+
+}
+
+
+
