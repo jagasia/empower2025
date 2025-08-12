@@ -507,3 +507,304 @@ Use
 	Data base metadata
 	Result set metadata
 
+
+
+Steps:
+1) create a maven project
+	group id:	com.empower.demo
+	artifact id: product-dao-demo
+	package: same as group id
+2) pom.xml
+
+		<dependency>
+			<groupId>com.oracle.ojdbc</groupId>
+			<artifactId>ojdbc8</artifactId>
+			<version>19.3.0.0</version>
+		</dependency>
+
+3) create Product.java
+
+PRODUCT table has 4 columns, 
+now, our Product class will have 4 properties
+
+package com.empower.demo.model;
+
+public class Product {
+	private Long id;
+	private String name;
+	private String category;
+	private Double price;
+	public Product() {
+	
+	}
+	public Product(Long id, String name, String category, Double price) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.category = category;
+		this.price = price;
+	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	public Double getPrice() {
+		return price;
+	}
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", name=" + name + ", category=" + category + ", price=" + price + "]";
+	}
+	
+	
+}
+
+
+
+
+4) ProductDaoImpl.java
+this class will contain
+CRUD coding
+
+package com.empower.demo.model;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+public class ProductDaoImpl implements ProductDao {
+	
+	private Connection retrieveConn() throws SQLException {
+		Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","sys as sysdba","password");
+		return con;
+	}
+	
+	@Override
+	public int create(Product product) throws SQLException {
+		//insert
+		Connection con = retrieveConn();
+		PreparedStatement st = con.prepareStatement("INSERT INTO PRODUCT VALUES(?,?,?,?)");
+		st.setLong(1, product.getId());
+		st.setString(2, product.getName());
+		st.setString(3, product.getCategory());
+		st.setDouble(4, product.getPrice());
+		
+		int no=st.executeUpdate();
+		con.close();
+		return no;
+	}
+	
+	@Override
+	public List<Product> read() throws SQLException {
+		//select all product
+		Connection con = retrieveConn();
+		Statement st = con.createStatement();
+		ResultSet rs = st.executeQuery("SELECT * FROM PRODUCT");
+		List<Product> products=new ArrayList<>();
+		while(rs.next()) {
+			Product product=new Product(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getDouble(4));
+			products.add(product);
+		}
+		con.close();
+		return products;
+	}
+	@Override
+	public Product read(Long id) throws SQLException {
+		//select product where id=?
+		Connection con = retrieveConn();
+		PreparedStatement st = con.prepareStatement("SELECT * FROM PRODUCT WHERE ID=?");
+		st.setLong(1, id);
+		
+		ResultSet rs = st.executeQuery();
+		Product product=null;
+		if(rs.next()) {
+			product=new Product(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getDouble(4));
+		}
+		con.close();
+		return product;
+	}
+	@Override
+	public int update(Product product) throws SQLException {
+		Connection con = retrieveConn();
+		PreparedStatement st = con.prepareStatement("UPDATE PRODUCT SET NAME=?, CATEGORY=?, PRICE=? WHERE ID=?");
+
+		st.setString(1, product.getName());
+		st.setString(2, product.getCategory());
+		st.setDouble(3, product.getPrice());
+		st.setLong(4, product.getId());
+		
+		int no=st.executeUpdate();
+		con.close();
+		return no;
+	}
+	@Override
+	public int delete(Long id) throws SQLException {
+		Connection con = retrieveConn();
+		PreparedStatement st = con.prepareStatement("DELETE FROM PRODUCT WHERE ID=?");
+
+		st.setLong(1, id);
+		
+		int no=st.executeUpdate();
+		con.close();
+		return no;
+	}
+	
+}
+
+
+
+
+5) Extract interface from the impl code
+
+ProductDao.java
+
+package com.empower.demo.model;
+
+import java.sql.SQLException;
+import java.util.List;
+
+public interface ProductDao {
+
+	int create(Product product) throws SQLException;
+
+	List<Product> read() throws SQLException;
+
+	Product read(Long id) throws SQLException;
+
+	int update(Product product) throws SQLException;
+
+	int delete(Long id) throws SQLException;
+
+}
+
+
+package com.empower.demo;
+
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Scanner;
+
+import com.empower.demo.model.Product;
+import com.empower.demo.model.ProductDao;
+import com.empower.demo.model.ProductDaoImpl;
+
+/**
+ * Hello world!
+ *
+ */
+public class App 
+{
+	
+	private static Product getProductDetails() {
+		Scanner sc=new Scanner(System.in);
+		
+		System.out.println("Id:");
+		Long id=sc.nextLong();
+		System.out.println("Name:");
+		String name=sc.nextLine();
+		if(name.equals(""))
+			name=sc.nextLine();
+		System.out.println("Category:");
+		String category=sc.nextLine();
+		System.out.println("Price:");
+		Double price=sc.nextDouble();
+		Product product=new Product(id, name, category, price);
+		return product;
+		
+	}
+	
+    public static void main( String[] args ) throws SQLException
+    {
+        Scanner sc=new Scanner(System.in);
+        ProductDao pdao=new ProductDaoImpl();
+        Product product=null;
+        int no=0;
+        Long id=0L;
+        loop:
+        do {
+            System.out.println("1) Adding a Product\r\n"
+            		+ "2) Updating a Product\r\n"
+            		+ "3) Deleting a Product\r\n"
+            		+ "4) View all Products\r\n"
+            		+ "5) Find Product by Id\r\n"
+            		+ "x) Exit");
+            int choice=sc.nextInt();
+            switch(choice) {
+            case 1:		//add
+            	product=getProductDetails();
+            	no = pdao.create(product);
+            	System.out.println(no+" row(s) inserted");
+            	break;
+            case 2:		//update
+            	product=getProductDetails();
+            	no = pdao.update(product);
+            	System.out.println(no+" row(s) updated");
+            	break;
+            case 3:		//delete
+            	System.out.println("Enter the id of the product to delete:");
+            	id=sc.nextLong();
+            	no=pdao.delete(id);
+            	System.out.println(no+" row(s) updated");
+            	break;
+            case 4:		//all
+            	List<Product> products = pdao.read();
+            	for(Product p: products) {
+            		System.out.println(p);
+            	}
+            	break;
+            case 5:		//by id
+            	System.out.println("Enter the id of the product to find:");
+            	id=sc.nextLong();
+            	product=pdao.read(id);
+            	System.out.println(product);
+            	break;
+            default:
+            	break loop;
+            }
+        }while(true);
+    }
+}
+
+
+
+
+
+Task:
+-------
+
+referring to my sample product dao code,
+
+create a maven project for customer dao.
+
+username 	(string)	primary key
+password		(string)
+email		(string)
+phone		(string)
+
+
+create a table in oracle.
+
+
+
