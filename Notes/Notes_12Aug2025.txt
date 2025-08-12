@@ -241,10 +241,8 @@ Handson:
 -----------
 -----------
 
-Got it ✅ — I’ll give you the **full JDBC hands-on task**, but **without** providing the Java code.
+**JDBC hands-on task**, but **without** providing the Java code.
 Learners will be writing the JDBC `CallableStatement` part themselves.
-
-Here’s the revised **JDBC-focused hands-on**:
 
 ---
 
