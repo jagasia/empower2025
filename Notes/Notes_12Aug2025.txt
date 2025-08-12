@@ -147,3 +147,89 @@ Task:
 Use statement, prepared statement and execute SELECT queries
 
 refer to my code
+-------------------------------------
+how to call procedures and functions using
+	CallableStatement
+
+
+
+Demo:
+first create a procedure in oracle.
+
+
+-- Assuming the PRODUCT table is defined as:
+-- PRODUCT(ID NUMBER PRIMARY KEY, NAME VARCHAR2(100), CATEGORY VARCHAR2(50), PRICE NUMBER(10,2))
+
+CREATE OR REPLACE PROCEDURE get_product_details(
+    p_id        IN  PRODUCT.ID%TYPE,
+    p_name      OUT PRODUCT.NAME%TYPE,
+    p_category  OUT PRODUCT.CATEGORY%TYPE,
+    p_price     OUT PRODUCT.PRICE%TYPE
+)
+IS
+BEGIN
+    SELECT NAME, CATEGORY, PRICE
+    INTO   p_name, p_category, p_price
+    FROM   PRODUCT
+    WHERE  ID = p_id;
+
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        p_name     := NULL;
+        p_category := NULL;
+        p_price    := NULL;
+        DBMS_OUTPUT.PUT_LINE('No product found for ID ' || p_id);
+END;
+/
+
+
+
+
+now, in jdbc program, we call this procedure
+
+
+
+
+package com.empower.demo;
+
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.SQLType;
+import java.sql.Types;
+import java.util.Scanner;
+
+public class AppCallableStatement {
+
+	public static void main(String[] args) throws SQLException {
+		Scanner sc=new Scanner(System.in);
+		int id=sc.nextInt();
+		Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","sys as sysdba","password");
+		CallableStatement st = con.prepareCall("call get_product_details(?,?,?,?)");
+		st.setInt(1, id);
+		
+		st.registerOutParameter(2, Types.VARCHAR);
+		st.registerOutParameter(3, Types.VARCHAR);
+		st.registerOutParameter(4, Types.NUMERIC);
+		
+		String name, category;
+		Double price;
+		
+		st.execute();
+		
+		name=st.getString(2);
+		category=st.getString(3);
+		price=st.getDouble(4);
+		
+		System.out.println(name);
+		System.out.println(category);
+		System.out.println(price);
+		
+		
+	}
+
+}
+
+
+
