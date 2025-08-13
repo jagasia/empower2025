@@ -1,0 +1,38 @@
+package com.empower.demo;
+
+public class Mathematics {
+	int no1;
+	int no2;
+	float result;
+	public int getNo1() {
+		return no1;
+	}
+	public void setNo1(int no1) {
+		this.no1 = no1;
+	}
+	public int getNo2() {
+		return no2;
+	}
+	public void setNo2(int no2) {
+		this.no2 = no2;
+	}
+	public float getResult() {
+		return result;
+	}
+	public void setResult(float result) {
+		this.result = result;
+	}
+	
+	public void add() {
+		result=no1+no2;
+	}
+	public void subtract() {
+		result=no1-no2;
+	}
+	public void multiply() {
+		result=no1*no2;
+	}
+	public void divide() {
+		result=(float)no1/no2;
+	}
+}
