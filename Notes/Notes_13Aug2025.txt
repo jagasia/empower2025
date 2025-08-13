@@ -1,0 +1,121 @@
+What is Testing, Need of Testing, Types of Testings, What is J-Unit, Need of J-Unit, Programming with J-Unit
+
+What is Testing?
+	checking the performance
+	identifying the bugs
+	checking if it passes test cases
+	check if the requirements are met
+	comparing desired vs actual working
+	checking the quality
+	testng security features
+	checking functional and non functional requirements met or not
+
+test suite contains test cases
+
+test case
+	inputs 
+	expected output
+
+normal input
+abnormal input
+boundary condition
+
+
+
+Application Under Test
+Software under test
+Class Under Test
+
+
+
+Steps:
+--------
+create a maven project
+	junit-demo-1
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.13.2</version>
+      <scope>test</scope>
+    </dependency>
+
+
+
+aut/sut
+
+i am going to create a class that will be tested.
+
+
+
+
+package com.empower.demo;
+
+public class Mathematics {
+	public int sum(int i, int j) {
+		return i+2+j;
+	}
+	
+	public int difference(int i, int j) {
+		return i-2-j;
+	}
+	
+	public int product(int i, int j) {
+		return i*j;
+	}
+}
+
+
+
+
+in src/test/java
+
+we create the test case
+
+right click the package inside this folder, 
+	new	->		junit test case
+
+ensure that 4 or later version i chosen
+
+i chose 4
+
+package com.empower.demo;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class MathematicsTest {
+	Mathematics maths=new Mathematics();
+
+	@Test
+	public void testSum() {
+		int actual = maths.sum(2, 3);
+		int expected=5;
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testDifference() {
+		int actual = maths.difference(2, 3);
+		int expected=-1;
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testProduct() {
+		int actual = maths.product(2, 3);
+		int expected=6;
+		assertEquals(expected, actual);
+	}
+
+}
+
+
+
+
+Right click the project
+	run as
+		junit test
+
+
