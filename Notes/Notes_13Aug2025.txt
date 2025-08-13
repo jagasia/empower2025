@@ -119,3 +119,64 @@ Right click the project
 		junit test
 
 
+
+
+
+
+
+To run the junit from a main method. (java code)
+
+package com.empower.demo;
+
+import org.junit.runner.JUnitCore;
+import org.junit.runner.Result;
+import org.junit.runner.notification.Failure;
+
+public class App {
+
+	public static void main(String[] args) {
+		Result result = JUnitCore.runClasses(MathematicsTest.class);
+		for(Failure failure:result.getFailures()) {
+			System.out.println(failure);
+		}
+	}
+
+}
+
+
+
+life cycle methods
+
+@BeforeClass
+@Before
+@AfterClass
+@After
+
+--------------------------------------------
+@Ignore
+	to skip this test
+
+
+Introducing
+	Test Suite
+
+what is test suite?
+	test suite has test cases.
+	in juit, a test case is a test class.
+
+package com.empower.demo;
+
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
+
+@RunWith(Suite.class)
+@SuiteClasses({MathematicsTest1.class, MathematicsTest3.class})
+public class MyTestSuite {
+
+}
+
+
+Task:
+Create few test classes and then include few in test suite and run the suite.
+
