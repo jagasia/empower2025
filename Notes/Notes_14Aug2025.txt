@@ -297,3 +297,110 @@ auto - DI
 	byType
 	byName
 
+Task:
+
+use autowire in your configuration.
+
+
+in pom.xml
+inside properties tag:-
+
+<maven.compiler.source>21</maven.compiler.source>
+  <maven.compiler.target>21</maven.compiler.target>
+
+
+
+
+
+---------------------------------------
+Annotations over XML
+----------------------------
+
+
+package com.empower.demo;
+
+public interface Audio {
+	void play();
+}
+
+
+package com.empower.demo;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class Jbl implements Audio {
+
+	@Override
+	public void play() {
+		System.out.println("Jbl makes good sound");
+	}
+
+}
+
+
+
+
+package com.empower.demo;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
+public class Car {
+	@Autowired
+	Audio audio;
+
+	public Car() {
+		super();
+	}
+
+	public Car(Audio audio) {
+		super();
+		this.audio = audio;
+	}
+
+	public Audio getAudio() {
+		return audio;
+	}
+
+	public void setAudio(Audio audio) {
+		this.audio = audio;
+	}
+	
+	public void playMusic() {
+		audio.play();
+	}
+}
+
+
+package com.empower.demo;
+
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+/**
+ * Hello world!
+ *
+ */
+public class App 
+{
+    public static void main( String[] args )
+    {
+//     ClassPathXmlApplicationContext   
+    	AnnotationConfigApplicationContext ctx=new AnnotationConfigApplicationContext();
+    	ctx.scan("com");
+    	ctx.refresh();
+    	
+    	Car car = ctx.getBean(Car.class);
+    	car.playMusic();
+    }
+}
+
+
+
+Task:
+
+create the beans using annotation
+and get bean in App.java main method
+
