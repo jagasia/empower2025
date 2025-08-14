@@ -11,7 +11,7 @@
 		<property name="lastName" value="Khera" />		
 	</bean>
 	
-	<bean id="b1" class="com.empower.demo.beans.Book">
+	<bean id="b1" class="com.empower.demo.beans.Book" scope="prototype">
 		<property name="isbn" value="201"></property>
 		<property name="title" value="You can win" />
 		<property name="author" ref="a1" />

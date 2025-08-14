@@ -276,3 +276,24 @@ Customer
 	name
 	address			(Address)
 
+-----------------------
+So far
+
+scope:-
+	singleton
+	prototype
+
+
+dependency injection:-
+	constructor based
+	setter based 
+
+autowiring:-
+---------------
+is a feature of spring ioc container, that automatically detects the eligible bean and inject
+
+auto - DI 
+
+	byType
+	byName
+
