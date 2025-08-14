@@ -404,3 +404,103 @@ Task:
 create the beans using annotation
 and get bean in App.java main method
 
+package com.empower.demo;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+
+@Component
+public class Car {
+	@Autowired
+	@Qualifier("sony")
+	Audio audio;
+
+	public Car() {
+		super();
+	}
+
+	public Car(Audio audio) {
+		super();
+		this.audio = audio;
+	}
+
+	public Audio getAudio() {
+		return audio;
+	}
+
+	public void setAudio(Audio audio) {
+		this.audio = audio;
+	}
+	
+	public void playMusic() {
+		audio.play();
+	}
+}
+
+
+
+
+-------------------
+we will start using Configuration class.
+
+package com.empower.demo;
+
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+@ComponentScan(basePackages = {"com","com.empower"})
+public class MyConfiguration {
+
+}
+
+
+now in App main, we remove following lines:
+
+//ctx.scan("com");
+//ctx.refresh();
+
+
+   	AnnotationConfigApplicationContext ctx=new AnnotationConfigApplicationContext(MyConfiguration.class);
+
+
+
+-----------------------------------
+How to mark a class as a Bean?
+	ans:
+		the class is annotated with @Component annotation.
+
+there is another way.
+	@Bean annotation on a method that returns object of a class
+
+		JdbcTemplate
+
+	@Bean
+	public JdbcTemplate jt(){
+		return .....;
+	}
+
+
+
+
+
+
+
+
+package com.empower.demo;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+@ComponentScan(basePackages = {"com","com.empower"})
+public class MyConfiguration {
+
+	@Bean
+	public Sony sony() {
+		return new Sony();
+	}
+}
+

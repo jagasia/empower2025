@@ -11,9 +11,9 @@ public class App
     public static void main( String[] args )
     {
 //     ClassPathXmlApplicationContext   
-    	AnnotationConfigApplicationContext ctx=new AnnotationConfigApplicationContext();
-    	ctx.scan("com");
-    	ctx.refresh();
+    	AnnotationConfigApplicationContext ctx=new AnnotationConfigApplicationContext(MyConfiguration.class);
+//    	ctx.scan("com");
+//    	ctx.refresh();
     	
     	Car car = ctx.getBean(Car.class);
     	car.playMusic();
