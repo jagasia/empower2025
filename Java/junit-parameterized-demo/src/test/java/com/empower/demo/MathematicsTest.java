@@ -25,6 +25,10 @@ public class MathematicsTest {
 
 	@Test
 	public void addTest() {
+//		Runtime rt=new Runtime();		//error
+		Runtime rt=Runtime.getRuntime();		//correct
+		
+		
 		maths.setNo1(no1);
 		maths.setNo2(no2);
 		maths.add();

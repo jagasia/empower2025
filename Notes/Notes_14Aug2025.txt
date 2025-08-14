@@ -1,0 +1,151 @@
+Regex
+-------
+we can 
+	check if a given string matches a pattern or not	(true/false)
+	extract the portions of a string that matches a pattern
+
+
+Demo:
+get an input string from the user
+and extract only mobile numbers from that string.
+
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class App {
+
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		String input=sc.nextLine();
+		//a mobile number should start with 6/7/8/9
+		//and must be only numbers
+		//10 digits only
+		
+//		String pattern="[6-9]\\d{9}";
+		Pattern p=Pattern.compile("[6-9][0-9]{9}");
+		Matcher matcher = p.matcher(input);
+		while(matcher.find()) {
+			System.out.println(matcher.group());
+		}
+	}
+
+}
+
+
+
+------------------------------------------------------------------
+Spring framework
+---------------------
+xml based configuration
+	to configure beans
+
+annotation based configuration
+
+Demo:
+-------
+Create xml based configuration.
+
+1) create a maven project "quickstart" archetype.
+
+2) pom.xml
+<!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-context</artifactId>
+    <version>6.2.9</version>
+</dependency>
+
+3) create a bean class
+
+package com.empower.demo;
+
+public class Book {
+	private Long id;
+	private String title;
+	private String author;
+	private Double price;
+	public Book() {
+		super();
+	}
+	public Book(Long id, String title, String author, Double price) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.author = author;
+		this.price = price;
+	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public String getAuthor() {
+		return author;
+	}
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+	public Double getPrice() {
+		return price;
+	}
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+	@Override
+	public String toString() {
+		return "Book [id=" + id + ", title=" + title + ", author=" + author + ", price=" + price + "]";
+	}
+}
+
+
+
+4) create a configuration file. this time it is xml file
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- bean definitions here -->
+	<bean id="b1" class="com.empower.demo.Book">
+		<property name="id" value="200" />
+		<property name="title" value="I can win" />
+		<property name="author" value="Jag" />
+		<property name="price" value="120.0" />		
+	</bean>
+</beans>
+5) in App.java
+
+package com.empower.demo;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+/**
+ * Hello world!
+ *
+ */
+public class App 
+{
+    public static void main( String[] args )
+    {
+    	ClassPathXmlApplicationContext ctx=new ClassPathXmlApplicationContext("bean.xml");
+    	Book book =(Book) ctx.getBean("b1");
+//    	book.setId(56L);
+//    	book.setTitle("You can win");
+//    	book.setAuthor("Shiv Khera");
+//    	book.setPrice(105.0);
+    	
+    	System.out.println(book);
+        System.out.println( "Hello World!" );
+    }
+}
+

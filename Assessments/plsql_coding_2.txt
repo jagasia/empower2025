@@ -1,0 +1,59 @@
+Below is the detailed evaluation of each question for both students.  
+Each question carries 4 marks.  
+
+--------------------------------------------------------
+APEKSHA PRABHAKAR SHETTY
+--------------------------------------------------------
+Q-1  (4 / 4)  
+Block is syntactically correct and fulfils every requirement.
+
+Q-2  (1 / 4)  
+Cursor declaration is syntactically invalid (`SELECT` without `IS`).  
+Cursor is never opened / fetched.  
+`UPDATE` logic is wrong (`RETURN EMP_CURSOR=BONUS`).  
+No `COMMIT`.  
+Very little of the required task is present.
+
+Q-3  (3 / 4)  
+Correct structure, parameters and `UPDATE`.  
+Column name used in `UPDATE` (`EMPLOYEE_ID`) does not match the table definition (`EMP_ID`).  
+Hence –1 mark.
+
+Q-4  (4 / 4)  
+Function correctly calculates and returns the total stock value for a given item.  
+Good exception handling.
+
+Q-5  (3 / 4)  
+Trigger compiles and captures the update, but uses `CURRENT_TIMESTAMP` (timestamp with time-zone) while the table column `ACTION_DATE` is almost certainly of type `DATE`; datatype mismatch may cause run-time issues.  
+Hence –1 mark.
+
+TOTAL for Apeksha: 4 + 1 + 3 + 4 + 3 = 15 / 20
+
+
+
+--------------------------------------------------------
+HARSHITHA B H
+--------------------------------------------------------
+Q-1  (4 / 4)  
+Block is correct and meets all requirements.
+
+Q-2  (3 / 4)  
+Correct cursor loop and update logic, but:  
+• variable `emp_record.EMP_ID` is wrongly written as `emp_record.EMP_PID`;  
+• missing `FOR UPDATE` clause for the cursor.  
+Hence –1 mark.
+
+Q-3  (2 / 4)  
+Parameter references inside the `UPDATE` are wrong (`p.percentage`, `p.employee.id`).  
+`COMMIT` inside the procedure is discouraged.  
+Only partial credit.
+
+Q-4  (4 / 4)  
+Function is well-written, handles exceptions cleanly, and fulfils the requirement.
+
+Q-5  (2 / 4)  
+Trigger structure is fine, but uses `NOW()` which is **MySQL / PostgreSQL syntax, not Oracle**.  
+This causes a compilation error in Oracle PL/SQL.  
+Major syntax error, hence –2 marks.
+
+TOTAL for Harshitha: 4 + 3 + 2 + 4 + 2 = 15 / 20

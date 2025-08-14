@@ -1,3 +1,5 @@
+String regex
+
 What is Testing, Need of Testing, Types of Testings, What is J-Unit, Need of J-Unit, Programming with J-Unit
 
 What is Testing?
@@ -437,4 +439,71 @@ Run this test
 Handson tasks:
 
 https://github.com/jagasia/empower2025/blob/jag/Java/Java%20Hands%20on%20-13Aug2025_set1.docx
+
+
+
+
+
+
+-------------------------------------------------
+-------------------------------------------------
+Spring framework
+--------------------
+java bean
+	is a re-usable java code
+	it is a class that can be used in any type of project
+	now a days POJO
+
+
+generic services
+application specific services
+
+
+
+security
+transaction management
+scalability
+persistence
+
+
+
+postConstruct
+prePassivate
+postActivate
+preDestroy
+
+
+
+getBean()	to get an instance of my bean
+
+what is bean?
+	my class, that is marked as "bean" using 
+		xml configuration		or
+		annotation
+
+
+x=getBean();
+y=getBean();
+
+by default, spring provides "singleton" instance of bean
+we can change that to "prototype"
+
+what is singleton?
+	
+package com.empower.demo;
+
+public class Singleton {
+	private static Singleton singleton=null;
+	private Singleton() {
+		
+	}
+	
+	public static Singleton getInstance() {
+		if(singleton==null) {
+			singleton=new Singleton();
+		}
+		return singleton;
+	}
+}
+
 
