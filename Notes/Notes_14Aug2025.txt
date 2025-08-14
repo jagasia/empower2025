@@ -149,3 +149,130 @@ public class App
     }
 }
 
+Task:
+------
+create the following class.
+Author
+	id
+	name
+
+
+and configure it as a bean in xml configuration file.
+
+in App.java
+	get bean from spring ioc container
+and display the values obtained from configuration file
+
+IOC
+----
+	Inversion of Control
+
+generic services
+vs
+application specific services
+
+
+who will provide generic service?
+	container
+
+
+what is container?
+	is a special JVM
+
+
+
+IOC
+----
+
+interface Audio
+{
+	void playMusic();
+}
+
+
+class Sony implements Audio
+{
+	public void playMusic(){
+	}
+}
+
+class Jbl implements Audio
+{
+	public void playMusic(){
+	}
+}
+
+
+
+
+class Car{
+	Sony audio;	//tightly coupled
+}
+
+
+
+
+class Bmw{
+	Jbl audio;		//tightly coupled
+}
+
+
+class Car2{
+	Audio audio;	//loosely coupled
+
+	public Car2(Audio audio){
+		this.audio=audio;	//constructor based injection
+	}
+
+	public void setAudio(Audio audio)
+	{
+		this.audio=audio;	//setter based injection
+	}
+}
+
+Dependency injection:
+	constructor based
+	setter based
+
+
+
+A has a list of B
+
+book has authors
+
+
+class Book
+{
+
+	private List<Author> authors;
+}
+
+
+ClasspathXmlApplicationContext
+AnnotationConfigApplicationContext
+FileSystemXmlApplicationContext
+
+
+Demo:
+--------
+Book.java
+Author.java
+
+last time author was a String. Now Author is also a bean
+
+
+
+Task:
+
+
+Address
+	doorNo
+	street
+	city
+	pinCode
+
+Customer
+	id
+	name
+	address			(Address)
+

@@ -6,9 +6,21 @@
 
     <!-- bean definitions here -->
 	<bean id="b1" class="com.empower.demo.Book">
-		<property name="id" value="200" />
+		<!-- <property name="id" value="200" />
 		<property name="title" value="I can win" />
 		<property name="author" value="Jag" />
-		<property name="price" value="120.0" />		
+		<property name="price" value="120.0" /> -->
+		<constructor-arg name="id" value="18" />
+		<constructor-arg name="title" value="You can win" />
+		<constructor-arg name="author" value="Shiv Khera" />
+		<constructor-arg name="price" value="105.0" />
+		
+<!-- 		<property name="authors">
+			<list></list>
+			<set></set>
+			<map></map>
+		</property> -->
+		
+				
 	</bean>
 </beans>
