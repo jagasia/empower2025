@@ -4,6 +4,8 @@
     xsi:schemaLocation="
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+	
+
 	<bean id="dmds" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<!-- dmds.setUrl("jdbc:oracle:thin:@localhost:1521:XE");
     	dmds.setUsername("sys as sysdba");
