@@ -104,3 +104,193 @@ public class App {
 	}
 
 }
+
+
+
+Demo:
+	select statement
+
+we will create the following:
+	1) Product.java
+	2) ProductRowMapper.java
+	3) ProductDao.java		(interface)
+	4) ProductDaoImpl.java
+
+
+
+1) 
+package com.empower.demo.entity;
+
+public class Product {
+	private Long id;
+	private String name;
+	private String category;
+	private Double price;
+	public Product() {
+		super();
+	}
+	public Product(Long id, String name, String category, Double price) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.category = category;
+		this.price = price;
+	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	public Double getPrice() {
+		return price;
+	}
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", name=" + name + ", category=" + category + ", price=" + price + "]";
+	}
+	
+	
+}
+
+
+
+2) 
+package com.empower.demo.util;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import org.springframework.jdbc.core.RowMapper;
+
+import com.empower.demo.entity.Product;
+
+public class ProductRowMapper implements RowMapper<Product> {
+
+	@Override
+	public Product mapRow(ResultSet rs, int rowNum) throws SQLException {
+		return new Product(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getDouble(4));
+	}
+
+}
+
+
+
+3) 
+
+package com.empower.demo.dao;
+
+import java.util.List;
+
+import com.empower.demo.entity.Product;
+
+public interface ProductDao {
+
+	int create(Product product);
+
+	List<Product> read();
+
+	Product read(Long id);
+
+	int update(Product product);
+
+	int delete(Long id);
+
+}
+
+
+
+4) 
+package com.empower.demo.dao;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
+
+import com.empower.demo.entity.Product;
+import com.empower.demo.util.ProductRowMapper;
+
+@Component("pdao")
+public class ProductDaoImpl implements ProductDao {
+
+	@Autowired
+	private JdbcTemplate jt;
+	
+	@Override
+	public int create(Product product) {	
+		return jt.update("INSERT INTO PRODUCT VALUES(?,?,?,?)", product.getId(), product.getName(), product.getCategory(), product.getPrice());
+	}
+	@Override
+	public List<Product> read() {
+		return jt.query("SELECT * FROM PRODUCT", new ProductRowMapper());
+	}
+	@Override
+	public Product read(Long id) {
+		return jt.queryForObject("SELECT * FROM PRODUCT WHERE ID=?", new ProductRowMapper(), id);
+	}
+	@Override
+	public int update(Product product) {
+		return jt.update("UPDATE PRODUCT SET NAME=?, CATEGORY=?, PRICE=? WHERE ID=?", product.getName(), product.getCategory(), product.getPrice(),product.getId());
+	}
+	@Override
+	public int delete(Long id) {
+		return jt.update("DELETE FROM PRODUCT WHERE ID=?", id);
+	}
+	
+}
+
+
+
+5) 
+
+package com.empower.demo;
+
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import com.empower.demo.config.MyConfiguration;
+import com.empower.demo.dao.ProductDao;
+
+public class App {
+
+	public static void main(String[] args) {
+		AnnotationConfigApplicationContext ctx=new AnnotationConfigApplicationContext(MyConfiguration.class);
+		ProductDao pdao=(ProductDao) ctx.getBean("pdao");
+//		List<Product> products = pdao.read();
+//		for(Product p:products) {
+//			System.out.println(p);
+//		}
+		
+//		 Product p = pdao.read(2L);
+//		 System.out.println(p);
+		
+
+//		int no = pdao.create(new Product(111L, "My Product", "My Category", 1000.0));
+//		int no=pdao.update(new Product(111L, "My Product", "My Category", 10.0));
+//		int no=pdao.delete(111L);
+//		System.out.println(no);
+	}
+
+}
+
+
+
+
+
+
