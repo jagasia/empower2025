@@ -41,11 +41,13 @@ public class LoginServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		if(username.equals(password)) {
 			//success
-			out.print("<p style='color:green'>Success</p>");
+			response.sendRedirect("login.jsp?message=Success");
+//			out.print("<p style='color:green'>Success</p>");
 		}else
 		{
 			//failure
-			out.print("<p style='color:red'>Failure</p>");
+			response.sendRedirect("login.jsp?message=Failed");
+//			out.print("<p style='color:red'>Failure</p>");
 		}
 	}
 

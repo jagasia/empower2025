@@ -705,3 +705,90 @@ public class MathsServlet extends HttpServlet {
 
 
 
+
+
+
+JSP	-	Java Server Pages
+
+
+JSP and Servlets are web components.
+
+JSP will be converted into servlets at runtime.
+
+
+Do you remember, we used "HTML" tags in our servlet?
+
+in a java code, if we want to embed few HTML tags, then
+	use Servlets
+
+
+in a HTML code, if we want to embed few "java" code, then
+	use JSP
+
+
+servlet life cycle
+--------------------
+	init		only once, when we deploy
+	service
+	destroy		only once, when we undeploy
+
+
+
+jsp
+----
+	
+<%		%>		scriplet
+<%=		%>		expression
+<%!		%>		declaration
+<%@		%>		directive
+
+Expression Language		EL
+-------------------------
+
+${expression}
+
+
+
+
+
+ex:
+
+<%=new Date() %>
+is translated into
+
+	out.print(new Date());
+
+there are only 3 directives
+	<%@page......
+	<%@taglib.....
+	<%@include.....
+
+
+
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form method="post" action="login">
+Username:<input type="text" name="username" required /><br/>
+Password:<input type="password" name="password" required /><br/>
+<input type="submit" value="Login" />
+</form>
+<%-- <%
+
+	String message=request.getParameter("message");
+	if(message!=null)
+		out.println(message);
+%> --%>
+
+${param.message }
+</body>
+</html>
+
+
