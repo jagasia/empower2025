@@ -17,5 +17,6 @@ public class App
     	
     	Car car = ctx.getBean(Car.class);
     	car.playMusic();
+    	
     }
 }
