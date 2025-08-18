@@ -289,8 +289,234 @@ public class App {
 
 }
 
+Applet		client side
+Midlet		
+Scriplets
+Servlet
+	what is servlet?
+		is a class that extends HttpServlet extends GenericServlet
+
+it is not a POJO class.
+
+
+we need to create a web application (not java project or quickstart)
+
+	dynamic web project
+		this option is not found in your eclipse/sts 
+
+we will install this now.
+
+Help -> Eclipse Marketplace
+
+
+search for 
+	Eclipse Enterprise Java and web developer Tools 3.36
+
+
+1) file -> new project
+	-> dynamic web project
+
+	1) name = "first-website"	
+	2) target runtime
+		if it is none, then add runtime
+		using the location of apache tomcat
+
+	3) finish
+
+
+now, lets create a servlet
+
+right click project -> new -> servlet
+	package:	com.empower.demo.view
+	class:	MyServlet
+
+
+
+finish
+
+
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		response.getWriter().append("Hello World ").append(request.getContextPath());
+	}
 
 
 
 
+modify the code like above.
+
+Run the project as
+	run on server
+		(not as Java Application)
+
+
+right click the servlet code
+	run as
+		run on server
+
+
+select the apache correct version and click finish.
+
+Error:
+--------
+	Port 8080 required by tomcat is already in use.
+
+Solutions:
+	1) change the port in which our servlet can run
+		in servers tab,
+			double click the tomcat
+	2) kill the process running in port 8080 and run
+		i) find which process is running in 8080
+			netstat -aon	(in cmd)
+
+
+
+netstat -ano | findstr :8080
+	the above command says PID of process running in 8080 port is 		12345
+taskkill /PID 12345 /F
+	the above command kills the process whose id is 12345
+
+
+
+
+
+
+
+http://localhost:8082/second-project/YourServlet
+
+
+http		protocol
+localhost		server name	
+			127.0.0.1	
+			
+port		8082
+second-project	context-root		(project name)
+YourServlet	alias name of our servlet
+
+
+
+
+
+What is a servlet?
+	if we create a class "MyServlet", it will not become a servlet.
+
+
+before web module 3,
+	that time java version was before 1.5
+
+the servlets were configured using xml file (deployment descriptor file)
+	web.xml
+
+
+from 1.5 java and web module v3 onwards,
+	annotations were used.
+
+
+
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+  <display-name>old-web-project</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  <servlet>
+    <description></description>
+    <display-name>MyServlet</display-name>
+    <servlet-name>MyServlet</servlet-name>
+    <servlet-class>com.empower.demo.view.MyServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MyServlet</servlet-name>
+    <url-pattern>/MyServlet</url-pattern>
+    <url-pattern>/ms</url-pattern>
+  </servlet-mapping>
+</web-app>
+
+
+
+
+
+create a servlet with multiple url mappings
+and use them in url in browser
+
+----------------------------------------
+What is servlet?
+	it is a web component
+
+Apache tomcat server:-
+	 web app server
+
+
+JSP, ASP, PHP, Servlets
+	these are all server side scripts, that runs in server
+		and their output is sent to browser
+
+
+javascript, vbscript
+	these are all client side scripts, they are sent to browser to run
+
+
+
+demo:
+-------
+
+server side code can be accessed by "submitting" a form.
+
+
+
+
+
+http://localhost:8082/maths-demo/index.html
+http://localhost:8082/maths-demo/ms?
+
+
+
+http://localhost:8082/maths-demo/ms?no1=2&no2=3
+http://localhost:8082/maths-demo/ms?no1=5&no2=4
+
+http://localhost:8082/maths-demo/ms
+
+
+here, ?no1=2&no2=3
+
+	no1 and no2 are the query strings
+
+protected void doGet(HttpServletRequest request, HttpServletResponse response)
+
+a servlet is capable of reading the query strings using:-
+
+
+
+
+
+HTTP
+	GET
+	POST
+	PUT
+	DELETE
+	PATCH
+
+
+tASK:
+-------
+Create a dynmic web project
+	login.html
+	LoginServlet
+
+login html page accepts username and password as inputs and submit the form to LoginServlet
+
+if username and password both are same, then print login is successful
+esle
+print failure
+
+failure should be in red color
+success should be in green color
 
