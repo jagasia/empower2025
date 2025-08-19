@@ -1,0 +1,40 @@
+| Name                         | Palindrome Validator | Employee Salary Mgmt         | Word Occurrence Finder              | Prime Generator            | Age Validator               |
+| ---------------------------- | -------------------- | ---------------------------- | ----------------------------------- | -------------------------- | --------------------------- |
+| **Srinivas M**               | 4                    | 4                            | 4                                   | 4                          | 4                           |
+| **Adithya M Murthy**         | 4                    | 4                            | 3 (doesn’t strip punctuation)       | 4                          | 4                           |
+| **Anish R**                  | 4                    | 4                            | 2 (no punctuation removal; case OK) | 4                          | 4                           |
+| **Vaishnavi S**              | 4                    | 4                            | 4                                   | 4                          | 4                           |
+| **Chinmayi K P**             | 3 (logic incomplete) | 3 (no name sort shown)       | 4                                   | 4                          | 4                           |
+| **Bhavya Choubey**           | 4                    | 4                            | 4                                   | 4                          | 4                           |
+| **Anshuman Abhishek**        | 4                    | 4                            | 4                                   | 4                          | 4                           |
+| **Arjun Sharma**             | 4                    | 4                            | 4                                   | 4                          | 4                           |
+| **Sameeksha Panwar**         | 4                    | 3 (static data)              | 4                                   | 4                          | 4                           |
+| **Shilpa K V**               | 4                    | 3 (logic OK but class split) | 4                                   | 4                          | 4                           |
+| **Hrithik Kumar Ukey**       | 4                    | 4                            | 4                                   | 4                          | 3 (validation logic empty)  |
+| **Samarth Kulkarni**         | 4                    | 4                            | 4                                   | 4                          | 2 (condition inverted)      |
+| **Mithun S R**               | 4                    | 4                            | 2 (syntax/typing errors in logic)   | 4                          | 4                           |
+| **Harshitha B H**            | 4                    | 4                            | 2 (syntax/typing errors)            | 3 (Sieve bugs)             | 4                           |
+| **Atharv**                   | 4                    | 4                            | 4                                   | 4                          | 4                           |
+| **Ashritha R**               | 4                    | 4                            | 4                                   | 4                          | 4                           |
+| **Moomin**                   | 4                    | 3 (static data)              | 4                                   | 4                          | 1 (validate body empty)     |
+| **Apeksha Prabhakar Shetty** | 4                    | 4                            | 4                                   | 4                          | 4                           |
+| **Shivlinga Halimani**       | 4                    | 4                            | 4                                   | 4                          | 4                           |
+| **Pothala Harinatha Reddy**  | 4                    | 4                            | 4                                   | 4                          | 4                           |
+| **Lalitha M**                | 4                    | 4                            | 4                                   | 4                          | 4                           |
+| **Keerthan K M**             | 4                    | 4                            | 4                                   | 4                          | 4                           |
+| **Divya Bhumipalli**         | 4                    | 4                            | 3 (splits on space only)            | 4                          | 4                           |
+| **Syed Saud Ur Rahman**      | 4                    | 3 (stream logic incomplete)  | 4                                   | 4                          | 2 (condition & catch wrong) |
+| **Kethan Gowda N**           | 4                    | 4                            | 4                                   | 4                          | 4                           |
+| **Sneha K S**                | 4                    | 4                            | 4                                   | 4                          | 4                           |
+| **Aditya Harivalad**         | 4                    | 4                            | 4                                   | 4                          | 4                           |
+| **Vaishnavi Adhav**          | 4                    | 4                            | 4                                   | 4                          | 4                           |
+| **Rupesh Prasad**            | 4                    | 4                            | 3 (no punctuation strip)            | 4                          | 4                           |
+| **Omkar Rampure**            | 4                    | 4                            | 4                                   | 4                          | 4                           |
+| **Mohit Kumar**              | 4                    | 4                            | 4                                   | 3 (inefficient prime loop) | 4                           |
+| **Rekha S**                  | 4                    | 4                            | 4                                   | 4                          | 4                           |
+| **Hari Prasad P**            | 4                    | 4                            | 4                                   | 4                          | 4                           |
+| **Bhuwan Chandak**           | 4                    | 4                            | 4                                   | 4                          | 4                           |
+| **Yashwanth M**              | 4                    | 4                            | 4                                   | 4                          | 4                           |
+| **Gunjan Mahajan**           | 4                    | 4                            | 4                                   | 4                          | 4                           |
+| **Shri Abhishek Choudhary**  | 4                    | 3 (sort logic missing)       | 2 (HashMap NPE risk)                | 3 (prime test up to n-1)   | 4                           |
+| **Kunal Kaushik**            | 4                    | 4                            | 4                                   | 4                          | 4                           |

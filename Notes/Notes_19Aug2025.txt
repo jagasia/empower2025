@@ -46,13 +46,40 @@ in jsp, include this tag library using
 
 implicit objects of JSP:
 --------------------------
-10:00 am - 10:15 am break
+request
+response
+out
+session
+application
+config
+exception
+server
 
-10:30 am to 12:00 noon	JAVA TEST
-`````````````````````````
 
 
 
+TasK;
 
-https://forms.cloud.microsoft/r/4DDHs77FCF
+create a signup form in jsp
+and on submitting the form, it should add a row to the USER_MASTER table
+
+
+to get web.xml (if not already present in src/main/webapp/WEB-INF 
+----------
+after converting dynamic web project into maven project,
+	right click the project
+		-> Java EE tools	
+			-> generate deployement descriptor stub
+
+
+
+to find what is the error in pom.xml:-
+
+right click project
+	run as
+		maven build
+			Goals: clean install
+
+in console, if you see BUILD SUCCESS, then no problem
+otherwise, read the error message and solve
 

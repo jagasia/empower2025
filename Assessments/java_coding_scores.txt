@@ -1,0 +1,42 @@
+ENO,Name,Palindrome Validator,Employee Salary Management,Word Occurrence Finder,Prime Number Generator,Custom Exception - Age Validator
+1,Srinivas M,4,4,4,4,4
+2,Adithya M Murthy,4,4,4,4,4
+3,Anish R,4,4,4,4,4
+4,Vaishnavi S,4,4,4,4,4
+5,Chinmayi K P,1,3,3,3,3
+6,Bhavya Choubey,4,4,4,4,4
+7,Anshuman Abhishek,4,4,4,4,4
+8,Arjun Sharma,4,4,4,4,4
+9,Sameeksha Panwar,4,4,4,4,4
+10,Shilpa K V,4,4,4,4,4
+11,Hrithik Kumar Ukey,4,4,4,4,4
+12,samarth kulkarni,4,4,4,4,3
+13,Mithun S R,4,4,3,4,4
+14,Harshitha B H,4,4,2,2,4
+15,Atharv,4,4,4,4,4
+16,Ashritha R,4,4,4,4,4
+17,Moomin,4,4,4,4,3
+18,Apeksha Prabhakar Shetty,4,4,4,4,4
+19,Shivlinga Halimani,4,4,4,4,4
+20,Lalitha M,4,4,4,4,4
+21,Pothala Harinatha Reddy,4,4,4,4,4
+22,Divya Bhumipalli,4,4,4,4,4
+23,Keerthan K M,4,4,4,4,1
+24,Syed Saud Ur Rahman,4,3,4,4,3
+25,Kethan Gowda N,4,4,4,4,4
+26,Sneha K S,4,4,4,4,4
+27,Aditya Harivalad,4,4,4,4,4
+28,Vaishnavi Adhav,4,4,4,4,4
+29,Rupesh Prasad,4,4,4,4,4
+30,omkar Rampure,4,4,4,4,4
+31,Mohit Kumar,4,1,1,1,1
+32,Rekha S,3,3,3,4,3
+33,Hari prasad P,4,3,4,4,4
+34,Sanjana S,3,2,3,4,3
+35,Bhuwan Chandak,4,3,4,4,2
+36,Monisha J,4,3,2,4,3
+37,Aditya Jha,2,2,3,4,0
+38,Kunal Kaushik,4,3,4,4,3
+39,Shri Abhishek Choudhary,3,2,2,2,2
+40,YASHWANTH M,4,4,3,4,4
+41,Gunjan Mahajan,3,4,2,4,3
