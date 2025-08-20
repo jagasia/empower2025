@@ -1,0 +1,6 @@
+com\empower\demo\config\YourConfiguration.class
+com\empower\demo\controller\MyController.class
+com\empower\demo\model\Product.class
+com\empower\demo\controller\ProductController.class
+com\empower\demo\model\ProductRowMapper.class
+com\empower\demo\model\ProductDaoImpl.class
