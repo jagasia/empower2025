@@ -1,0 +1,135 @@
+Spring MVC
+MVC stands for
+	Model
+	View
+	Controller
+Model
+	code that defines data
+	code that access data
+
+View
+	input
+	output'
+
+Controller
+	calculation
+	computation
+	validation
+	operation		
+spring f/w
+-----------
+spring mvc
+	controller
+		it is providing the views a web access to model
+
+
+
+steps:
+1) create a dynamic web project
+2) convert it into maven project
+3) pom.xml 
+	add the following dependencies
+
+ <properties>
+        <java.version>21</java.version>
+        <spring.version>6.1.13</spring.version> <!-- Latest stable Spring 6 -->
+    </properties>
+
+
+ <!-- Spring MVC -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <!-- Jakarta Servlet API (provided by Tomcat/Jetty) -->
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>6.1.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Jakarta JSTL -->
+        <dependency>
+            <groupId>jakarta.servlet.jsp.jstl</groupId>
+            <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.web</groupId>
+            <artifactId>jakarta.servlet.jsp.jstl</artifactId>
+            <version>3.0.1</version>
+        </dependency>
+
+        <!-- Logging -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>2.0.16</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.5.6</version>
+        </dependency>
+4) web.xml
+	if not found, right click project->
+		java EE tools	-> Generate deployment descriptor stub
+
+	configure the dispatcher servlet
+org.springframework.web.servlet.DispatcherServlet
+org.springframework.web.servlet.DispatcherServlet	
+		servlet name
+		url mapping
+	to url mapping 	/
+
+
+
+  <!-- Spring DispatcherServlet -->
+    <servlet>
+        <servlet-name>dispatcher</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>/WEB-INF/dispatcher-servlet.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <!-- Map DispatcherServlet to / -->
+    <servlet-mapping>
+        <servlet-name>dispatcher</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+
+5) create one more xml
+	if the servlet name is "spring", then your filename must be
+		spring-servlet.xml
+
+	-serlvet.xml is fixed
+
+
+in this xml we will configure
+	prefix		WEB-INF/views/
+	suffix		.jsp
+	component scan base package
+
+	in our controller, whenever we say
+		return "index";
+	it will become
+		WEB-INF/views/index.jsp
+
+6) in webapp folder,
+	WEB-INF/views
+
+	keep all jsp files here
+
+7) create the controller classes only inside a package that is mentioned in 
+	component scan base package
+	or their sub package
+
+	a controller class is a class that is annotated by "@Controller"
+

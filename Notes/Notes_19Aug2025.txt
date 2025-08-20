@@ -82,4 +82,3 @@ right click project
 
 in console, if you see BUILD SUCCESS, then no problem
 otherwise, read the error message and solve
-
