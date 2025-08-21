@@ -243,3 +243,167 @@ public class MyController {
 
 5) http://localhost:5000/
 
+-----------------------------------------------
+Observations:
+
+problem1:
+	8080 already in use
+
+solution:
+	1) in application.properties
+		server.port=8081
+
+	2) right click project -> Run as -> Maven Build
+		goals:	clean install
+
+	there are 2 manen build options.
+		1st will repeat previously executed goals
+		2nd will always ask for goals
+
+	3) now, you see build success?
+		no? there will be reason for failure. Address that issue
+		yes? now run the application as Java Application (dont click arrow that repeats goals)
+
+problem2:
+----------
+	your Application.java is present in	
+		com.example.demo
+
+	your controller is in
+		com.empower.demo.controller
+
+
+ensure all classes present in
+	base package		(package that contains application)
+	or
+	its sub package
+
+otherwise,
+	create a config class and use @ComponentScan(basePackages={})
+	or in APplication class (it is @SpringBootApplication is also a configuration class only)
+
+
+===============================
+REST principles:
+-------------------
+use conventions properly
+	HTTP Methods
+		GET		for returning data or information
+		POST		for adding a new resource
+		PUT		for updating 
+		DELETE		for deleting
+		PATCH		for updating partial information
+
+uniform interface:
+
+	http://localhost:5000/product
+
+
+
+
+
+@RequestParam			?id=20
+vs
+@PathVariable			/20
+
+
+
+
+http://localhost:5000/product?id=20
+	the above is using	Request Param
+
+http://localhost:5000/product/20
+	the above is using Path Variable
+
+
+
+Hoppscotch
+
+
+
+
+package com.empower.demo.controller;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class MyController {
+
+	@GetMapping
+	public String home() {
+		return "Hello world";
+	}
+	
+	@PostMapping
+	public String addProduct(@RequestBody Product product) {
+		return "Adding product";
+	}
+	
+	@PutMapping("/{id}")
+	public String updateProduct(@PathVariable("id")Long id) {
+		return "Updating product";
+	}
+	
+	
+	@DeleteMapping("/{id}")
+	public String removeProduct(@PathVariable("id") Long id, @RequestBody Product product) {
+		return "Product is removed";
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+package com.empower.demo.controller;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class MyController {
+
+	@GetMapping
+	public String home() {
+		return "Hello world";
+	}
+	
+	@GetMapping("/{id}/{name}/{category}")
+	public String kethanMethod(@PathVariable Long id, @PathVariable String category, @PathVariable String name) {
+		return ""+id+":"+category+":"+name;
+	}
+	
+	@PostMapping
+	public String addProduct() {
+		return "Adding product";
+	}
+	
+	@PutMapping("/{id}")
+	public String updateProduct(@PathVariable("id")Long id) {
+		return "Updating product";
+	}
+	
+	
+	@DeleteMapping("/{id}")
+	public String removeProduct(@PathVariable("id") Long id) {
+		return "Product is removed";
+	}
+}
