@@ -1,0 +1,70 @@
+Spring Boot(RESTFul Service, POSTMAN, …), Mockito, Maven Tool
+
+zero xml configuration
+convention over configuration
+in-built server like apache tomcat
+auto configuration
+starter dependencies
+starter project
+
+
+
+
+demo:
+
+
+https://start.spring.io/
+
+
+
+
+Problem:
+
+8080 already in use.
+
+
+Solution1:
+in application.properties
+	server.port=8081
+
+If problem persists:
+	
+in application.properties:
+	debug=true
+
+right click project
+	run as
+		maven build
+			goals:	clean install
+				run
+
+now go to application main method
+	run as java application
+
+you will see additional debug info in console.
+
+
+Steps for MVC demo 1 is sent to you all by harinath via teams chat.
+
+Kindly follow the steps.
+
+IMPORTANT:
+	your application java file is in base package.
+	that package name is base for all other classes.
+		sub package name is ok
+
+check port number
+
+check url 		Get mapping
+
+check if all dependencies added to pom.xml
+
+IMPORTANT
+	your system restricts downloading jars.
+		so maven build clean install only help downloading jars
+
+		right click project
+			run as
+				maven build
+					goals:	clean install
+
