@@ -184,3 +184,13 @@ JPA
 	Spring cloud
 
 
+
+Demo:
+spring jdbc in spring boot.
+
+refer:
+
+https://github.com/jagasia/empower2025/tree/jag/springboot/product-mvc-jdbc
+
+
+
