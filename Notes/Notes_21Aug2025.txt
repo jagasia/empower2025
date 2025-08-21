@@ -476,3 +476,13 @@ public class ProductController {
 	}
 	
 }
+
+
+
+
+{
+    "id":1,
+    "name":"Sharpner",
+    "category":"Stationery",
+    "price":20
+}
