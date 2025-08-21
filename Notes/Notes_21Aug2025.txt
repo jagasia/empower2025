@@ -161,3 +161,26 @@ public class MathsController {
 }
 
 
+Task:
+------
+Create a login page
+if username and password are same, then display login successful in a new output.
+if else, display login failure in red color in login page itself.
+
+
+
+
+2.5 days plan for spring boot:
+
+1) Spring boot MVC with spring jdbc product dao
+JPA
+2) Spring REST
+3) Spring REST CRUD with JPA
+	POSTMAN
+		POST, GET, PUT, DELETE
+4) Swagger
+5) Spring security
+6) Microservices
+	Spring cloud
+
+

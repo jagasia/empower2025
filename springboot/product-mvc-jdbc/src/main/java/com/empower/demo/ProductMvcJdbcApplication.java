@@ -1,0 +1,13 @@
+package com.empower.demo;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class ProductMvcJdbcApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(ProductMvcJdbcApplication.class, args);
+	}
+
+}
