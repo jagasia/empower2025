@@ -81,3 +81,83 @@ hint:
 <form action="/add">
 
 create a controller method with @GetMapping("/add")
+
+
+
+1) create a spring boot project
+	com.empower.demo
+	maths-mvc-demo
+
+	java
+	maven
+	java 21
+	war
+
+	spring web
+
+2) in pom.xml
+
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+		</dependency>
+
+3) in application.properties
+
+server.port=8081
+spring.mvc.view.prefix=/WEB-INF/views/
+spring.mvc.view.suffix=.jsp
+
+
+4) in src/main/webapp
+	create folder	WEB-INF/views
+
+
+5) create JSP file inside views folder
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="/add">
+Number 1:<input type="number" name="no1" /><br/>
+Number 2:<input type="number" name="no2" /><br/>
+<input type="submit" value="Add" />
+</form>
+<br/>
+${sum }
+</body>
+</html>
+6) create the controller
+
+package com.empower.demo.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+@Controller
+public class MathsController {
+
+	@GetMapping
+	public String home() {
+		return "index";
+	}
+	
+	@GetMapping("/add")
+//	@ResponseBody
+	public String add(@RequestParam Integer no1,@RequestParam Integer no2, ModelMap model) {
+		Integer sum=no1+no2;
+		model.addAttribute("sum",sum);
+		return "index";
+	}
+}
+
+
