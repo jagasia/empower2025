@@ -193,4 +193,53 @@ refer:
 https://github.com/jagasia/empower2025/tree/jag/springboot/product-mvc-jdbc
 
 
+@GetMapping("/hi")
+@ResponseBody
+public String method1(){
+	return "index";
+}
+
+
+@RestController	=	@Controller + @ResponseBody
+
+
+RESTful webservices / REST API
+------------------
+Steps for spring boot rest
+
+1) create a springboot app
+
+	group:	com.empower.task
+	artifact:	rest-1
+	package:	same as group
+	jar
+	maven
+	java
+	21
+
+	spring web
+
+2) server.port=5000		in application.properties
+
+3) create the rest controller
+
+package com.empower.demo.controller;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class MyController {
+
+	@GetMapping
+	public String home() {
+		return "Hello world";
+	}
+}
+
+
+4) run the main method as java application
+
+
+5) http://localhost:5000/
 
