@@ -68,3 +68,16 @@ IMPORTANT
 				maven build
 					goals:	clean install
 
+
+
+
+TasK
+------
+create a form that accepts 2 numbers
+and on submit, it should add them and display the result.
+
+hint:
+
+<form action="/add">
+
+create a controller method with @GetMapping("/add")
