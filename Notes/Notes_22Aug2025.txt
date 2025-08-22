@@ -186,3 +186,112 @@ create
 	service
 	controller
 and use swagger to test the service
+
+------------------------------------------------------
+Next chapter:
+Relationships
+---------------
+learn by yourself
+
+there are relationshp annotations:
+	@OneToOne
+	@OneToMany
+	@ManyToOne
+	@ManyToMany
+
+
+example for 1 to many?
+	One Department has Many Employees
+
+example for many to 1?
+	Many Employees belong to One Department
+
+
+Department
+package com.empower.demo.entity;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Department {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+	private String name;
+	
+	
+	
+}
+
+Employee
+
+package com.empower.demo.entity;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Employee {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+	private String name;
+	@ManyToOne
+	private Department department;
+	
+}
+
+
+
+package com.empower.demo.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.empower.demo.entity.Department;
+
+@Repository
+public interface DepartmentRepository extends JpaRepository<Department, Long>{
+
+}
+
+
+
+package com.empower.demo.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.empower.demo.entity.Employee;
+
+@Repository
+public interface EmployeeRepository extends JpaRepository<Employee, Long>{
+
+}
+
+
+
+
+
+
+fetch strategies
+
+
