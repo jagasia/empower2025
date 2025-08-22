@@ -301,9 +301,187 @@ fetch strategies
 After lunch, we will learn
 	JPA QL
 
+Query Language is required for taks that are mostly uncommon.
+for common CRUD tasks, we can use the predefined methods in JPA.
+
+there are some finder methods in JPA. 
+
+ex:
+Product
+	id
+	name
+	category
+	price
+
+i want all products that belongs to a particular category.
+
+we can use finder method for this
+
+	findByCategory
+
+we need to define these finder methods in our repository
+
+package com.empower.demo.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.empower.demo.entity.Product;
+import java.util.List;
+
+
+@Repository
+public interface ProductRepository extends JpaRepository<Product, Integer>
+{
+	List<Product> findByCategory(String category);
+}
+
+
+
+
+------------------------
+Queries
+
+we can write queries in repository
+
+
+ex:
+service class should now have a method that find all products between price range
+
+service will call the method from repository
+
+
+
+package com.empower.demo.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
+import com.empower.demo.entity.Product;
+import java.util.List;
+
+
+@Repository
+public interface ProductRepository extends JpaRepository<Product, Integer>
+{
+	List<Product> findByCategory(String category);
+	
+	@Query("select p from Product p where p.price between :x and :y")
+	List<Product> findByPriceRange(@Param("x") Double x,@Param("y") Double y);
+}
 
 
 
 
 
+
+
+
+
+package com.empower.demo.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.empower.demo.entity.Product;
+import com.empower.demo.repository.ProductRepository;
+
+@Service
+public class ProductService {
+	@Autowired
+	private ProductRepository pr;
+	
+	public Product addProduct(Product product) {
+		return pr.save(product);
+	}
+	
+	public List<Product> retrieveAllProducts() {
+		return pr.findAll();
+	}
+	
+	public List<Product> findProductByCategory(String category) {
+		return pr.findByCategory(category);
+	}
+	
+	public List<Product> findProductsByPriceRange(Double from, Double to) {
+		return pr.findByPriceRange(from, to);
+	}
+}
+
+
+
+
+
+
+
+package com.empower.demo.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.empower.demo.entity.Product;
+import com.empower.demo.service.ProductService;
+
+@RestController
+@RequestMapping("/product")
+public class ProductController {
+	@Autowired
+	private ProductService ps;
+	
+	@PostMapping
+	public Product addProduct(@RequestBody Product product) {
+		return ps.addProduct(product);
+	}
+	
+	@GetMapping("/category/{category}")
+	public List<Product> findProductsByCategory(@PathVariable("category") String category) {
+		return ps.findProductByCategory(category);
+	}
+	
+	@GetMapping("/{from}/{to}")
+	public List<Product> findProductsByPriceRange(@PathVariable Double from,@PathVariable Double to){
+		return ps.findProductsByPriceRange(from, to);
+	}
+}
+
+
+
+
+
+package com.empower.demo.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
+import com.empower.demo.entity.Product;
+import java.util.List;
+
+
+@Repository
+public interface ProductRepository extends JpaRepository<Product, Integer>
+{
+	List<Product> findByCategory(String category);
+	
+	@Query("select p from Product p where p.price between :x and :y")
+	List<Product> findByPriceRange(@Param("x") Double x,@Param("y") Double y);
+//	
+//	@Query(value="select * from PROD p where p.price between :x and :y", nativeQuery=true)
+//	List<Product> findByPriceRange(@Param("x") Double x,@Param("y") Double y);
+	
+	
+	
+}
 

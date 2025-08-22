@@ -22,6 +22,7 @@ public class DepartmentService {
 	}
 	public Department read(Long id) {
 		Optional<Department> temp = fr.findById(id);
+		
 		Department f=null;
 		if(temp.isPresent()) {
 			f=temp.get();

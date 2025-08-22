@@ -22,6 +22,7 @@ public class EmployeeService {
 	}
 	public Employee read(Long id) {
 		Optional<Employee> temp = fr.findById(id);
+		
 		Employee f=null;
 		if(temp.isPresent()) {
 			f=temp.get();
@@ -30,6 +31,7 @@ public class EmployeeService {
 	}
 	public Employee update(Employee employee) {
 		Employee f = read(employee.getId());
+		
 		if(f!=null) {
 			f=employee;
 			fr.save(f);
