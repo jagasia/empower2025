@@ -27,3 +27,162 @@ steps:
 
 	/swagger-ui/index.html
 http://localhost:5000/swagger-ui/index.html
+
+-------------------------------------------------------
+JPA
+
+Steps:
+-------
+1) create a spring boot project
+	group:	com.empower.demo
+	artifact:	food-api
+	package:	same as group
+	jar
+	java
+	maven
+	21
+	
+	spring web
+	spring data jpa
+	oracle driver
+	lombok
+
+2) application.properties
+	
+# ===============================
+# DataSource Configuration
+# ===============================
+spring.datasource.url=jdbc:oracle:thin:@localhost:1521:xe
+spring.datasource.username=sys as sysdba
+spring.datasource.password=password
+spring.datasource.driver-class-name=oracle.jdbc.OracleDriver
+
+# ===============================
+# JPA / Hibernate Configuration
+# ===============================
+spring.jpa.database-platform=org.hibernate.dialect.OracleDialect
+spring.jpa.show-sql=true
+spring.jpa.hibernate.ddl-auto=update
+
+
+next steps:
+	create an entity class
+	repository
+	service	(optional)
+	controller
+3) Food.java
+
+
+
+if your entity class name is RegularCustomer
+then table name will be REGULAR_CUSTOMER
+
+if you do not like the above default behavior, we can change it using
+
+strategy=org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+
+package com.empower.demo.entity;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.Data;
+
+@Entity
+@Table(name="FOOD")
+@Data
+public class Food {
+	@Id					//marks the field as primary key
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+	@Column(name = "NAME")
+	private String name;
+	private String category;
+	private Double price;
+//	@Transient
+//	private SimpleDateFormat sdf;
+	
+}
+
+
+
+4) repository
+
+package com.empower.demo.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.empower.demo.entity.Food;
+
+@Repository
+public interface FoodRepository extends JpaRepository<Food, Long> {
+
+}
+
+
+5) service
+
+package com.empower.demo.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.empower.demo.entity.Food;
+import com.empower.demo.repository.FoodRepository;
+
+@Service
+public class FoodService {
+	@Autowired
+	private FoodRepository fr;
+	
+	public Food create(Food food) {
+		return fr.save(food);
+	}
+	public List<Food> read() {
+		return fr.findAll();
+	}
+	public Food read(Long id) {
+		Optional<Food> temp = fr.findById(id);
+		Food f=null;
+		if(temp.isPresent()) {
+			f=temp.get();
+		}
+		return f;
+	}
+	public Food update(Food food) {
+		Food f = read(food.getId());
+		if(f!=null) {
+			f=food;
+			fr.save(f);
+		}
+		return f;
+	}
+	public Food delete(Long id) {
+		Food f=read(id);
+		if(f!=null) {
+			fr.delete(f);
+//			fr.deleteById(id);
+		}
+		return f;
+	}
+	
+}
+
+
+Task:
+------
+create a customer entity and 
+create
+	entity
+	repository
+	service
+	controller
+and use swagger to test the service
