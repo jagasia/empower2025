@@ -17,6 +17,12 @@ provides UI for RESTful webservices
 
 steps:
 1) add the swagger ui dependency in pom.xml
+
+<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>2.5.0</version>
+		</dependency>
 2) in browser, append this path to you webservice base url
 
 	/swagger-ui/index.html
