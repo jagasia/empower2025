@@ -298,6 +298,12 @@ fetch strategies
 
 
 
-https://studio--jag-springboard-test.us-central1.hosted.app/signup
+After lunch, we will learn
+	JPA QL
 
-signup as learner
+
+
+
+
+
+
