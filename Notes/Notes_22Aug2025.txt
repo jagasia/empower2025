@@ -1,0 +1,23 @@
+Spring Boot(RESTFul Service, POSTMAN, …), Mockito, Maven Tool
+
+Spring remaining topics:
+
+1) JPA
+2) Spring security
+3) Spring security with JWT
+4) Microservices
+
+
+swagger also
+
+--------------------------------------
+Swagger
+----------
+provides UI for RESTful webservices
+
+steps:
+1) add the swagger ui dependency in pom.xml
+2) in browser, append this path to you webservice base url
+
+	/swagger-ui/index.html
+http://localhost:5000/swagger-ui/index.html
