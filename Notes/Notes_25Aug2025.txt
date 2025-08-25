@@ -716,6 +716,62 @@ inside security filter chain bean,
 
 
 
+@Configuration
+public class MySecurityConfiguration {
+	@Autowired
+	private JwtAuthFilter filter;
+
+	@Bean
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+	    return http.csrf(csrf -> csrf.disable())
+	            .authorizeHttpRequests(auth -> auth
+	                    .requestMatchers("/api/v1/**","/api/v2/**").permitAll()
+//	                    .requestMatchers("/api/v2/**").authenticated()
+	                    .anyRequest().authenticated()
+//	                    .anyRequest().denyAll() // optional: deny everything else
+	            )
+	            .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+	            .authenticationProvider(authenticationProvider())
+	            .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
+	            .build();
+	}
+
+
+
+summary:
+1) pom.xml
+	add jwt dependencies		(there are 3)
+2) jwtservice
+3) jwtfilter class
+	autowire the 
+		jwtservice
+		userdetails service
+
+4) in config class
+	in security filter chain
+		add filter before 	(first autowire jwt service)
+
+
+
+-----------------------------
+Demo 6
+---------
+1) roles / authorities
+	role is "admin" means, in db table, it should be "ROLE_ADMIN"
+	in java, 	hasRole("admin")	then in db it should be "ROLE_ADMIN"
+	but in authorities,	
+		hasAuthority("admin")	in db	"admin"
+
+2) signup
+3) RBA	Role Base Access
+	in our config class, 
+		@Configuration
+		@EnableMethodSecurity
+
+
+
+
+
 
 
 Refer to my project "security-demo-4" and complete upto 
@@ -725,4 +781,29 @@ and use the token to access products
 header:
 	Authorization	Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYWciLCJpYXQiOjE3NTYxMTEwMTcsImV4cCI6MTc1NjExMjgxN30.bcXt4UqDeoBeKsnRkC-cUU_TXjNn0MyQFBO9r9kX8O4
 
+
+
+
+
+
+
+
+@Entity
+@Table(name="USER_MASTER")
+public class MyUser {
+	@Id
+	private String username;
+	private String password;
+	@Column(name = "NAME")
+	private String fullName;
+	private String role;	//csv for ex, admin,user
+
+
+
+
+
+
+
+Refer
+	security-demo-5-jwt-role
 
