@@ -1,0 +1,86 @@
+Spring security with JWT
+Microservices
+
+Authentication
+	is a process of verifying if it is valid user or not
+
+Authorization
+	user may be a valid user, already logged in, ok,but
+	does that user has permission to access a resource or not
+	Access Control List
+
+After breakfast, we will start our first demo of spring security
+
+--------------------------------
+Demo1:
+---------
+lets add spring security dependency in our new spring boot app.
+and understand the implications.
+because, spring boot will do auto-configuration
+
+as per auto-configuration
+
+username:	user
+password:	will be generated and displayed in the console
+
+
+group:	com.empower.demo
+artifcat:	security-demo-1
+maven
+jar
+java
+21
+
+	spring web
+	spring security
+
+
+	
+
+generate, unzip and import the app into your sts.
+i always recommend you move the project folder to your workspace and then import.
+
+
+lets create a hello world and see the console.
+
+
+application.properties:-
+
+	server.port=8081
+
+
+
+
+right click main method
+	run as 
+		java application
+
+
+in console:
+
+dde374fc-cc48-4714-9b02-1f626a135f18
+5ec649e4-b3a5-448b-b549-8317159d0c15
+
+lets create a simple endpoint.
+
+
+@GetMapping
+	public String home() {
+		return "Hello welcome to home";
+	}
+	
+	@GetMapping("/about")
+	public String aboutUs() {
+		return "About us";
+	}
+	
+	@GetMapping("/contact")
+	public String contactUs() {
+		return "Contact us";
+	}
+
+
+Task:
+
+follow above steps and observe the effect of spring security dependency.
+
