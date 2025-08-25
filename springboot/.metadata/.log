@@ -1631,3 +1631,12 @@ java.lang.NullPointerException: Cannot invoke "org.eclipse.jdt.core.IClasspathEn
 
 !ENTRY org.springframework.tooling.boot.ls 1 0 2025-08-25 08:04:36.407
 !MESSAGE Classpath changed for project: security-demo-1
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2025-08-25 08:33:57.849
+!MESSAGE Classpath changed for project: security-demo-2
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2025-08-25 08:33:58.012
+!MESSAGE Boot project ADDED: security-demo-2
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2025-08-25 08:33:58.478
+!MESSAGE Classpath changed for project: security-demo-2
