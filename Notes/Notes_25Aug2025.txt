@@ -246,6 +246,7 @@ public class MyUserDetailsService implements UserDetailsService
 		for(User u:users) {
 			if(u.getUsername().equals(username)) {
 				user=u;
+				break;
 			}
 		}
 		
@@ -258,4 +259,222 @@ public class MyUserDetailsService implements UserDetailsService
 
 }
 
+
+
+
+
+Demo:5		security-demo-3
+---------
+including jpa
+
+https://start.spring.io/starter.zip?name=security-demo-3&groupId=com.empower.demo&artifactId=security-demo-3&version=0.0.1-SNAPSHOT&description=Demo+project+for+Spring+Boot&packageName=com.empower.demo&type=maven-project&packaging=jar&javaVersion=21&language=java&bootVersion=3.5.5&dependencies=oracle&dependencies=data-jpa&dependencies=security&dependencies=web
+
+
+spring web
+spring security
+spring data jpa
+oracle driver
+
+
+application.properties:
+
+spring.application.name=security-demo-3
+
+server.port=8084
+
+# ===============================
+# DataSource Configuration
+# ===============================
+spring.datasource.url=jdbc:oracle:thin:@localhost:1521:xe
+spring.datasource.username=sys as sysdba
+spring.datasource.password=password
+spring.datasource.driver-class-name=oracle.jdbc.OracleDriver
+
+# ===============================
+# JPA / Hibernate Configuration
+# ===============================
+spring.jpa.database-platform=org.hibernate.dialect.OracleDialect
+spring.jpa.show-sql=true
+spring.jpa.hibernate.ddl-auto=update
+
+
+3) entity:
+
+package com.empower.demo.entity;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name="USER_MASTER")
+public class MyUser {
+	@Id
+	private String username;
+	private String password;
+	private String fullName;
+	
+	public MyUser() {}
+
+	public MyUser(String username, String password, String fullName) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.fullName = fullName;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getFullName() {
+		return fullName;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+
+	@Override
+	public String toString() {
+		return "MyUser [username=" + username + ", password=" + password + ", fullName=" + fullName + "]";
+	}
+	
+}
+
+
+
+4) repository:
+
+package com.empower.demo.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.empower.demo.entity.MyUser;
+
+@Repository
+public interface MyUserRepository extends JpaRepository<MyUser, String>{
+
+}
+
+
+
+5) service:
+
+package com.empower.demo.service;
+
+import java.util.ArrayList;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+
+import com.empower.demo.entity.MyUser;
+import com.empower.demo.repository.MyUserRepository;
+
+@Service
+public class MyUserDetailsService implements UserDetailsService {
+	@Autowired
+	private MyUserRepository mur;
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		Optional<MyUser> temp = mur.findById(username);
+		User user=null;
+		if(temp.isPresent()) {
+			//convert myuser into predefined user
+			MyUser myUser = temp.get();
+			user=new User(username, myUser.getPassword(), new ArrayList<>());
+		}else {
+			throw new UsernameNotFoundException("Login failed");
+		}
+		return user;
+	}
+	
+	
+}
+
+
+
+6) config:
+
+package com.empower.demo.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import com.empower.demo.service.MyUserDetailsService;
+
+@Configuration
+public class MySecurityConfiguration {
+
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return NoOpPasswordEncoder.getInstance();
+	}
+	
+	@Bean
+	public UserDetailsService userDetailsService() {
+		return new MyUserDetailsService();
+	}
+	
+	@Bean
+	public AuthenticationProvider authenticationProvider() {
+		DaoAuthenticationProvider ap=new DaoAuthenticationProvider();
+		ap.setUserDetailsService(userDetailsService());
+		ap.setPasswordEncoder(passwordEncoder());
+		return ap;
+	}
+}
+
+
+7) controller:
+
+package com.empower.demo.controller;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class HomeController {
+
+	@GetMapping
+	public String home() {
+		return "welcome home";
+	}
+	
+	@GetMapping("/about")
+	public String about() {
+		return "About us";
+	}
+}
+
+
+---------------------
+when you run the project, table is created, 
+you add few records and then commit
+
+check only those users are allowed to login.
 
