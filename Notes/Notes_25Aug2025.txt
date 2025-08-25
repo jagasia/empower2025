@@ -478,3 +478,72 @@ you add few records and then commit
 
 check only those users are allowed to login.
 
+insert into user_master values('jag','jagadees','jag@123');
+
+commit;
+
+
+
+--------------
+lets use bcrypt password encoder.
+
+
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
+
+
+
+time being, we will encrypt the passwords and store in our oracle table.
+
+https://www.bcrypt.io/
+
+enter a password, copy the encoded password and update the data in oracle table.
+
+----------------------------------------------------------
+
+
+
+security filter chain bean
+
+	we can configure
+		what are all the endpoints allowed without authentication?
+			permitAll
+
+		other endpoints
+			authenticated
+
+
+
+http://localhost:8080/api/v1/		permitAll
+http://localhost:8080/api/v2/		authenticated
+
+
+
+
+
+
+	@Bean
+	public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
+		return authConfig.getAuthenticationManager();
+	}
+
+
+
+
+
+
+refer to security-demo-3
+
+and implement
+	security filter chain
+	authentication manager
+
+and allow	(permitAll)
+	api/v1/**
+	api/v2/**
+
+
+check by logging in using postman.
+
