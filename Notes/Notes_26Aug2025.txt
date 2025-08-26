@@ -1,0 +1,166 @@
+Microservices - Spring cloud
+
+between multiple web services,
+	we need
+
+1) how one service can interact with another service
+	i) feign client	(spring cloud)
+	ii) rest template	(spring boot) 
+	iii) in any java code, we can call any restful webservice
+		using
+			HttpClient
+2) load balancer
+3) circuit breaker
+4) api gateway
+5) service discovery
+	eureka server & client
+
+
+
+
+
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.time.Duration;
+
+public class APITester {
+   public static void main(String[] args) {
+      HttpClient httpClient = HttpClient.newBuilder()
+         .version(HttpClient.Version.HTTP_2)
+         .connectTimeout(Duration.ofSeconds(10))
+         .build(); 
+         try {
+            HttpRequest request = HttpRequest.newBuilder()
+            .GET()
+            .uri(URI.create("http://localhost:5000/food/1"))
+            .build();                              
+            HttpResponse<String> response = httpClient.send(request,
+            HttpResponse.BodyHandlers.ofString()); 
+
+         System.out.println("Status code: " + response.statusCode());                            
+         System.out.println("Headers: " + response.headers().allValues("content-type"));
+         System.out.println("Body: " + response.body());
+      } catch (IOException | InterruptedException e) {
+         e.printStackTrace();
+      }
+   }
+}
+
+
+
+
+----------------------
+Spring cloud feign client
+
+1) pom.xml
+	add the open feign dependency.
+
+for new project, it is simple, add open feign dependency.
+for existing projects
+	<properties>
+		<java.version>21</java.version>
+		<spring-cloud.version>2025.0.0</spring-cloud.version>
+	</properties>
+
+
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
+		</dependency>
+
+
+
+
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+
+
+
+2) enable feign clients
+
+in any configuration class, you add this annotation @EnableFeignClients
+
+
+package com.empower.demo;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
+
+@SpringBootApplication
+@EnableFeignClients
+public class FeignClientDemoApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(FeignClientDemoApplication.class, args);
+	}
+
+}
+
+
+
+3) choose an existing webservice that we want to access using feign client.
+
+http://localhost:5000/food
+
+create an interface that is annotated by 
+
+
+package com.empower.demo.api;
+
+import java.util.List;
+
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import com.empower.demo.Food;
+
+@FeignClient(name = "food-api", url = "http://localhost:5000/food")
+public interface FoodApi {
+
+	@PostMapping
+	public Food create(@RequestBody Food food);
+	
+	@GetMapping
+	public List<Food> read();
+	
+	@GetMapping("/{id}")
+	public Food read(@PathVariable Long id);
+	
+	@PutMapping("/{id}")
+	public Food update(@PathVariable Long id, @RequestBody Food food);
+	
+	@DeleteMapping("/{id}")
+	public Food delete(@PathVariable Long id);
+}
+
+
+4) server.port=
+
+5) autowire this feign client food-api interface in our controller
+
+
+
+Task:
+
+accessing webservice from another
+
