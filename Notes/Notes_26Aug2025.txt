@@ -3,7 +3,7 @@ Microservices - Spring cloud
 between multiple web services,
 	we need
 
-1) how one service can interact with another service
+1) how one service can interact with another service	(completed)
 	i) feign client	(spring cloud)
 		spring-cloud-starter-openfeign
 	ii) rest template	(spring boot) 
@@ -12,8 +12,8 @@ between multiple web services,
 			HttpClient
 2) load balancer
 3) circuit breaker
-4) api gateway
-5) service discovery
+4) api gateway			(completed)
+5) service discovery		(completed)
 	eureka server & client
 
 
@@ -319,4 +319,85 @@ public class ApiGatewayApplication {
 
 }
 
+
+
+
+
+eureka navigation:-
+steps
+
+
+By default, the **Eureka Dashboard ([http://localhost:8761](http://localhost:8761))** only **lists registered services**, but those links are not clickable — it just shows the service `STATUS` page (e.g., `http://localhost:8081/actuator/info`).
+
+If you want to **click a service name in Eureka and navigate directly to its API/UI**, here’s what you need to do:
+
+---
+
+## ✅ Steps to Make Eureka Dashboard Links Work
+
+### 1. Enable Management Endpoints
+
+Eureka dashboard uses the service’s `statusPageUrl` and `healthCheckUrl`.
+Add these to your **microservice’s `application.properties`**:
+
+```properties
+spring.application.name=food-service
+server.port=8081
+
+# Management endpoint exposed for Eureka
+management.endpoints.web.exposure.include=*
+management.endpoint.health.show-details=always
+```
+
+---
+
+### 2. Set Status and Health URLs in Eureka Client
+
+```properties
+# Register with Eureka
+eureka.client.service-url.defaultZone=http://localhost:8761/eureka/
+
+# Tell Eureka what to show in the dashboard links
+eureka.instance.status-page-url=http://localhost:${server.port}/swagger-ui/index.html
+eureka.instance.health-check-url=http://localhost:${server.port}/actuator/health
+eureka.instance.home-page-url=http://localhost:${server.port}/
+```
+
+* `status-page-url` → What you see when clicking the service in Eureka (commonly Swagger UI).
+* `home-page-url` → Default link for the service.
+* `health-check-url` → Used by Eureka to check if your service is alive.
+
+---
+
+### 3. Example: Food Service
+
+```properties
+spring.application.name=food-service
+server.port=8081
+
+eureka.client.service-url.defaultZone=http://localhost:8761/eureka/
+
+# Show Swagger page when clicking in Eureka
+eureka.instance.status-page-url=http://localhost:${server.port}/swagger-ui/index.html
+eureka.instance.home-page-url=http://localhost:${server.port}/
+eureka.instance.health-check-url=http://localhost:${server.port}/actuator/health
+
+management.endpoints.web.exposure.include=*
+```
+
+---
+
+### 4. Run Everything
+
+1. Start **Eureka Server (8761)**.
+2. Start **food-service (8081)** and **user-service (8082)**.
+3. Open **[http://localhost:8761](http://localhost:8761)**.
+4. Now when you click the service link → it will take you to `http://localhost:8081/swagger-ui/index.html` (or whatever you configured).
+
+---
+
+✅ That way, Eureka dashboard becomes your **service navigation hub**.
+👉 Pro tip: If you configure `status-page-url` for each service to point to Swagger, you’ll have a **clickable API documentation hub** right from Eureka.
+
+---
 
