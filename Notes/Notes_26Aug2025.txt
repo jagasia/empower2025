@@ -200,3 +200,75 @@ cd ..		one level up
 Task:
 identify as many commands in unix
 
+-------------------------------------------------
+Spring cloud service discovery
+
+Eureka server and client
+
+overview:
+-----------
+
+i will create one eureka server
+
+1) create a spring boot app
+	spring web
+	eureka server
+2) in any config (@SpringBootApplication class also is a config class)
+@SpringBootApplication
+@EnableEurekaServer
+public class EurekaServerApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(EurekaServerApplication.class, args);
+	}
+
+}
+
+
+3) application.properties
+
+server.port=8761
+eureka.client.registerWithEureka = false
+eureka.client.fetchRegistry = false
+
+4) run the app as java application
+
+5) http://localhost:8761
+
+
+-----------
+customer-api
+
+spring web
+eureka discovery client
+
+
+in config,
+
+@SpringBootApplication
+@EnableDiscoveryClient
+public class CustomerApiApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(CustomerApiApplication.class, args);
+	}
+
+}
+
+
+3) in application.properties
+
+server.port=5001
+spring.application.name=customer-api
+eureka.instance.hostname=localhost
+eureka.client.serviceUrl.defaultZone=http://${eureka.instance.hostname}:8761/eureka/
+server.context-path=/customer
+
+
+4) run the project
+
+
+
+now, check eureka server 8761
+you will see all the services that are registered with eureka server
+
