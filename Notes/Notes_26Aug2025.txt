@@ -5,6 +5,7 @@ between multiple web services,
 
 1) how one service can interact with another service
 	i) feign client	(spring cloud)
+		spring-cloud-starter-openfeign
 	ii) rest template	(spring boot) 
 	iii) in any java code, we can call any restful webservice
 		using
@@ -163,4 +164,39 @@ public interface FoodApi {
 Task:
 
 accessing webservice from another
+
+-------------------------------------
+Unix and Shell Programming	
+
+"Enviornment, Directories, Files, Pipes & Filters, 
+Shell Scripting, Variables"
+
+
+
+
+
+Unix and Shell Programming	"Enviornment, Directories, Files, Pipes & Filters, 
+Shell Scripting, Variables"
+	
+Unix and Shell Programming	Arrays, Control Statements, Functions, Substitutions. 
+
+
+
+
+ls		list	(eq to dir)
+ls -l		long list
+pwd		present working directory
+passwd		change password
+mkdir		make directory
+rmdir		remove directory
+mv		move / rename
+cp		copy
+grep		filter
+|		append
+cd		change directory
+cd ..		one level up
+
+
+Task:
+identify as many commands in unix
 
