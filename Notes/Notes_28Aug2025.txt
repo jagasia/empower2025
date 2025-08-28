@@ -19,7 +19,10 @@ http://localhost:5002/
 client side load balancer
 
 
+mvn spring-boot:run
 
+	the above command will run a spring boot application
+	you should execute this command in a location where pom.xml is 		present
 
 
 
@@ -261,6 +264,15 @@ spring:
               - uri: http://localhost:5002
               - uri: http://localhost:5003
 ```
+
+the above in case of application.properties:
+
+spring.cloud.loadbalancer.ribbon.enabled=false
+
+spring.cloud.discovery.client.simple.instances.demo-service[0].uri=http://localhost:5001
+spring.cloud.discovery.client.simple.instances.demo-service[1].uri=http://localhost:5002
+spring.cloud.discovery.client.simple.instances.demo-service[2].uri=http://localhost:5003
+
 
 Now each time you hit:
 👉 `http://localhost:8080/api/call-service`
