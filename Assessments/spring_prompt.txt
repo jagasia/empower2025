@@ -1,0 +1,4 @@
+
+spring core, DI, IOC, autowiring, scope, xml configuration, annotation configuration, spring MVC, spring boot, spring boot restful webservices,
+path variable, request body, jpa using spring data jpa.
+The coding question should focus on one or two functionality only so that the learners can paste that portion of code to evaluate without confusion. No need to expect all the files involved in the coding.
