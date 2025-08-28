@@ -488,3 +488,571 @@ echo "Area = $area"
 
 ---
 
+
+
+
+C programming
+------------------
+
+hello world in c.
+
+first create a "C" folder in your training folder.
+
+in vs code, open folder "C"
+
+create a file 
+	app.c
+
+
+#include <stdio.h>
+int main(){
+    puts("Hello, World!");
+    return 0;
+}
+
+
+open terminal		ctrl+shift+~
+
+gcc app.c -o app.exe
+app		(in windows, app means, app.exe only)
+		(in linux, .\app.exe)
+
+
+
+
+Activity:
+
+in c language, help me.
+understand the use of
+	getc
+	getch
+	getchar
+	gets
+
+	putc
+	putchar
+	puts
+
+
+
+this demonstrates all of these functions (`getc`, `getchar`, `getch`, `gets`, `putc`, `putchar`, `puts`).
+
+Here’s a clean example:
+
+```c
+#include <stdio.h>
+#include <conio.h>   // for getch (only on Windows/DOS compilers)
+
+int main() {
+    char c;
+    char str[50];
+
+    // ---------- getc ----------
+    printf("Enter a character (getc): ");
+    c = getc(stdin);      // reads from keyboard
+    printf("You entered (getc): %c\n", c);
+    fflush(stdin);        // clear input buffer (Windows specific)
+
+    // ---------- getchar ----------
+    printf("\nEnter another character (getchar): ");
+    c = getchar();        // reads one char
+    printf("You entered (getchar): %c\n", c);
+    fflush(stdin);
+
+    // ---------- getch ----------
+    printf("\nPress any key (getch, it won't show on screen): ");
+    c = getch();          // does not echo character
+    printf("\nYou pressed (getch): %c\n", c);
+
+    // ---------- gets ----------
+    printf("\nEnter a string (gets): ");
+    gets(str);            // ⚠ unsafe, use only for demo
+    printf("You entered (gets): %s\n", str);
+
+    // ---------- putc ----------
+    printf("\nUsing putc: ");
+    putc('A', stdout);
+    putc('\n', stdout);
+
+    // ---------- putchar ----------
+    printf("Using putchar: ");
+    putchar('B');
+    putchar('\n');
+
+    // ---------- puts ----------
+    printf("Using puts:\n");
+    puts("Hello from puts!");  // prints with newline
+
+    return 0;
+}
+```
+
+---
+
+### ⚡ How to Use:
+
+1. Copy into `demo.c` using Notepad.
+2. Compile:
+
+   ```sh
+   gcc demo.c -o demo
+   ```
+3. Run:
+
+   ```sh
+   ./demo   (Linux/Mac)
+   demo.exe (Windows)
+   ```
+
+---
+
+
+
+Control statements
+
+if
+	if is used to check a condition and execute the statement(s) if true
+
+else
+	is used to provide a path if condition returns false in if
+
+else if
+	is used to a condition during else
+
+
+if can have
+	0 or many else if 
+	and only 0 or 1 else
+
+
+switch case
+
+break
+continue
+
+
+
+char x='a';
+char y='\0';
+
+\t
+\n
+\0
+\r
+
+
+
+**Introduction, Explanation, Examples, and Hands-on Tasks**.
+
+Here’s the **complete set of chapters** I’ll cover:
+
+---
+
+# 📘 C Language Tutorial
+
+## Chapter 1: Introduction to C
+
+### Introduction
+
+* C is a general-purpose, procedural programming language.
+* Developed by **Dennis Ritchie** at Bell Labs (1972).
+* Used for **system programming, OS, embedded systems, compilers**, etc.
+* Portable, efficient, and powerful.
+
+### Explanation
+
+* C follows **structured programming** (code organized into functions).
+* Provides **low-level memory access** via pointers.
+* Programs in C are written as `.c` files, compiled into machine code.
+
+### Example
+
+```c
+#include <stdio.h>
+int main() {
+    printf("Hello, World!\n");
+    return 0;
+}
+```
+
+### Hands-on Task
+
+* Write a C program that prints your name and age.
+
+---
+
+## Chapter 2: Structure of a C Program
+
+### Introduction
+
+* Every C program has a **structure**: preprocessor directives, main function, and statements.
+
+### Explanation
+
+1. **Header files**: e.g., `#include <stdio.h>`
+2. **main() function**: program execution starts here.
+3. **Statements**: instructions ending with `;`.
+
+### Example
+
+```c
+#include <stdio.h>
+
+int main() {
+    printf("C program structure example\n");
+    return 0;
+}
+```
+
+### Hands-on Task
+
+* Write a program that prints today’s date in `DD/MM/YYYY` format.
+
+---
+
+## Chapter 3: Variables and Data Types
+
+### Introduction
+
+* Variables store data.
+* Data types define the type of data.
+
+### Explanation
+
+* `int` (integer), `float` (decimal), `char` (character), `double` (large decimal).
+* Format specifiers: `%d`, `%f`, `%c`, `%lf`.
+
+### Example
+
+```c
+#include <stdio.h>
+int main() {
+    int age = 25;
+    float salary = 45000.50;
+    char grade = 'A';
+    printf("Age: %d, Salary: %.2f, Grade: %c\n", age, salary, grade);
+    return 0;
+}
+```
+
+### Hands-on Task
+
+* Write a program to store and display student details (name, roll number, marks).
+
+---
+
+## Chapter 4: Operators in C
+
+### Introduction
+
+* Operators perform operations on variables.
+
+### Explanation
+
+* **Arithmetic**: `+ - * / %`
+* **Relational**: `== != > < >= <=`
+* **Logical**: `&& || !`
+* **Assignment**: `= += -=`
+* **Increment/Decrement**: `++ --`
+
+### Example
+
+```c
+#include <stdio.h>
+int main() {
+    int a=5, b=2;
+    printf("a+b = %d\n", a+b);
+    printf("a>b = %d\n", a>b);
+    return 0;
+}
+```
+
+### Hands-on Task
+
+* Write a program to check whether a number is greater than 100 and even.
+
+---
+
+## Chapter 5: Control Statements
+
+### Introduction
+
+* Control flow alters the execution sequence.
+
+### Explanation
+
+1. **if, else if, else**
+2. **switch-case**
+3. **loops** → for, while, do-while
+4. **break, continue, goto**
+
+### Example
+
+```c
+#include <stdio.h>
+int main() {
+    int x = 10;
+    if (x > 5)
+        printf("x is greater than 5\n");
+    else
+        printf("x is not greater than 5\n");
+    return 0;
+}
+```
+
+### Hands-on Task
+
+* Write a program using `switch` to display the day of the week (1=Monday, …, 7=Sunday).
+
+---
+
+## Chapter 6: Functions in C
+
+### Introduction
+
+* Functions break code into reusable blocks.
+
+### Explanation
+
+* **Built-in functions**: `printf`, `scanf`, `sqrt`, etc.
+* **User-defined functions**: created by programmer.
+
+### Example
+
+```c
+#include <stdio.h>
+void greet() {
+    printf("Hello from function!\n");
+}
+int main() {
+    greet();
+    return 0;
+}
+```
+
+### Hands-on Task
+
+* Write a function that takes two numbers and returns their sum.
+
+---
+
+## Chapter 7: Arrays
+
+### Introduction
+
+* Array = collection of same data type elements.
+
+### Explanation
+
+* Declared with size: `int arr[5];`
+* Accessed using index starting from `0`.
+
+### Example
+
+```c
+#include <stdio.h>
+int main() {
+    int arr[3] = {10, 20, 30};
+    for(int i=0; i<3; i++) {
+        printf("%d\n", arr[i]);
+    }
+    return 0;
+}
+```
+
+### Hands-on Task
+
+* Write a program to find the largest number in an array.
+
+---
+
+## Chapter 8: Strings
+
+### Introduction
+
+* Strings are arrays of characters ending with `\0`.
+
+### Explanation
+
+* Declared as `char str[20] = "Hello";`
+* String functions: `strlen`, `strcpy`, `strcmp`.
+
+### Example
+
+```c
+#include <stdio.h>
+#include <string.h>
+int main() {
+    char name[20] = "Jagadees";
+    printf("Length = %lu\n", strlen(name));
+    return 0;
+}
+```
+
+### Hands-on Task
+
+* Write a program to reverse a string.
+
+---
+
+## Chapter 9: Pointers
+
+### Introduction
+
+* Pointers store **memory addresses**.
+
+### Explanation
+
+* `*` dereferences pointer.
+* `&` gives address.
+
+### Example
+
+```c
+#include <stdio.h>
+int main() {
+    int x=10, *ptr;
+    ptr = &x;
+    printf("x = %d, address = %p\n", *ptr, ptr);
+    return 0;
+}
+```
+
+### Hands-on Task
+
+* Write a program to swap two numbers using pointers.
+
+---
+
+## Chapter 10: Structures & Unions
+
+### Introduction
+
+* Structures: group of different data types.
+* Unions: share same memory for all members.
+
+### Explanation
+
+```c
+struct Student {
+    int roll;
+    char name[20];
+    float marks;
+};
+```
+
+### Example
+
+```c
+#include <stdio.h>
+struct Student {
+    int roll;
+    char name[20];
+    float marks;
+};
+int main() {
+    struct Student s1 = {1, "John", 89.5};
+    printf("%s got %.2f marks\n", s1.name, s1.marks);
+    return 0;
+}
+```
+
+### Hands-on Task
+
+* Write a program to store and print 5 students' details.
+
+---
+
+## Chapter 11: File Handling
+
+### Introduction
+
+* Files allow permanent storage.
+
+### Explanation
+
+* `fopen`, `fprintf`, `fscanf`, `fclose`.
+
+### Example
+
+```c
+#include <stdio.h>
+int main() {
+    FILE *fp = fopen("data.txt", "w");
+    fprintf(fp, "Hello File!");
+    fclose(fp);
+    return 0;
+}
+```
+
+### Hands-on Task
+
+* Write a program to read a text file and count words.
+
+---
+
+## Chapter 12: Dynamic Memory Allocation
+
+### Introduction
+
+* Memory allocated at runtime.
+
+### Explanation
+
+* `malloc`, `calloc`, `realloc`, `free`.
+
+### Example
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+int main() {
+    int *p = (int*) malloc(5 * sizeof(int));
+    for(int i=0; i<5; i++) p[i] = i*10;
+    for(int i=0; i<5; i++) printf("%d ", p[i]);
+    free(p);
+    return 0;
+}
+```
+
+### Hands-on Task
+
+* Write a program to store 10 numbers dynamically and find their average.
+
+---
+
+## Chapter 13: Preprocessor Directives
+
+### Introduction
+
+* Preprocessor runs before compilation.
+
+### Explanation
+
+* `#include`, `#define`, `#ifdef`, `#ifndef`.
+
+### Example
+
+```c
+#include <stdio.h>
+#define PI 3.14159
+int main() {
+    printf("PI = %f\n", PI);
+    return 0;
+}
+```
+
+### Hands-on Task
+
+* Write a macro for squaring a number and test it.
+
+---
+
+## Chapter 14: Advanced Concepts
+
+* Recursion
+* Command line arguments
+* Bitwise operators
+* Storage classes (`auto`, `static`, `extern`, `register`)
+
+---
