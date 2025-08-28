@@ -138,6 +138,341 @@ public class LoadBalancerDemoApplication {
 
 }
 
+--------------------
+The above example shows how to call a webservice 10 times from main method.
+
+Instead, the below code is used to call the webservice from a controller, so that, in browser, if we call multiple times, it serves from difference clone of the webservice.
+
+Also, a simple method of configuring the suppliers in application.yml is also provided at the end.
+
+Right now your code is making WebClient calls directly from the `main` method, but in a real Spring Boot web app you’d usually move this logic into a **Controller** and let Spring handle HTTP requests. You also want **load balancing**, which typically means using **Spring Cloud LoadBalancer** (or Netflix Ribbon in older setups).
+
+Here’s how you can restructure your project:
+
+---
+
+### 1. Add Dependency for Spring Cloud LoadBalancer
+
+In your `pom.xml` (assuming Spring Boot 3.x):
+
+```xml
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+</dependency>
+```
+
+If you’re using Spring Boot 3.x, make sure you also import the Spring Cloud BOM:
+
+```xml
+<dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-dependencies</artifactId>
+            <version>2023.0.0</version> <!-- choose latest -->
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
+```
+
+---
+
+### 2. Configure a Load-Balanced WebClient Bean
+
+```java
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.reactive.function.client.WebClient;
+
+@Configuration
+public class WebClientConfig {
+
+    @Bean
+    @LoadBalanced
+    public WebClient.Builder loadBalancedWebClientBuilder() {
+        return WebClient.builder();
+    }
+}
+```
+
+The `@LoadBalanced` annotation tells Spring to resolve service names (e.g., `http://my-service`) instead of just plain hostnames.
+
+---
+
+### 3. Create a Controller to Call Your Service
+
+```java
+package com.empower.demo.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.reactive.function.client.WebClient;
+
+@RestController
+@RequestMapping("/api")
+public class DemoController {
+
+    private final WebClient.Builder webClientBuilder;
+
+    @Autowired
+    public DemoController(WebClient.Builder webClientBuilder) {
+        this.webClientBuilder = webClientBuilder;
+    }
+
+    @GetMapping("/call-service")
+    public String callService() {
+        WebClient client = webClientBuilder.build();
+
+        // Suppose you registered a service "demo-service" in Eureka or config
+        String response = client.get()
+                .uri("http://demo-service/")  // load-balanced call (instead of localhost:5001)
+                .retrieve()
+                .bodyToMono(String.class)
+                .block();
+
+        return "Response from service: " + response;
+    }
+}
+```
+
+---
+
+### 4. Run Multiple Instances for Load Balancing
+
+* If you use **Eureka/Nacos/Consul** → register multiple instances under the same service name (`demo-service`).
+* If you just want a quick round-robin without a registry, define instances in `application.yml`:
+
+```yaml
+spring:
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
+    discovery:
+      client:
+        simple:
+          instances:
+            demo-service:
+              - uri: http://localhost:5001
+              - uri: http://localhost:5002
+              - uri: http://localhost:5003
+```
+
+Now each time you hit:
+👉 `http://localhost:8080/api/call-service`
+it will **round-robin** across 5001, 5002, 5003.
+
+---
+
+✅ Summary:
+
+* Move call logic from `main` → Controller.
+* Use `@LoadBalanced WebClient.Builder`.
+* Either use Eureka/Consul or static config for load-balanced services.
+
+---
 
 
+
+
+---------------------------------------------------------------
+
+
+Enviornment, Directories, Files, Pipes & Filters, 
+Shell Scripting, Variables, Arrays, Control Statements, Functions, Substitutions. 
+
+
+
+
+---
+
+# 🐧 Unix & Shell Programming – Practice with Solutions
+
+---
+
+## 1. Environment
+
+**Task**: Print your current username, home directory, and default shell.
+
+**Solution**:
+
+```sh
+echo "User: $USER"
+echo "Home: $HOME"
+echo "Shell: $SHELL"
+```
+
+---
+
+## 2. Directories
+
+**Task**: Create a directory `project/unix` inside your home folder and move into it.
+
+**Solution**:
+
+```sh
+mkdir -p ~/project/unix
+cd ~/project/unix
+pwd
+```
+
+---
+
+## 3. Files
+
+**Task**: Create a file `greet.txt` containing the line “Welcome to Unix”. Then copy it as `backup.txt`.
+
+**Solution**:
+
+```sh
+echo "Welcome to Unix" > greet.txt
+cp greet.txt backup.txt
+cat backup.txt
+```
+
+---
+
+## 4. Pipes & Filters
+
+**Task**: Count how many users use `/bin/bash` shell in `/etc/passwd`.
+
+**Solution**:
+
+```sh
+cat /etc/passwd | grep "/bin/bash" | wc -l
+```
+
+---
+
+## 5. Shell Scripting
+
+**Task**: Write a script `showinfo.sh` to print current date, time, and present working directory.
+
+**Solution (`showinfo.sh`)**:
+
+```sh
+#!/bin/bash
+echo "Date: $(date)"
+echo "Time: $(date +%T)"
+echo "Current Directory: $(pwd)"
+```
+
+Run:
+
+```sh
+chmod +x showinfo.sh
+./showinfo.sh
+```
+
+---
+
+## 6. Variables
+
+**Task**: Store your name in a variable and greet yourself.
+
+**Solution**:
+
+```sh
+name="Jagadees"
+echo "Hello $name, welcome to Unix shell scripting!"
+```
+
+---
+
+## 7. Arrays
+
+**Task**: Create an array of 5 numbers and print the sum.
+
+**Solution**:
+
+```sh
+nums=(10 20 30 40 50)
+sum=0
+for n in "${nums[@]}"
+do
+  sum=$((sum+n))
+done
+echo "Sum = $sum"
+```
+
+---
+
+## 8. Control Statements
+
+**Task 1**: Check if a number is even or odd.
+
+**Solution**:
+
+```sh
+#!/bin/bash
+read -p "Enter a number: " num
+if [ $((num%2)) -eq 0 ]; then
+  echo "$num is Even"
+else
+  echo "$num is Odd"
+fi
+```
+
+**Task 2**: Print numbers 1 to 10 using loop.
+
+**Solution**:
+
+```sh
+for i in {1..10}
+do
+  echo $i
+done
+```
+
+---
+
+## 9. Functions
+
+**Task**: Write a function that calculates factorial of a number.
+
+**Solution**:
+
+```sh
+#!/bin/bash
+factorial() {
+  num=$1
+  fact=1
+  for (( i=1; i<=num; i++ ))
+  do
+    fact=$((fact*i))
+  done
+  echo "Factorial of $num is $fact"
+}
+
+factorial 5
+```
+
+---
+
+## 10. Substitutions
+
+**Task 1**: Display today’s date using command substitution.
+
+**Solution**:
+
+```sh
+echo "Today is $(date)"
+```
+
+**Task 2**: Calculate area of rectangle (length=5, breadth=10).
+
+**Solution**:
+
+```sh
+length=5
+breadth=10
+area=$((length * breadth))
+echo "Area = $area"
+```
+
+---
 
