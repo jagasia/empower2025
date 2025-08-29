@@ -1987,3 +1987,41 @@ You’ll now apply everything learned to build a **portfolio website**.
 
 ---
 
+type of inputs in HTML5:
+
+input type=
+text
+radio
+number
+checkbox
+email
+date
+password
+url
+range
+image
+color
+file
+button
+submit
+
+
+
+tell me example for "in-line" elements
+	<span>
+
+tell me example for "block" elements
+	<div>
+	<p>
+	all headings
+	<li>
+	
+
+<font color="blue">
+
+
+Ordered List vs Unordered List
+
+
+
+Order list starting from 31
