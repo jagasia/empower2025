@@ -1,0 +1,13 @@
+in C language programming:
+how will you create a function that accepts 2 arguments and swap them?
+
+int x=20;
+int y=30;
+swap(&x, &y);
+
+//now x should be 30 and y should be 20
+
+& is "address of" operator
+* is "indirection" or "dereference" operator 
+
+

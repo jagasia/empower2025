@@ -891,7 +891,62 @@ int main() {
 
 ### Hands-on Task
 
+
 * Write a program to reverse a string.
+
+Got it 👍 Let's make a version that works for **full sentences with spaces**.
+Instead of `scanf("%s", str)` (which stops at the first space), we’ll use **`fgets()`**.
+
+---
+
+### ✅ Program: Reverse a String with Spaces
+
+```c
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char str[200];
+    int i, j;
+    char temp;
+
+    // Input a full line (with spaces)
+    printf("Enter a string: ");
+    fgets(str, sizeof(str), stdin);
+
+    // Remove newline character if fgets adds it
+    str[strcspn(str, "\n")] = '\0';
+
+    // Get string length
+    int len = strlen(str);
+
+    // Swap characters from start and end
+    for (i = 0, j = len - 1; i < j; i++, j--) {
+        temp = str[i];
+        str[i] = str[j];
+        str[j] = temp;
+    }
+
+    // Print reversed string
+    printf("Reversed string: %s\n", str);
+
+    return 0;
+}
+```
+
+---
+
+### 🖥 Example Run
+
+```
+Enter a string: Hello World
+Reversed string: dlroW olleH
+```
+
+---
+
+👉 Do you also want me to show you a version that **reverses each word individually** (so `"Hello World"` → `"olleH dlroW"`) instead of reversing the whole sentence?
+
 
 ---
 
@@ -1056,3 +1111,68 @@ int main() {
 * Storage classes (`auto`, `static`, `extern`, `register`)
 
 ---
+
+
+
+
+
+int main(int argc, *char argv[])
+
+
+
+
+
+
+
+
+
+// Online C compiler to run C program online
+#include <stdio.h>
+
+int main() {
+    // Write C code here
+    int scores[3][3]={
+        {1,2,3},
+        {11,22,33},
+        {100,200,300}
+    };
+    
+    printf("%d",*(*scores+1)+1);
+    return 0;
+}
+
+int arr[10];
+
+what is arr?	
+	it is a point to first element of the array
+
+what is *arr?
+	the value of the first element of the array
+
+===============================
+int arr[5][5];
+
+what is arr?
+	it is undefined
+
+
+what is *arr?
+	it is the pointer to the first element
+	
+what is *(*arr)?
+	it is the value of first element
+
+
+*arr+1?
+	it is the address of second element
+	first row second column
+
+*(arr+1)?
+	it is the address of second row first element
+
+
+*(*(arr+1))	value of arr[1][0]
+
+
+
+
