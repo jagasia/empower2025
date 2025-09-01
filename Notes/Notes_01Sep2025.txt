@@ -89,3 +89,234 @@ universal
 
 
 https://www.w3schools.com/Css/css_selectors.asp
+
+
+Challenge:
+------------
+create a webpage with 10 textboxes.
+
+Whenever user enters into the textbox (may be by mouse click or reaches by tab in keyboard), the textbox should appear in yellow background.
+Remember, only when the cursor is in a texbox, that textbox appears in yellow background color.
+
+this way, we can easily find which textbox we are typing now.
+
+
+
+
+what is border?
+	border is a combination of
+		border-color
+		border-style
+		border-width
+
+what is background?
+	combination of
+
+
+
+color:
+
+1) named colors
+2) hexa decimal 
+	#FF0000
+3) rgb(r,g,b)
+4) rgba(r,g,b,a)
+
+---------------------------
+Bootstrap
+----------
+
+typography
+	as soon as bootstrap is applied, it applies some basic style
+
+grid layout
+	12 columns
+
+card
+
+
+
+you should signup using
+	<<empId>@gmail.com
+	Your name should be exactly same in every test
+	password (anything that you can remember)
+
+
+
+Javascript
+------------
+to add dynamic aspects or scripting capabilities to a web page
+	calculate
+	compute
+	validate
+	
+js is client side script
+that means it runs in browser.
+
+Object oriented programming language
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function checkLogin(){
+            var username = document.getElementById("username").value;   
+            var password = document.getElementById("password").value;
+            if(username === "admin" && password === "password123"){
+                document.getElementById("result").innerHTML = "Login successful!";
+            } else {
+                document.getElementById("result").innerHTML = "<p style='color:red'>Invalid username or password.</p>";  
+            }
+        }
+    </script>
+</head>
+<body>
+<form>
+        Username: <input type="text" id="username"><br><br>
+        Password: <input type="password" id="password"><br><br>
+        <input type="button" value="Login" onclick="checkLogin()">
+        <div id="result"></div>
+    </form>
+</body>
+</html>
+
+
+data types
+------------
+var x=20;		//number
+var y="raja";		//string
+var d=new Date();		//date
+
+find out as many data types in javascript
+
+var arr=[];			//an array
+
+arr.push(20);
+arr.push(30);
+
+var z=arr.pop();		
+
+var x={};
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+<body>
+    <div id="result"></div>
+    <script>
+        var arr=[];
+        arr.push("India");
+        arr.push("USA");
+        arr.push("UK");
+        arr.push("Canada");
+        arr.push("Australia");
+        arr.push("Pakistan");
+
+        for(var country of arr){
+            document.getElementById("result").innerHTML += country + "<br>";
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+{"id":"572","name":"iPhone 16 pro max","category":"Electronics","price":"185000"}
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script>
+        function fnStore(){
+            var id = document.getElementById("productId").value;
+            var name = document.getElementById("productName").value;
+            var category = document.getElementById("productCategory").value;
+            var price = document.getElementById("productPrice").value;
+            var product = {
+                id: id,
+                name: name,
+                category: category,
+                price: price
+            };
+            alert(JSON.stringify(product));
+        }
+
+        function fnLoad(){
+            var txtJSON = document.getElementById("txtJSON").value;
+            var product = JSON.parse(txtJSON);
+            document.getElementById("productId").value = product.id;
+            document.getElementById("productName").value = product.name;
+            document.getElementById("productCategory").value = product.category;
+            document.getElementById("productPrice").value = product.price;
+        }   
+    </script>
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white">
+                        <h2 class="mb-0">Product Form</h2>
+                    </div>
+                    <div class="card-body">
+                        <input type="text" name="" id="txtJSON">
+                        <input type="button" value="Load" onclick="fnLoad()">
+                        <form id="productForm">
+                            <div class="mb-3">
+                                <label for="productId" class="form-label">ID</label>
+                                <input type="text" class="form-control" id="productId" name="productId" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="productName" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="productName" name="productName" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="productCategory" class="form-label">Category</label>
+                                <select class="form-select" id="productCategory" name="productCategory" required>
+                                    <option value="">Select Category</option>
+                                    <option value="Electronics">Electronics</option>
+                                    <option value="Clothing">Clothing</option>
+                                    <option value="Books">Books</option>
+                                    <option value="Home">Home</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="productPrice" class="form-label">Price</label>
+                                <input type="number" class="form-control" id="productPrice" name="productPrice" required min="0" step="0.01">
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary" onclick="fnStore()" >Save</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

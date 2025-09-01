@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function checkLogin(){
+            var username = document.getElementById("username").value;   
+            var password = document.getElementById("password").value;
+            if(username === "admin" && password === "password123"){
+                document.getElementById("result").innerHTML = "Login successful!";
+            } else {
+                document.getElementById("result").innerHTML = "<p style='color:red'>Invalid username or password.</p>";  
+            }
+        }
+    </script>
+</head>
+<body>
+<form>
+        Username: <input type="text" id="username"><br><br>
+        Password: <input type="password" id="password"><br><br>
+        <input type="button" value="Login" onclick="checkLogin()">
+        <div id="result"></div>
+    </form>
+</body>
+</html>

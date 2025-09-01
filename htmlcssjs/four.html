@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+<body>
+    <div id="result"></div>
+    <script>
+        var arr=[];
+        arr.push("India");
+        arr.push("USA");
+        arr.push("UK");
+        arr.push("Canada");
+        arr.push("Australia");
+        arr.push("Pakistan");
+
+        for(var country of arr){
+            document.getElementById("result").innerHTML += country + "<br>";
+        }
+    </script>
+</body>
+</html>
