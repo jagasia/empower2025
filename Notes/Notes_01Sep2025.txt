@@ -1,0 +1,91 @@
+HTML, CSS and JS
+
+What is new in HTML5?
+Webstorage	(key-value)
+	localStorage
+	sessionStorage
+
+localStorage.setItem("username","raja");
+localStorage.removeItem("username");
+localStorage.getItem("username");		//returns "raja"
+
+Geo location
+Latitude: 12.931897687397683
+Longitude: 77.69103489766182
+
+
+
+12.931897687397683,77.69103489766182
+
+----------------------------------------------------
+
+Cascading Stylesheet		(CSS)
+
+is very useful for styling HTML pages.
+We can do any styling in HTML language itself. But when we want consistent styling across multiple pages and also, quick change in the style at runtime, we rely on CSS.
+
+CSS has its own syntax.
+
+all that we do in css is styling, effects, animation
+
+portion 1 is the selector
+portion 2 is the styles
+	inside portion 2, key-value pair then a semicolon
+
+ex:
+
+p
+{
+	text-align:center
+}
+
+
+
+there can be 3 ways, the css are used in HTML
+
+1) in-line
+2) internal/ embedded
+3) external
+
+in-line
+-------
+in the line of a HTML element, we specify styles.
+that style applies only that element on that line
+	in-line wins
+
+it is achieved using "style" attribute.
+
+<p style="">
+
+ex:
+
+
+
+internal/embedded styles:
+
+style element
+
+<style>
+</style>
+
+
+
+external stylesheet:
+
+using
+<link> element
+
+
+_---------
+
+Selectors:
+
+p		it is an element selector
+ID 
+class
+pseudo
+universal
+
+
+
+https://www.w3schools.com/Css/css_selectors.asp
