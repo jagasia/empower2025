@@ -320,3 +320,13 @@ var x={};
 </body>
 </html>
 
+
+
+
+Emai:		empId@gmail.com
+Name:		your name should be same in every assessment
+Password:	anything that you remember
+
+https://studio--skillcheck-ai-470y9.us-central1.hosted.app/
+
+
