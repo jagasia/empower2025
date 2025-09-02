@@ -678,3 +678,103 @@ interfaces
 inheritance
 implementation
 overriding
+------------------------------------------------
+Introducing ReactJs
+-----------------------
+is a javascript f/w like angular
+
+
+creating our first reactjs app:
+
+1) using CRA
+	npm i create-react-app
+	create-react-app my-first-app
+
+	npx create-react-app my-first-app
+
+2) using VITE
+
+	npm create vite@latest first-app
+
+
+choose
+	reactjs
+	javascript
+
+cd first-app
+code .
+npm i
+npm run dev
+
+
+in your restricted system:
+
+in cmd:
+
+npm config set strict-ssl false
+
+
+JSX	Javascript XML
+
+
+
+
+in DOM
+
+	document.getElementById("div").innerHTML="<p><b><i>this is the output</i></b></p>";
+
+
+in JSX
+
+	return <p><b><i>this is output</i></b></p>
+
+
+
+
+npm init
+	will create a package.json file
+
+npm install
+	will install the libraries mentioned in the package.json file 		dependencies
+
+
+---------------------
+Components
+
+class component
+function (or arrow function) component 		(popular)
+
+1) create a "components" folder under "src"
+2) create a file "Maths.jsx" inside "components"
+
+import { Component } from "react";
+
+class Maths extends Component{
+    render(){
+        return <div>
+            <h1>This is Maths Component</h1>
+            <h2>This is sub title</h2>
+        </div>
+    }
+}
+export default Maths;
+
+3) plug this in App component
+in App.jsx
+
+import { useState } from 'react'
+import './App.css'
+import Maths from './components/Maths'
+
+function App() {
+  const [count, setCount] = useState(0)
+
+  return (
+    <div>
+      Hello world<br/>
+      <Maths />
+    </div>
+  )
+}
+
+export default App
