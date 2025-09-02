@@ -1,10 +1,21 @@
-var country = "India";
-
-for(var i=0;i<10;i++){
-    var country = "USA";
-
+const fn1=(marks)=>
+{
+    const promise=new Promise((resolve,reject)=>
+    {
+        setTimeout(()=>
+        {
+            if(marks>=80)
+                resolve("Excellent");
+            else
+                reject("Keep improving");  
+        },1000);
+    });
+    return promise;
 }
 
-console.log(country);   //what will be the output?  //Output: USA
+let p=fn1(85);
 
+p.then(res=>console.log('Then block executed:',res))
+    .catch(err=>console.log('Catch block executed:',err))
+    .finally(()=>console.log("Execution completed"));   
 
