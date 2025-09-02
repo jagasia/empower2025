@@ -11,12 +11,24 @@ function App() {
 
   return (
     <div>
-      Hello world<br/>
-      <Product /><br/>
-      <Maths /><br/>
-      <Login title="Admin Login Page" backgroundColor="pink" /><br/>
-      <Login title="User Login Page" backgroundColor="lightBlue" /><br/>
-      <Country />
+      <div className="row">
+        <div className="col-md-4"><Product /></div>
+        <div className="col-md-4"><Login title="Admin Login Page" backgroundColor="pink" /></div>
+        <div className="col-md-4"><Country /></div>
+      </div>
+      <br /><br /><br />
+      <div className="row">
+        <div className="col-md-4">
+          <Maths />
+        </div>
+        <div className="col-md-4">
+          <Login title="User Login Page" backgroundColor="lightBlue" />
+        </div>
+        <div className="col-md-4"></div>
+      </div>
+      
+      <br/>
+      
     </div>
   )
 }

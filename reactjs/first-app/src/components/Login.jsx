@@ -24,8 +24,8 @@ export const Login=(props)=>{
         {password}
         <h2>{props.title}</h2>
         <form>
-            Username: <input type="text" name="username" onChange={(e)=>setUsername(e.target.value)}/><br/>
-            Password: <input type={(showPassword)?'text':'password'} name="password" onChange={(e)=>setPassword(e.target.value)} /><br/>
+            Username: <input type="text" name="username" onChange={(e)=>setUsername(e.target.value)} className="form-control" /><br/>
+            Password: <input type={(showPassword)?'text':'password'} name="password" onChange={(e)=>setPassword(e.target.value)} className="form-control"  /><br/>
             Show Password: <input type="checkbox" checked={showPassword} onChange={(e)=>setShowPassword(e.target.checked)} /><br/>
             <input type="button" value="Login" onClick={doLogin} />   
         </form>

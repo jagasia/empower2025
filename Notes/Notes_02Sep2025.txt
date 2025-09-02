@@ -1044,6 +1044,11 @@ and observer.
 ------------------
 =================
 
+Perfect 👍 You’re asking for **hands-on exercises** (not just examples).
+Let’s make this like a **training plan for your team**, step by step.
+Each exercise is a **small coding task** → your team will write code, run it, and see output.
+
+We’ll go chapter by chapter **(up to `useEffect`)**, and I’ll give exercises in an **IPL Cricket theme** 🏏 so it’s fun.
 
 ---
 
@@ -1223,4 +1228,27 @@ Type “Dhoni” → Click Vote → Alert: `You voted for Dhoni`
 ---
 
 👉 This way, you will **understand JSX, Components, Props, State, Events, Conditional Rendering, Lists, Forms, and useEffect** with **hands-on IPL examples**.
+
+
+
+
+Steps to use bootstrap in reactjs app:
+
+there are 2 different approaches:
+
+1) referring to CDN
+	this approach we used in our css chapter
+	external CSS
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+add the above line in <head> </head> of index.html
+
+
+2) by installing bootstrap library to our node_modules
+
+	i) 	npm i bootstrap@latest
+	ii) 	main.jsx
+			import 'bootstrap/dist/css/bootstrap.min.css'
+
 
