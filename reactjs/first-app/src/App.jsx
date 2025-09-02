@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import './App.css'
+
+import { Login } from './components/Login'
 import Maths from './components/Maths'
 
 function App() {
@@ -8,7 +10,8 @@ function App() {
   return (
     <div>
       Hello world<br/>
-      <Maths />
+      <Maths /><br/>
+      <Login />
     </div>
   )
 }

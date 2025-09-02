@@ -778,3 +778,154 @@ function App() {
 }
 
 export default App
+-----------------------------
+
+now lets create a functional component.
+
+create "Login.jsx" under "components" folder
+
+function Login(){
+    return <div>
+        Login Page
+    </div>
+}
+
+export default Login;
+
+
+you can also use "export default" on first line:
+
+export default function Login(){
+    return <div>
+        Login Page
+    </div>
+}
+
+// export default Login;	not needed because, we use this on top
+
+
+
+
+
+now lets change this code into arrow function:
+
+export const Login=()=>{
+    return <div>
+        Login Page
+    </div>
+}
+
+
+
+now, notice in App.jsx, how Login is imported with curley braces
+
+import { useState } from 'react'
+import './App.css'
+
+import { Login } from './components/Login'
+import Maths from './components/Maths'
+
+function App() {
+  const [count, setCount] = useState(0)
+
+  return (
+    <div>
+      Hello world<br/>
+      <Maths /><br/>
+      <Login />
+    </div>
+  )
+}
+
+export default App
+
+
+-------------------------
+state management:
+
+what is the need for state management?
+	we need to retain some data across functions
+
+in class component:
+
+
+import { Component } from "react";
+
+class Maths extends Component{
+
+    constructor(){
+        super();
+        this.state={no1:0, no2:0, sum:0};
+        this.addNumbers=this.addNumbers.bind(this);
+    }
+
+    addNumbers(){
+        var x=this.state.no1;
+        var y=this.state.no2;
+        this.setState({...this.state, sum: parseInt(x)+parseInt(y)});
+    }
+
+    render(){
+        return <div>
+            {JSON.stringify(this.state)}<br/>
+            <form>
+                Number 1: <input type="text" name="num1" onChange={(e)=>this.setState({...this.state,no1:e.target.value})}/><br/>
+                Number 2: <input type="text" name="num2" onKeyUp={(e)=>{this.setState({...this.state,no2:e.target.value})}} /><br/>
+                <input type="button" value="Add" onClick={this.addNumbers} />      
+            </form>
+            { this.state.sum>0 && <div>Sum is: {this.state.sum}</div> }
+        </div>
+    }
+}
+export default Maths;
+
+
+
+
+
+
+
+
+
+
+in functional component,
+	we use hooks
+
+for state management, we use
+	useState hook
+
+
+
+
+import { useState } from "react";
+
+
+
+export const Login=()=>{
+    const [username, setUsername]=useState("");
+    const [password, setPassword]=useState(""); 
+    const [result, setResult]=useState(""); 
+    
+    function doLogin(e){
+        
+        if(username==="admin" && password==="admin"){
+            setResult("Login Successful");
+        } else {
+            setResult("Login Failed");
+        }
+    }   
+
+
+    return <div>
+        {username}
+        <br/>
+        {password}
+        <form>
+            Username: <input type="text" name="username" onChange={(e)=>setUsername(e.target.value)}/><br/>
+            Password: <input type="password" name="password" onChange={(e)=>setPassword(e.target.value)} /><br/>
+            <input type="button" value="Login" onClick={doLogin} />   
+        </form>
+        { result.length>0 && <div style={{color:(result==='Login Successful')?'green':'red'}}>{result}</div> }
+    </div>
+}
+

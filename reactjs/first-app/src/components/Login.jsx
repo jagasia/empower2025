@@ -1,0 +1,31 @@
+import { useState } from "react";
+
+
+
+export const Login=()=>{
+    const [username, setUsername]=useState("");
+    const [password, setPassword]=useState(""); 
+    const [result, setResult]=useState(""); 
+    
+    function doLogin(e){
+        
+        if(username==="admin" && password==="admin"){
+            setResult("Login Successful");
+        } else {
+            setResult("Login Failed");
+        }
+    }   
+
+
+    return <div>
+        {username}
+        <br/>
+        {password}
+        <form>
+            Username: <input type="text" name="username" onChange={(e)=>setUsername(e.target.value)}/><br/>
+            Password: <input type="password" name="password" onChange={(e)=>setPassword(e.target.value)} /><br/>
+            <input type="button" value="Login" onClick={doLogin} />   
+        </form>
+        { result.length>0 && <div style={{color:(result==='Login Successful')?'green':'red'}}>{result}</div> }
+    </div>
+}
