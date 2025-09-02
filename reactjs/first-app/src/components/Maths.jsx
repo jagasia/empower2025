@@ -2,7 +2,7 @@ import { Component } from "react";
 
 class Maths extends Component{
 
-    constructor(){
+    constructor(props){
         super();
         this.state={no1:0, no2:0, sum:0};
         this.addNumbers=this.addNumbers.bind(this);

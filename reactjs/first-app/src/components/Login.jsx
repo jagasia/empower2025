@@ -2,7 +2,7 @@ import { useState } from "react";
 
 
 
-export const Login=()=>{
+export const Login=(props)=>{
     const [username, setUsername]=useState("");
     const [password, setPassword]=useState(""); 
     const [result, setResult]=useState(""); 
@@ -18,10 +18,11 @@ export const Login=()=>{
     }   
 
 
-    return <div>
+    return <div style={{backgroundColor:props.backgroundColor, padding:'10px', border:'2px solid black', inlineSize:'300px'}}>
         {username}
         <br/>
         {password}
+        <h2>{props.title}</h2>
         <form>
             Username: <input type="text" name="username" onChange={(e)=>setUsername(e.target.value)}/><br/>
             Password: <input type={(showPassword)?'text':'password'} name="password" onChange={(e)=>setPassword(e.target.value)} /><br/>

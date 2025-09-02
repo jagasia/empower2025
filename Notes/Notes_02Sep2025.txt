@@ -1021,3 +1021,206 @@ export const Country=()=>{
 }   
 
 
+-----------------------------
+props
+-----
+properties
+	used to pass input from parent component to child component.
+
+
+-------------
+Life cycle of components
+------------------------------
+in a class based component, 
+there are lot of life cycle methods
+
+	constructor()
+	componentDidMount()
+	
+understand the life cycle of components (class, functionals)
+and observer.
+
+------------------
+------------------
+=================
+
+
+---
+
+# 🏏 React Hands-on Exercises (Up to `useEffect`)
+
+---
+
+## 🔹 Chapter 1: JSX Basics
+
+👉 **Task:** Create a `Welcome` component that displays:
+
+* A heading: “Welcome to IPL Dashboard”
+* A subheading with the current year (use `{new Date().getFullYear()}`)
+* A paragraph saying “Powered by React ⚡”
+
+✅ Expected Output:
+
+```
+Welcome to IPL Dashboard
+2025
+Powered by React ⚡
+```
+
+---
+
+## 🔹 Chapter 2: Components
+
+👉 **Task:** Create a `Team` component that shows:
+
+* Team name inside `<h2>`
+* A fixed message: “Best of Luck!”
+
+Then use it **twice** inside `App.js`:
+
+* `<Team />` for “CSK”
+* `<Team />` for “MI”
+
+✅ Expected Output:
+
+```
+CSK
+Best of Luck!
+
+MI
+Best of Luck!
+```
+
+---
+
+## 🔹 Chapter 3: Props
+
+👉 **Task:** Create a `Player` component with props: `name` and `role`.
+Inside App, render 3 players:
+
+* Dhoni - Wicket Keeper
+* Kohli - Batsman
+* Bumrah - Bowler
+
+✅ Expected Output:
+
+```
+Dhoni - Wicket Keeper
+Kohli - Batsman
+Bumrah - Bowler
+```
+
+---
+
+## 🔹 Chapter 4: State
+
+👉 **Task:** Create a `ScoreCounter` component:
+
+* Use `useState(0)` for score
+* Add a button **“Add 6 Runs”** → increases score by 6
+
+✅ Expected Output:
+
+```
+🏏 Score: 0
+[Add 6 Runs]
+```
+
+Click → Score updates to 6, 12, 18…
+
+---
+
+## 🔹 Chapter 5: Events
+
+👉 **Task:** Create a `CheerButton` component:
+
+* Button → “Cheer for Team”
+* On click → Show alert: “🎉 Go CSK Go!”
+
+✅ Expected Output:
+Click button → Alert pops up.
+
+---
+
+## 🔹 Chapter 6: Conditional Rendering
+
+👉 **Task:** Create a `MatchStatus` component:
+
+* If `isOver = true` → Show “🏆 CSK Won!”
+* If `isOver = false` → Show “Match is still on…”
+
+✅ Expected Output:
+
+```
+Match is still on…
+```
+
+(When you set `isOver=true`, it should switch)
+
+---
+
+## 🔹 Chapter 7: Lists & Keys
+
+👉 **Task:** Create a `PlayersList` component:
+
+* Use array: `[“Dhoni”, “Raina”, “Jadeja”]`
+* Render inside `<ul>` with `map`
+
+✅ Expected Output:
+
+```
+- Dhoni
+- Raina
+- Jadeja
+```
+
+---
+
+## 🔹 Chapter 8: Forms
+
+👉 **Task:** Create a `FanVote` form:
+
+* Input: “Your Favourite Player”
+* Button: “Vote”
+* On submit → alert the player name
+
+✅ Expected Output:
+
+```
+Enter Player: [   ]
+[Vote]
+```
+
+Type “Dhoni” → Click Vote → Alert: `You voted for Dhoni`
+
+---
+
+## 🔹 Chapter 9: useEffect
+
+👉 **Task:** Create a `LiveScore` component:
+
+* `score` state = 0
+* Use `useEffect` with `setInterval` → every 2 sec, increase score randomly (1–6 runs)
+* Show score live updating
+
+✅ Expected Output:
+
+```
+🏏 Live Score: 0
+(after 2s) 🏏 Live Score: 4
+(after 2s) 🏏 Live Score: 9
+```
+
+---
+
+# 📝 How Your Team Can Practice
+
+1. **Create a React app** → `npx create-react-app ipl-dashboard`
+2. Replace `App.js` code with each exercise one by one
+3. Team members should **solve**, not just copy-paste
+4. After each, discuss: *Where did we use state? Why props? Why useEffect?*
+
+---
+
+👉 This way, you will **understand JSX, Components, Props, State, Events, Conditional Rendering, Lists, Forms, and useEffect** with **hands-on IPL examples**.
+
