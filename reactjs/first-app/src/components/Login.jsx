@@ -6,6 +6,7 @@ export const Login=()=>{
     const [username, setUsername]=useState("");
     const [password, setPassword]=useState(""); 
     const [result, setResult]=useState(""); 
+    const [showPassword, setShowPassword]=useState(true);
     
     function doLogin(e){
         
@@ -23,7 +24,8 @@ export const Login=()=>{
         {password}
         <form>
             Username: <input type="text" name="username" onChange={(e)=>setUsername(e.target.value)}/><br/>
-            Password: <input type="password" name="password" onChange={(e)=>setPassword(e.target.value)} /><br/>
+            Password: <input type={(showPassword)?'text':'password'} name="password" onChange={(e)=>setPassword(e.target.value)} /><br/>
+            Show Password: <input type="checkbox" checked={showPassword} onChange={(e)=>setShowPassword(e.target.checked)} /><br/>
             <input type="button" value="Login" onClick={doLogin} />   
         </form>
         { result.length>0 && <div style={{color:(result==='Login Successful')?'green':'red'}}>{result}</div> }
