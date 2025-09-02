@@ -323,10 +323,37 @@ var x={};
 
 
 
+
+
+https://studio--skillcheck-ai-470y9.us-central1.hosted.app/
+
+click "Start your free trial" button to signup
+
+
 Emai:		empId@gmail.com
 Name:		your name should be same in every assessment
 Password:	anything that you remember
 
-https://studio--skillcheck-ai-470y9.us-central1.hosted.app/
+PRH0-F7TT-285V
 
+
+
+
+
+
+for one
+	;
+	.
+	/ is missing in path variable
+	\ instead of /
+	new myservice()
+	@ResponseBody missing for "Hello, "
+
+
+small mistakes, it reduced 5 marks, 4 marks
+
+
+
+main(String []args) is correct according to AI
+main(String args[]) is wrong according to AI	(3 marks reduced)
 

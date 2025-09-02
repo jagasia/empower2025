@@ -1,0 +1,295 @@
+We will learn javascript advanced features.
+
+in your laptops, nodejs is installed
+
+nodejs is a javascript library.
+
+we can use this, to run javascript programs as stand-alone.
+
+lets create one.js file now.
+
+
+
+var vs let
+
+var is used to declare a variable
+
+let is used to declare a variable
+	will not allow us to redeclare
+
+
+var i=20;
+
+var i="raja";   //re-declaration and re-initialization
+
+console.log(i); //what will be the output?
+
+
+
+let country = "India";
+
+for(var i=0;i<10;i++){
+    let country = "USA";
+
+}
+
+console.log(country);   //what will be the output?
+
+// Output: India
+// Explanation: The variable 'country' declared with 'let' inside the for loop has block scope, 
+// so it does not affect the 'country' variable declared outside the loop. 
+// Therefore, when we log 'country' outside the loop, it refers to the outer variable which is "India". 
+
+
+
+var country = "India";
+
+for(var i=0;i<10;i++){
+    var country = "USA";
+
+}
+
+console.log(country);   //what will be the output?  //Output: USA
+
+
+
+
+Absolutely—let’s go deep on **`var` vs `let`** (and where `const` fits). This is one of the most asked, most bug-prone areas in JS.
+
+# 1) `var` vs `let` (with `const` for context)
+
+## TL;DR
+
+* **Scope**: `var` → function-scoped; `let/const` → block-scoped.
+* **Hoisting**: `var` hoists and initializes to `undefined`; `let/const` hoist but sit in the **Temporal Dead Zone (TDZ)** until their declaration line.
+* **Redeclaration**: `var` can be redeclared in the same scope; `let/const` cannot.
+* **Globals**: `var` at top level → creates a property on `window/globalThis`; `let/const` do not.
+* **Loops**: `let` creates a fresh binding per iteration; `var` does not (classic closure bug).
+* **Mutation**: `let` is reassignable; `const` is not (but objects/arrays referenced by a `const` can still be mutated).
+
+---
+
+## A. Scope: function vs block
+
+```js
+function demo() {
+  if (true) {
+    var a = 1;  // function-scoped
+    let b = 2;  // block-scoped
+  }
+  console.log(a); // 1  ✅ leaks out of the block
+  console.log(b); // ReferenceError ❌
+}
+demo();
+```
+
+* `var` is **visible anywhere in the entire function** once declared inside it.
+* `let` is **only visible inside the nearest `{ ... }` block** (if, for, while, try/catch, etc.).
+
+### Switch gotcha
+
+`switch` has a single shared block for all `case`s. Use braces to create per-case blocks if you re-declare variables.
+
+```js
+switch (n) {
+  case 0: { let x = 1; /* ... */ break; }
+  case 1: { let x = 2; /* ... */ break; } // ✅ fine due to braces
+}
+```
+
+---
+
+## B. Hoisting & the Temporal Dead Zone (TDZ)
+
+All declarations are **hoisted**, but they’re initialized differently:
+
+```js
+function hoist() {
+  console.log(a); // undefined (hoisted & initialized) ✅
+  console.log(b); // ReferenceError (TDZ) ❌
+  var a = 1;
+  let b = 2;
+}
+hoist();
+```
+
+* `var` is hoisted and **initialized to `undefined`**, so reading it before the line of initialization doesn’t crash (but yields `undefined`).
+* `let` is hoisted but **uninitialized** until its declaration line; reading it early throws a **ReferenceError** (the TDZ).
+
+### `typeof` nuance
+
+`typeof` used to be “safe” for checking undeclared variables. Not with TDZ variables.
+
+```js
+console.log(typeof notDeclared); // "undefined" ✅ (never declared)
+console.log(typeof x);           // ReferenceError ❌ if `let x` appears later in scope
+let x = 10;
+```
+
+---
+
+## C. Redeclaration & Reassignment
+
+```js
+var a = 1;
+var a = 2; // ✅ allowed
+
+let b = 1;
+let b = 2; // ❌ SyntaxError (same scope)
+
+let c = 1;
+c = 2;     // ✅ allowed
+
+const d = 1;
+d = 2;     // ❌ TypeError (no reassignment)
+```
+
+* Prefer `const` by default (signals “won’t reassign”), then use `let` when you need to reassign. Avoid `var`.
+
+---
+
+## D. Loops & Closures (the classic bug)
+
+```js
+// Using var
+for (var i = 0; i < 3; i++) {
+  setTimeout(() => console.log("var", i), 0);
+}
+// Output: var 3, var 3, var 3 ❌ one shared i for all iterations
+
+// Using let
+for (let i = 0; i < 3; i++) {
+  setTimeout(() => console.log("let", i), 0);
+}
+// Output: let 0, let 1, let 2 ✅ fresh i per iteration
+```
+
+* `let` creates a **new binding each iteration**. This alone is reason enough to abandon `var` in loops.
+* Pre-ES6 workaround (for reference): IIFE capture.
+
+```js
+for (var i = 0; i < 3; i++) {
+  (function (iCopy) {
+    setTimeout(() => console.log(iCopy), 0);
+  })(i);
+}
+```
+
+---
+
+## E. Global behavior (`window`/`globalThis`)
+
+```js
+var v = 1;
+let l = 2;
+
+console.log(window.v);        // 1 ✅ `var` creates a global property
+console.log("l" in window);   // false ❌ `let` does not
+
+// Deletion:
+console.log(delete window.v); // false (non-configurable)
+console.log(delete window.l); // true, but `l` wasn't a property anyway
+```
+
+* `var` at top level behaves like defining a non-configurable property on the global object.
+* `let/const` live in **module/script scope**, not as global object properties—cleaner and safer.
+
+---
+
+## F. Shadowing & Blocks
+
+```js
+let x = 1;
+{
+  let x = 2;   // shadows outer x, different binding
+  console.log(x); // 2
+}
+console.log(x);   // 1
+```
+
+* `let/const` make intentional shadowing easy and localized.
+* With `var`, shadowing often happens unintentionally at function level and leads to bugs.
+
+---
+
+## G. `const` and mutation (important context)
+
+```js
+const obj = { n: 1 };
+obj.n = 2;        // ✅ allowed (mutating the object)
+obj = { n: 3 };   // ❌ not allowed (reassigning the binding)
+
+const arr = [1];
+arr.push(2);      // ✅ mutation ok
+arr = [];         // ❌ reassignment not ok
+```
+
+* `const` locks the **binding**, not the **value**. Use `Object.freeze` for shallow immutability of objects if needed.
+
+---
+
+## H. Real-world pitfalls & fixes
+
+1. **Accidental global via `var` in sloppy mode**
+   In non-module scripts without `"use strict"`, assigning to an undeclared name creates a global. Using `let/const` + modules avoids this foot-gun entirely.
+
+2. **Reusing names across `case` labels**
+   Use braces around each `case` when using `let/const`.
+
+3. **Pre-access in the TDZ**
+   Reorder code to **declare first, use later**. TDZ catches these early with a clear error—actually helpful for correctness.
+
+4. **Libraries and legacy code**
+   If you must touch legacy `var` code, be extra careful with loops and redeclarations. Migrating loops to `let` is a low-risk, high-reward change.
+
+---
+
+## I. Best-practice checklist
+
+* ✅ Use **`const` by default**, **`let` when you must reassign**.
+* ✅ Prefer **block scoping** (`let/const`) over function scoping (`var`).
+* ✅ In loops, always use **`let`** for the index/iteration variable.
+* ✅ Put declarations at the **top of their block**; never rely on hoisting.
+* ✅ In `switch`, **wrap each case in `{ ... }`** when declaring with `let/const`.
+* ❌ Don’t redeclare variables in the same scope with `let/const`.
+* ❌ Don’t access `let/const` before their declaration (TDZ).
+
+---
+
+## J. Quick “spot the bug” drills
+
+1. What logs?
+
+```js
+function f() {
+  console.log(a); // ?
+  var a = 10;
+  console.log(b); // ?
+  let b = 20;
+}
+f();
+```
+
+* Output: `undefined`, then **ReferenceError**.
+
+2. What logs?
+
+```js
+for (var i = 0; i < 2; i++) {
+  setTimeout(() => console.log(i), 0);
+}
+```
+
+* Output: `2`, `2`.
+
+3. Fix #2 using `let`:
+
+```js
+for (let i = 0; i < 2; i++) {
+  setTimeout(() => console.log(i), 0); // 0, 1
+}
+```
+
+---
+
+If this depth matches what you’re after, I’ll expand the **next concept** with the same level of detail (e.g., **Arrow Functions**: `this` semantics, `arguments`, constructors, performance notes, pitfalls, and patterns). Tell me which topic you want next, or I can proceed in order.
