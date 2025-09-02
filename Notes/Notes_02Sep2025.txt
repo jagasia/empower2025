@@ -293,3 +293,362 @@ for (let i = 0; i < 2; i++) {
 ---
 
 If this depth matches what you’re after, I’ll expand the **next concept** with the same level of detail (e.g., **Arrow Functions**: `this` semantics, `arguments`, constructors, performance notes, pitfalls, and patterns). Tell me which topic you want next, or I can proceed in order.
+
+
+
+Remaining topics of Javascript:
+
+Perfect 👌 you want a **deep dive** into each ES6 + advanced JavaScript concept, not just code snippets. I’ll expand this into an **elaborate guide** that explains the "what", "why", and "how" of every concept with examples, best practices, and pitfalls.
+
+Let’s structure it in **two main parts**:
+
+1. **ES6 Features (Core Modern JavaScript)**
+2. **Advanced JavaScript Concepts (Deeper language mechanics + patterns)**
+
+---
+
+# 🟢 Part 1: ES6 Features
+
+---
+
+### 1. **`let` and `const` (Block Scoped Variables)**
+
+* Before ES6, JavaScript only had `var`, which was **function-scoped** and hoisted.
+* ES6 introduced:
+
+  * `let` → block-scoped, reassignable
+  * `const` → block-scoped, cannot be reassigned (but objects/arrays can still be mutated)
+
+```js
+{
+  var a = 1;
+  let b = 2;
+  const c = 3;
+}
+console.log(a); // 1
+console.log(b); // ❌ ReferenceError
+console.log(c); // ❌ ReferenceError
+```
+
+👉 Best practice: Use `const` by default, `let` when reassignment is needed, avoid `var`.
+
+---
+
+### 2. **Arrow Functions**
+
+* Shorter function syntax.
+* Lexically bind `this` (inherit from surrounding scope).
+* Cannot be used as constructors.
+
+```js
+// Traditional
+function add(a, b) {
+  return a + b;
+}
+
+// Arrow
+const add = (a, b) => a + b;
+```
+
+⚠️ Pitfall: Arrow functions do **not** have their own `this`.
+
+```js
+const obj = {
+  name: "Jagadees",
+  say: () => console.log(this.name)
+};
+obj.say(); // undefined
+```
+
+---
+
+### 3. **Template Literals**
+
+* Use backticks (`` ` ``) instead of quotes.
+* Allow interpolation `${expr}` and multiline strings.
+
+```js
+const name = "Jagadees";
+const msg = `Hello, ${name}!
+Welcome to ES6.`;
+console.log(msg);
+```
+
+---
+
+### 4. **Default Parameters**
+
+```js
+function greet(name = "Guest") {
+  console.log(`Hello, ${name}`);
+}
+greet(); // Hello, Guest
+```
+
+👉 Useful for optional parameters instead of `name = name || "Guest"`.
+
+---
+
+### 5. **Destructuring**
+
+* Extract values from objects/arrays into variables.
+
+```js
+const person = { name: "John", age: 30 };
+const { name, age } = person;
+
+const arr = [10, 20];
+const [x, y] = arr;
+```
+
+---
+
+### 6. **Spread & Rest**
+
+* Spread → expand elements
+* Rest → collect into array
+
+```js
+const arr1 = [1, 2];
+const arr2 = [...arr1, 3, 4]; // [1, 2, 3, 4]
+
+function sum(...nums) {
+  return nums.reduce((a, b) => a + b, 0);
+}
+```
+
+---
+
+### 7. **Classes**
+
+* Syntactic sugar over prototypes.
+* Support inheritance with `extends`.
+
+```js
+class Animal {
+  constructor(name) {
+    this.name = name;
+  }
+  speak() {
+    console.log(`${this.name} makes a sound`);
+  }
+}
+
+class Dog extends Animal {
+  speak() {
+    console.log(`${this.name} barks`);
+  }
+}
+```
+
+---
+
+### 8. **Modules**
+
+* Organize code across files.
+
+```js
+// math.js
+export const add = (a, b) => a + b;
+
+// main.js
+import { add } from "./math.js";
+```
+
+---
+
+### 9. **Promises**
+
+* Handle async operations.
+* States: `pending → fulfilled / rejected`.
+
+```js
+const promise = new Promise((resolve, reject) => {
+  setTimeout(() => resolve("Done"), 1000);
+});
+
+promise.then(console.log).catch(console.error);
+```
+
+---
+
+### 10. **Iterators & Generators**
+
+* **Iterator**: Object with `next()` method.
+* **Generator**: Function that can pause/resume with `yield`.
+
+```js
+function* gen() {
+  yield 1;
+  yield 2;
+  yield 3;
+}
+for (const val of gen()) {
+  console.log(val);
+}
+```
+
+---
+
+# 🔵 Part 2: Advanced JavaScript Concepts
+
+---
+
+### 1. **Closures**
+
+* A closure is when an inner function “remembers” variables from its outer scope.
+
+```js
+function outer() {
+  let count = 0;
+  return function inner() {
+    count++;
+    return count;
+  };
+}
+const counter = outer();
+console.log(counter()); // 1
+console.log(counter()); // 2
+```
+
+👉 Used in encapsulation, data hiding, function factories.
+
+---
+
+### 2. **Higher-Order Functions**
+
+* A function that takes/returns another function.
+
+```js
+const multiply = factor => num => num * factor;
+const double = multiply(2);
+console.log(double(5)); // 10
+```
+
+---
+
+### 3. **Async/Await**
+
+* Built on top of Promises.
+* Make async code look synchronous.
+
+```js
+async function fetchData() {
+  try {
+    const res = await fetch("https://jsonplaceholder.typicode.com/posts/1");
+    const data = await res.json();
+    console.log(data);
+  } catch (e) {
+    console.error(e);
+  }
+}
+```
+
+---
+
+### 4. **Event Loop**
+
+* JS is single-threaded.
+* Uses an event loop to handle async tasks.
+
+Execution order:
+
+```js
+console.log("Start");
+setTimeout(() => console.log("Timeout"), 0);
+Promise.resolve().then(() => console.log("Promise"));
+console.log("End");
+
+// Output: Start → End → Promise → Timeout
+```
+
+---
+
+### 5. **Prototypes & Inheritance**
+
+* Objects inherit properties from prototype chain.
+
+```js
+function Person(name) {
+  this.name = name;
+}
+Person.prototype.sayHi = function () {
+  console.log(`Hi, I'm ${this.name}`);
+};
+const p = new Person("Jagadees");
+p.sayHi();
+```
+
+---
+
+### 6. **Functional Programming**
+
+* Core concepts: **pure functions, immutability, composition**.
+
+```js
+const arr = [1, 2, 3, 4];
+const squares = arr.map(n => n * n);
+const evens = arr.filter(n => n % 2 === 0);
+const sum = arr.reduce((a, b) => a + b, 0);
+```
+
+---
+
+### 7. **Currying**
+
+* Transforming a function of many arguments into nested functions.
+
+```js
+const add = a => b => a + b;
+console.log(add(2)(3)); // 5
+```
+
+---
+
+### 8. **Debounce & Throttle**
+
+* **Debounce**: Trigger function only after no repeated calls in a time frame.
+* **Throttle**: Allow function only once in a time frame.
+
+```js
+function debounce(fn, delay) {
+  let timer;
+  return function (...args) {
+    clearTimeout(timer);
+    timer = setTimeout(() => fn.apply(this, args), delay);
+  };
+}
+```
+
+---
+
+### 9. **Symbols & WeakMaps**
+
+* `Symbol`: Unique, immutable key.
+* `WeakMap`: Holds weakly referenced keys (objects only).
+
+```js
+const sym = Symbol("id");
+const obj = { [sym]: 123 };
+console.log(obj[sym]); // 123
+```
+
+---
+
+### 10. **Proxy & Reflect**
+
+* `Proxy`: Intercepts object operations.
+* `Reflect`: Built-in helpers for object manipulation.
+
+```js
+const user = { name: "Jagadees" };
+const proxy = new Proxy(user, {
+  get(target, prop) {
+    return `Hello, ${target[prop]}`;
+  }
+});
+console.log(proxy.name); // Hello, Jagadees
+```
+
+---
+
