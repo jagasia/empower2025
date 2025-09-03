@@ -1,0 +1,427 @@
+Form handling - controlled form - validation
+Routing
+API calls
+Security JWT
+
+
+
+
+
+
+
+* Each chapter will have:
+
+  1. **Explanation** (concept in simple terms)
+  2. **Syntax** (how to write in React)
+  3. **Example** (real-life analogy, preferably using cricket/RCB when fun helps)
+  4. **Hands-on Exercise** (so you & your team can practice)
+
+---
+
+# 📘 ReactJS Course Content
+
+---
+
+## **Chapter 1: Introduction to React**
+
+**Explanation:**
+
+* React is a **JavaScript library** for building **user interfaces**.
+* Created by Facebook, it makes UI development easier using **components**.
+* React focuses on **building reusable UI blocks** instead of writing everything again and again.
+
+**Syntax (Basic React App):**
+
+```jsx
+import React from "react";
+import ReactDOM from "react-dom";
+
+function App() {
+  return <h1>Hello, RCB Fans! 🚩</h1>;
+}
+
+ReactDOM.render(<App />, document.getElementById("root"));
+```
+
+**Example:**
+
+* Think of a cricket stadium 🏟️ — every seat is a component. You can manage one seat at a time, instead of repainting the whole stadium.
+
+**Hands-on:**
+
+* Create a React app using `create-react-app` or `Vite`.
+* Render `Hello, World!` and then replace it with `Welcome to RCB Fan Club`.
+
+---
+
+## **Chapter 2: JSX – JavaScript + XML**
+
+**Explanation:**
+
+* JSX allows you to write **HTML-like syntax inside JS**.
+* Behind the scenes, it converts into `React.createElement()` calls.
+
+**Syntax:**
+
+```jsx
+const element = <h2>Play Bold, RCB!</h2>;
+```
+
+**Example:**
+
+* Just like commentary in IPL mixes **Hindi + English** (“Virat Kohli ne ball ko boundary ke bahar bhej diya!”), JSX mixes **HTML + JS**.
+
+**Hands-on:**
+
+* Create a component that renders your **favorite RCB player’s name** and his **jersey number** using JSX.
+
+---
+
+## **Chapter 3: Components (Functional & Class)**
+
+**Explanation:**
+
+* Components are building blocks of a React app.
+* **Functional Component:** A simple JS function.
+* **Class Component:** An ES6 class extending `React.Component`.
+
+**Syntax:**
+
+```jsx
+// Functional
+function Player(props) {
+  return <h2>{props.name} - {props.jersey}</h2>;
+}
+
+// Class
+class PlayerClass extends React.Component {
+  render() {
+    return <h2>{this.props.name} - {this.props.jersey}</h2>;
+  }
+}
+```
+
+**Example:**
+
+* Think of RCB team → every **player is a component**. Each has its own **role and data**.
+
+**Hands-on:**
+
+* Build a `Player` component showing:
+
+  * Name
+  * Jersey Number
+  * Role (Batsman, Bowler, Captain)
+
+---
+
+## **Chapter 4: Props (Properties)**
+
+**Explanation:**
+
+* Props are like **arguments to a function**.
+* Used to **pass data from parent to child**.
+
+**Syntax:**
+
+```jsx
+<Player name="Virat Kohli" jersey="18" role="Batsman" />
+```
+
+**Example:**
+
+* Think of a coach giving instructions to a player. The coach (parent) passes **props** like “Play aggressively” → Player (child) executes.
+
+**Hands-on:**
+
+* Create a `Team` component that takes **teamName** as prop.
+* Inside it, render multiple `Player` components with props.
+
+---
+
+## **Chapter 5: State**
+
+**Explanation:**
+
+* State is **mutable data managed inside a component**.
+* Props = external data, State = internal data.
+
+**Syntax (Functional with Hooks):**
+
+```jsx
+import { useState } from "react";
+
+function ScoreBoard() {
+  const [score, setScore] = useState(0);
+
+  return (
+    <div>
+      <h2>RCB Score: {score}</h2>
+      <button onClick={() => setScore(score + 6)}>Hit Six!</button>
+    </div>
+  );
+}
+```
+
+**Example:**
+
+* State is like the **scoreboard in IPL**. It keeps changing, but only RCB (component itself) controls its score.
+
+**Hands-on:**
+
+* Create a `ScoreBoard` component with buttons:
+
+  * `+1 Run`
+  * `+4 Runs`
+  * `+6 Runs`
+
+---
+
+## **Chapter 6: Event Handling**
+
+**Explanation:**
+
+* React handles events similar to JS but with **camelCase** (`onClick`, `onChange`).
+* Functions are passed as event handlers.
+
+**Syntax:**
+
+```jsx
+<button onClick={() => alert("Play Bold!")}>Cheer RCB</button>
+```
+
+**Hands-on:**
+
+* Create a form where fans can enter their name and click a button → show `Welcome, [Name]! RCB welcomes you!`.
+
+---
+
+## **Chapter 7: Conditional Rendering**
+
+**Explanation:**
+
+* React allows conditional UI rendering using `if`, `ternary`, or `&&`.
+
+**Syntax:**
+
+```jsx
+{isRCBWinner ? <h2>RCB Won 🎉</h2> : <h2>Better luck next time</h2>}
+```
+
+**Hands-on:**
+
+* Create a component that takes a prop `hasWon` and displays message accordingly.
+
+---
+
+## **Chapter 8: Lists & Keys**
+
+**Explanation:**
+
+* Render multiple items using `.map()`.
+* Keys help React identify items.
+
+**Syntax:**
+
+```jsx
+const players = ["Virat", "Faf", "Maxwell"];
+players.map((p, index) => <li key={index}>{p}</li>);
+```
+
+**Hands-on:**
+
+* Render a list of RCB players using `.map()`.
+
+---
+
+## **Chapter 9: useEffect Hook (Side Effects)**
+
+**Explanation:**
+
+* `useEffect` is used for **side effects** like API calls, subscriptions, timers.
+
+**Syntax:**
+
+```jsx
+import { useEffect, useState } from "react";
+
+function MatchUpdates() {
+  const [news, setNews] = useState("");
+
+  useEffect(() => {
+    setNews("RCB won the toss & elected to bat 🏏");
+  }, []);
+
+  return <h2>{news}</h2>;
+}
+```
+
+**Hands-on:**
+
+* Show a message when component loads: `Welcome to RCB Match Live Updates`.
+* Add a timer that updates every 5 seconds with new message.
+
+---
+
+## **Chapter 10: Forms & Controlled Components**
+
+**Explanation:**
+
+* Controlled components mean React controls the form input via state.
+
+**Syntax:**
+
+```jsx
+function FanForm() {
+  const [name, setName] = useState("");
+
+  return (
+    <form>
+      <input value={name} onChange={(e) => setName(e.target.value)} />
+      <button>Submit</button>
+    </form>
+  );
+}
+```
+
+**Hands-on:**
+
+* Build a form to collect fan details: Name, Age, Favorite Player.
+* On submit, show all values.
+
+---
+
+## **Chapter 11: React Router**
+
+**Explanation:**
+
+* React Router helps in navigating multiple pages without reload.
+
+**Syntax:**
+
+```jsx
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Link to="/players">Players</Link>
+      <Routes>
+        <Route path="/players" element={<PlayerList />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+```
+
+**Hands-on:**
+
+* Create two pages: `Team` & `Fans`.
+* Navigate between them using links.
+
+---
+
+## **Chapter 12: Context API**
+
+**Explanation:**
+
+* Context provides a way to share data across components **without props drilling**.
+
+**Syntax:**
+
+```jsx
+const FanContext = React.createContext();
+
+function App() {
+  return (
+    <FanContext.Provider value="RCB Forever">
+      <Cheer />
+    </FanContext.Provider>
+  );
+}
+
+function Cheer() {
+  const msg = useContext(FanContext);
+  return <h2>{msg}</h2>;
+}
+```
+
+**Hands-on:**
+
+* Create a context `TeamContext` with value `"Royal Challengers Bangalore"`.
+* Display it in child component without passing props.
+
+---
+
+## **Chapter 13: API Integration (fetch / axios)**
+
+**Explanation:**
+
+* Fetch real data from APIs using `useEffect`.
+
+**Syntax:**
+
+```jsx
+useEffect(() => {
+  fetch("https://jsonplaceholder.typicode.com/posts/1")
+    .then(res => res.json())
+    .then(data => setPost(data));
+}, []);
+```
+
+**Hands-on:**
+
+* Fetch RCB match schedule from an API (or dummy JSON).
+* Display in list format.
+
+---
+
+## **Chapter 14: Advanced Hooks (useReducer, useMemo, useCallback)**
+
+**Explanation:**
+
+* `useReducer`: Alternative to `useState` for complex state.
+* `useMemo`: Optimizes performance by memoizing values.
+* `useCallback`: Memoizes functions.
+
+**Hands-on:**
+
+* Use `useReducer` to manage cricket match score with actions: `SIX`, `FOUR`, `WICKET`.
+
+---
+
+## **Chapter 15: Project (Mini App)**
+
+**Task:**
+
+* Build an **RCB Fan App** 🎉
+  Features:
+
+1. Home Page → “Welcome Fans”
+2. Players List (props + map)
+3. ScoreBoard (state + event handling)
+4. Live Match Updates (useEffect)
+5. Fan Registration Form (forms)
+6. Navigation with React Router
+
+---
+
+
+
+
+
+
+
+
+
+Form handling
+----------------
+what is controlled form handling?
+	if your form elements (like textbox) are using state, then they are 		controlled
+
+
+Formik and Yup
+
+to install this library:
+
+	npm i formik yup
