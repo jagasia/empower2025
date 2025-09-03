@@ -649,3 +649,44 @@ export const EditProduct=()=>{
         {id && <h3 className="text-center">Product ID is {id}</h3>}
     </div>
 }
+
+
+
+--------------------------------
+API calls
+
+reactjs app is going to access any restful webservice
+this can be done in 2 ways:
+	1) fetch
+	2) axios (reactjs library, we can install)
+
+steps for axios:
+
+1) install axios
+	npm i axios
+
+2) use axios
+
+planning the demo:
+
+import axios from "axios";
+
+class FoodService {
+    URL = 'http://localhost:5000/food';
+
+    addFood(food) {
+        return axios.post(URL, food);
+    }
+
+    updateFood(id) {
+        return axios.put(`${URL}/${id}`, food);
+    }
+
+    deleteFood(id) {
+        return axios.delete(`${URL}/${id}`);
+    }
+
+
+}
+
+export default new FoodService();

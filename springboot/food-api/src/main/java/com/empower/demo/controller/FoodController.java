@@ -2,6 +2,8 @@ package com.empower.demo.controller;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +19,7 @@ import com.empower.demo.service.FoodService;
 
 @RestController
 @RequestMapping("/food")
+@CrossOrigin({"*"})
 public class FoodController {
 	@Autowired
 	private FoodService fs;
