@@ -1,7 +1,10 @@
 import { useFormik } from "formik";
+import { useNavigate } from "react-router-dom";
 import * as Yup from 'yup';
 
 export const Product = () => {
+  const nav=useNavigate();
+
   const formik=useFormik({
     initialValues:{id:0, name:'', category:'', price:0},
     validationSchema:Yup.object({id:Yup.number().required("Id is mandatory"),
@@ -10,9 +13,15 @@ export const Product = () => {
       price:Yup.number().required("Price is mandatory").min(0,"Price cannot be negative")
     })
   });
+
+  function editProduct(){
+    nav(`/editproduct/${formik.values.id}`);
+  }
+
 return <div>
         <form>
           Id: <input type="number" id="id" className={`form-control ${(formik.errors.id)?'is-invalid':''}`} onChange={formik.handleChange} onBlur={formik.handleBlur} />
+          <input type="button" value="Edit" onClick={editProduct} />
           <div className="text-danger">
             {formik.errors.id}
           </div>
