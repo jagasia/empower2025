@@ -1,0 +1,18 @@
+ReactJs
+----------
+we already have a restful webservice "security-demo-5-jwt-role" running in 8084
+
+test url:
+http://localhost:8084/api/v1
+
+user:
+http://localhost:8084/api/v2/login
+	accepts authRequest
+	returns object that contains jwt also
+
+
+http://localhost:8084/api/v2/signup
+	
+
+http://localhost:8084/api/v3/product
+
