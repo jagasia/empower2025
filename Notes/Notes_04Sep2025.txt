@@ -16,3 +16,186 @@ http://localhost:8084/api/v2/signup
 
 http://localhost:8084/api/v3/product
 
+
+
+import axios from "axios";
+
+class UserService{
+    URL='http://localhost:8084/api/v2';
+
+    fnLogin(ar){
+        return axios.post(this.URL+"/login", ar);
+    }
+}
+
+export default new UserService();
+
+
+
+
+
+
+import axios from "axios";
+
+class ProductService{
+    URL='http://localhost:8084/api/v3/product';
+
+    fnGetAllProducts(){
+        var user=localStorage.getItem("user");
+        if(user){
+            user=JSON.parse(user);
+            return axios.get(this.URL,{headers: {'Authorization': 'Bearer '+user.jwtToken}}   );
+        }else{
+            //not logged in..... throw error
+            throw new Error("User not logged in");
+        }
+        
+    }
+
+    fnAddProduct(product){
+        var user=localStorage.getItem("user");
+        if(user){
+            user=JSON.parse(user);
+            return axios.post(this.URL,product,{headers: {'Authorization': 'Bearer '+user.jwtToken}}   );
+        }else{
+            //not logged in..... throw error
+            throw new Error("User not logged in");
+        }
+        
+    }
+
+    fnUpdateProduct(ar){
+        var user=localStorage.getItem("user");
+        if(user){
+            user=JSON.parse(user);
+            return axios.put(this.URL+"/"+ar.id,ar,{headers: {'Authorization': 'Bearer '+user.jwtToken}}   );
+        }else{
+            //not logged in..... throw error
+            throw new Error("User not logged in");
+        }
+}
+}
+export default new ProductService();
+
+
+
+
+
+import { useEffect, useState } from "react";
+import UserService from "../services/UserService";
+
+export const Login = () => {
+    const [user, setUser] = useState({username:'', password:''});
+    const [roles, setRoles] = useState([]);
+
+    useEffect(()=>{
+
+    },[roles])
+
+    const fnLogin = () => {
+        UserService.fnLogin(user).then((response)=>{
+            console.log(response.data)
+            
+            const roles = response.data.authorities.map(auth => auth.authority);
+
+            setRoles(roles);
+            //store the response in localStorage
+            localStorage.setItem("user", JSON.stringify(response.data));
+            
+        }).catch((error)=>{
+            console.log(error)
+            
+            setRoles([]);
+        })
+    }   
+    return (        
+        <div>            
+            Username: <input type="text" name="username" className="form-control" onChange={(e)=>setUser({...user,"username":e.target.value})} /> <br />
+            Password: <input type="password" name="password" className="form-control" onChange={(e)=>setUser({...user,"password":e.target.value})}  /> <br />
+            <button onClick={fnLogin} className="btn btn-info">Login</button>  
+            <br/>
+            {roles.length>0 && <div className="alert alert-success mt-3">Login Successful. Roles: {roles.join(", ")}</div>}
+        </div>
+    )
+}   
+
+
+
+
+
+import { useEffect, useState } from "react";
+import ProductService from "../services/ProductService";
+
+export const ProductCrud = () => {
+    const [products, setProducts] = useState([]);
+    const [product, setProduct] = useState({ id: '', name: '', category: '', price: '' });
+
+    useEffect(() => {
+        ProductService.fnGetAllProducts().then((response) => {
+            console.log(response.data)
+            setProducts(response.data);
+        }).catch((error) => {
+            console.log(error)
+        })
+    }, [])
+
+    function fnAdd() {
+        console.log("Adding product: ", product);
+        alert("Adding product: " + JSON.stringify(product));
+        
+        ProductService.fnAddProduct(product).then((response) => {
+            console.log("Response from api (adding):"+response.data)
+            alert("Response from api (adding):"+JSON.stringify(response.data))
+            //add the new product to products array
+            setProducts([...products, response.data]);
+        }).catch((error) => {
+            console.log(error)
+            alert("You need to login first: "+error);
+        })
+    }
+    function fnUpdate() {
+    }
+    function fnDelete() {
+    }
+
+    return (
+        <div>
+            {JSON.stringify(product)}
+            <h1>Product CRUD Component</h1>
+            <form>
+                Id: <input type="text" name="id" className="form-control" onChange={(e) => setProduct({ ...product, "id": e.target.value })} /> <br />
+                Name: <input type="text" name="name" className="form-control" onChange={(e) => setProduct({ ...product, "name": e.target.value })} /> <br />
+                Category: <input type="text" name="category" className="form-control" onChange={(e) => setProduct({ ...product, "category": e.target.value })} /> <br />
+                Price: <input type="text" name="price" className="form-control" onChange={(e) => setProduct({ ...product, "price": e.target.value })} /> <br />
+                <button className="btn btn-primary" onClick={fnAdd}>Add</button>&nbsp;
+                <button className="btn btn-warning" onClick={fnUpdate}>Update</button>&nbsp;
+                <button className="btn btn-danger" onClick={fnDelete}>Delete</button>
+
+            </form>
+            <br /><br />
+            <table className="table table-bordered table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {products.map((prod) =>
+                        <tr key={prod.id}>
+                            <td>{prod.id}</td>
+                            <td>{prod.name}</td>
+                            <td>{prod.category}</td>
+                            <td>{prod.price}</td>
+
+                        </tr>
+                    )}
+                </tbody>
+            </table>
+        </div>
+    )
+}
+
+
