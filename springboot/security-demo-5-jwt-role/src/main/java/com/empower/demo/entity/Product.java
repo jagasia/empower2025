@@ -4,10 +4,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "PROD")
+@Table(name = "PROD1")
 public class Product {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -15,6 +16,8 @@ public class Product {
 	private String name;
 	private String category;
 	private Double price;
+	@Lob
+	private String photo;
 	
 	public Product() {}
 
@@ -24,6 +27,17 @@ public class Product {
 		this.name = name;
 		this.category = category;
 		this.price = price;
+	}
+	
+	
+
+	public Product(Integer id, String name, String category, Double price, String photo) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.category = category;
+		this.price = price;
+		this.photo = photo;
 	}
 
 	public Integer getId() {
@@ -58,9 +72,22 @@ public class Product {
 		this.price = price;
 	}
 
+	
+	
+	public String getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
+
 	@Override
 	public String toString() {
-		return "Product [id=" + id + ", name=" + name + ", category=" + category + ", price=" + price + "]";
+		return "Product [id=" + id + ", name=" + name + ", category=" + category + ", price=" + price + ", photo="
+				+ photo.length() + "]";
 	}
+
+	
 	
 }

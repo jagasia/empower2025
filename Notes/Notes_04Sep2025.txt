@@ -199,3 +199,254 @@ export const ProductCrud = () => {
 }
 
 
+---------------
+built-in hooks in reactjs
+custom hooks 
+	if we create a hook, then it is called custom hook
+
+useContext()
+	props drilling
+
+
+==================
+Product entity is modified as
+
+package com.empower.demo.entity;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "PROD")
+public class Product {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer id;
+	private String name;
+	private String category;
+	private Double price;
+	@Lob
+	private String photo;
+	
+	public Product() {}
+
+	public Product(Integer id, String name, String category, Double price) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.category = category;
+		this.price = price;
+	}
+	
+	
+
+	public Product(Integer id, String name, String category, Double price, String photo) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.category = category;
+		this.price = price;
+		this.photo = photo;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
+	
+	
+	public String getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
+
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", name=" + name + ", category=" + category + ", price=" + price + ", photo="
+				+ photo.length() + "]";
+	}
+
+	
+	
+}
+
+
+
+repository, service, contoller are not altered.
+
+
+
+
+every method of a restful webservice, (instead of only returning the data), shall return a ResponseEntity that can contain 
+not only	
+	data
+and also
+	status code
+
+404
+200
+403
+500
+
+
+
+
+
+Great question 👍 — returning the **right HTTP status codes** makes your REST API more professional and predictable. Let’s refine the controller accordingly.
+
+---
+
+### ✅ Correct Status Codes
+
+* **Create (POST)** → `201 Created`
+
+  * Response should ideally include the created resource (or its ID).
+
+* **Update (PUT)** → `200 OK` (if returning the updated entity) OR `204 No Content` (if not returning body).
+
+  * If the resource doesn’t exist → `404 Not Found`.
+
+* **Delete (DELETE)** → `204 No Content` (successfully deleted, no response body).
+
+  * If the resource doesn’t exist → `404 Not Found`.
+
+---
+
+### 📝 Updated Controller
+
+```java
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import java.net.URI;
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/v3/product")
+@CrossOrigin(origins = "http://localhost:5173") // adjust frontend port if needed
+public class ProductController {
+
+    private final ProductService productService;
+
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
+
+    // Get all products
+    @GetMapping
+    public List<Product> getAllProducts() {
+        return productService.getAllProducts();
+    }
+
+    // Get product by id
+    @GetMapping("/{id}")
+    public ResponseEntity<Product> getProductById(@PathVariable Long id) {
+        Product product = productService.getProductById(id);
+        return product != null ? ResponseEntity.ok(product) : ResponseEntity.notFound().build();
+    }
+
+    // Add new product (201 Created)
+    @PostMapping
+    public ResponseEntity<Product> addProduct(@RequestBody Product product) {
+        Product saved = productService.saveProduct(product);
+        return ResponseEntity
+                .created(URI.create("/api/v3/product/" + saved.getId())) // Location header
+                .body(saved);
+    }
+
+    // Update product (200 OK or 404)
+    @PutMapping("/{id}")
+    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody Product product) {
+        Product updated = productService.updateProduct(id, product);
+        return updated != null ? ResponseEntity.ok(updated) : ResponseEntity.notFound().build();
+    }
+
+    // Delete product (204 No Content or 404)
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
+        Product existing = productService.getProductById(id);
+        if (existing == null) {
+            return ResponseEntity.notFound().build();
+        }
+        productService.deleteProduct(id);
+        return ResponseEntity.noContent().build();
+    }
+}
+```
+
+---
+
+### ⚡ Example Responses
+
+1. **POST /api/v3/product**
+
+```http
+201 Created
+Location: /api/v3/product/5
+Content-Type: application/json
+
+{
+  "id": 5,
+  "name": "Laptop",
+  "category": "Electronics",
+  "price": 50000
+}
+```
+
+2. **PUT /api/v3/product/5**
+
+```http
+200 OK
+Content-Type: application/json
+
+{
+  "id": 5,
+  "name": "Gaming Laptop",
+  "category": "Electronics",
+  "price": 60000
+}
+```
+
+3. **DELETE /api/v3/product/5**
+
+```http
+204 No Content
+```
+
+---
+
