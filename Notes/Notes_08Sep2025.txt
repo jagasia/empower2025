@@ -1247,3 +1247,48 @@ merge.
 
 commands to delete a local branch, remote branch
 merge
+-----------------------
+
+Jenkins
+---------
+download jenkins.war
+
+java -jar jenkins.war
+
+java -jar jenkins.war --httpPort=8085
+
+
+
+Demo1:
+---------
+lets run a java program using jenkins.
+
+since jenkins already running in 8085
+
+
+http://localhost:8085
+
+create a new item
+	Mithun
+
+choose Freestyle project
+
+scroll down till build configuration
+	windows batch command
+
+
+d:
+cd D:\Jag\Empower\2025\Java
+javac Hi.java
+java Hi
+
+
+Now, click "Build Now"
+
+
+in Build history, click the build number #1
+
+click console output.
+
+You can see the output.
+
