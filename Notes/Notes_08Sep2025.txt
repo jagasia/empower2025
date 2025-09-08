@@ -503,3 +503,101 @@ Perfect 👍 You want only **interesting hands-on tasks (without solutions)** fo
 
 👉 These tasks are **IPL-themed, simple → challenging, and loop + function-based**.
 
+
+
+Now, Datastructures:
+List
+Set
+Tuple
+Dictionary
+
+
+List:-
+------
+
+#Royal Challengers Bangalore
+rcbPlayers=["Faf du Plessis","Virat Kohli","Shivam Dube","Dinesh Karthik","Anuj Rawat","Mahipal Lomror","Wanindu Hasaranga","Josh Hazlewood","Harshal Patel","Mohammed Siraj","Yuzvendra Chahal"];
+print("Welcome to Royal Challengers Bangalore")
+print("Here is the list of players in RCB")
+print(rcbPlayers)
+
+
+
+
+
+Set:-
+-------
+
+#Royal Challengers Bangalore
+rcbPlayers={"Faf du Plessis","Virat Kohli","Shivam Dube","Shivam Dube","Dinesh Karthik","Anuj Rawat","Mahipal Lomror","Wanindu Hasaranga","Josh Hazlewood","Harshal Patel","Mohammed Siraj","Yuzvendra Chahal"}
+print("Welcome to Royal Challengers Bangalore")
+print("Here is the list of players in RCB")
+print(rcbPlayers)
+
+
+output order is unpredictable. Every time i run the same code, i see different order or player names.
+
+
+
+Tuple:-
+----------
+scores = (72, 45, 33, 0, 88)
+print(scores[1])   # second score
+
+
+elements cannot be changed.
+Ordered
+
+
+
+Dictionary:-
+----------------
+scoreboard = {"Kohli": 72, "Faf": 44, "Maxwell": 30}
+print(scoreboard["Kohli"])   # 72
+
+
+Handson
+-----------
+🏏 Hands-on Tasks (Data Structures)
+✅ Lists
+
+Create a list of 5 IPL teams. Print the first and last team.
+
+Add "RCB" to the list and remove another team.
+
+Write a program to print all players in a squad using a loop.
+
+Store runs scored in an over: [1,0,4,6,2,1] and print total runs.
+
+✅ Tuples
+
+Create a tuple of top 5 run-scorers in IPL 2025 (assume names). Print the 2nd and 4th player.
+
+Store the bowling figures of a bowler (overs, maidens, runs, wickets) in a tuple and print each value.
+
+Try changing a value in the tuple and observe what happens.
+
+✅ Sets
+
+Create a set of stadiums where matches were played. Add a new stadium and print the set.
+
+Create two sets: one for RCB stadiums and one for CSK stadiums. Find the common stadiums (intersection).
+
+Store runs scored in an over as a set. Notice what happens if the same run (e.g., 1) appears multiple times.
+
+✅ Dictionaries
+
+Create a dictionary of 5 players and their runs. Print the runs of any one player.
+
+Add a new player and update the runs of an existing player.
+
+Loop through the dictionary and print:
+
+Player: Kohli, Runs: 72
+
+
+Find the player with the highest score from the dictionary.
+
+Create a dictionary of IPL teams and their captains. Print all team-captain pairs.
+
+🔥 These tasks will help your team practice list, tuple, set, and dictionary in a fun way while sticking to IPL.
