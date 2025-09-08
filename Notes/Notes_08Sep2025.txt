@@ -1,0 +1,266 @@
+Introduction to Python, Python Basics, Control Structures, Functions, Data Structures, Error Handling, Modules and Libraries, Object-Oriented Programming
+
+
+Lab setup:
+------------
+install python
+	https://www.python.org/downloads/
+
+download and install python.
+
+create a python program and save as hello.py
+
+to run a python program, 
+
+py hello.py
+
+
+
+
+player=input("Enter your choice (rock, paper, scissors): ").lower()
+import random
+options=["rock","paper","scissors"]
+computer=random.choice(options)
+print(f"Computer chose: {computer}")    
+#print("Computer chose:", computer)    
+
+
+
+
+
+player=input("Enter your choice (rock, paper, scissors): ").lower()
+import random
+options=["rock","paper","scissors"]
+computer=random.choice(options)
+'''
+print(f"Computer chose: {computer}")    
+print("Computer chose:", computer)    
+'''
+#multi line comment in python is done using triple quotes
+
+
+
+Type conversion:
+
+score="4"
+print(int(score)+5)
+
+
+
+
+
+
+If elif else
+------------
+mark=int(input("Enter your mark: "))
+if mark>=90:
+    print("A")
+elif mark>=80:
+    print("B")
+elif mark>=70:
+    print("C")
+elif mark>=60:
+    print("D")
+elif mark>=50:
+    print("E")
+else:
+    print("F")  
+    
+
+
+
+#write a python program to print all odd numbers between 1 and 100. 
+for num in range(1, 101):
+    if num % 2 != 0:
+        print(num)  
+
+    
+# the range function can also be used to generate odd numbers directly
+for num in range(1, 101, 2):
+    print(num)
+
+#apart from for loop, the range function can also be used with while loop to print odd numbers
+num = 1
+while num < 101:
+    print(num)
+    num += 2    
+
+# we can also use list comprehension to generate a list of odd numbers between 1 and 100
+odd_numbers = [num for num in range(1, 101,2)]
+print(odd_numbers)
+# we can also use filter function to filter out odd numbers from a list of numbers between 1 and 100
+numbers = list(range(1, 101))
+odd_numbers = list(filter(lambda x: x % 2 != 0, numbers))
+print(odd_numbers)
+
+
+
+
+#we can learn while loop. We can use while loop when we don't know how many times we want to iterate.   
+i = 1
+while i <= 10:
+    print(i)
+    i += 1  
+#i += 1 is same as i = i + 1    
+print("Done with loop")
+#infinite loop
+#while True:
+#    print(i)   
+#it will print i infinite times. To stop it we can use ctrl + c
+#break statement
+i = 1
+while i <= 10:
+    print(i)
+    if i == 5:
+        print("Breaking the loop")
+        break
+    i += 1
+print("Done with loop")
+#continue statement
+i = 0
+while i < 10:
+    i += 1
+    if i % 2 == 0:
+        continue
+    print(i)
+print("Done with loop")
+#we can use continue statement to skip the current iteration and move to the next iteration.    
+#we can use else statement with while loop. The else block will be executed when the condition becomes false.
+i = 1
+while i <= 5:
+    print(i)
+    i += 1      
+else:
+    print("i is no longer less than or equal to 5")
+#we can use else statement with while loop. The else block will be executed when the condition becomes false.
+#we can use nested while loop. A nested while loop is a while loop inside another while while loop.
+i = 1
+while i <= 3:
+    j = 1
+    while j <= 3:
+        print(i, j)
+        j += 1
+    i += 1
+#we can use nested while loop. A nested while loop is a while loop inside another while while loop.
+#we can use while loop to iterate over a list.
+fruits = ["apple", "banana", "cherry"]
+i = 0
+while i < len(fruits):
+    print(fruits[i])
+    i += 1
+#we can use while loop to iterate over a list.
+#we can use while loop to get user input until they provide a valid input.
+user_input = ""
+while user_input.lower() != "exit":
+    user_input = input("Enter something (type 'exit' to quit): ")
+    print("You entered:", user_input)
+print("Exited the loop")
+#we can use while loop to get user input until they provide a valid input.      
+
+
+
+
+
+
+
+
+
+Handson:
+---
+
+# 🏏 IPL-Themed Hands-on Tasks (Till While Loop)
+
+---
+
+## 🔹 1. Introduction & Basics
+
+1. Write a Python program that prints:
+
+   ```
+   Welcome to IPL 2025! 🏏
+   ```
+
+2. Ask the user’s favorite IPL team and print:
+
+   ```
+   You are a true <team name> fan! 🔥
+   ```
+
+3. Ask the user to enter a score as a string (e.g., `"45"`) and convert it into an integer. Add 6 runs to it and print the updated score.
+
+---
+
+## 🔹 2. If-Elif-Else
+
+1. **Player Performance Rating**
+
+   * Input runs scored by a player.
+   * If runs ≥ 100 → `"Century Hero!"`
+   * Else if runs ≥ 50 → `"Half Century!"`
+   * Else if runs ≥ 30 → `"Good Knock!"`
+   * Else → `"Better luck next time!"`
+
+2. **Match Result**
+
+   * Input RCB score and CSK score.
+   * Print `"RCB Won"`, `"CSK Won"`, or `"Match Drawn"`.
+
+---
+
+## 🔹 3. For Loop
+
+1. **Over Simulation**
+
+   * Use a `for` loop to print balls in an over:
+
+     ```
+     Ball 1
+     Ball 2
+     ...
+     Ball 6
+     ```
+
+2. **RCB Runs Tracker**
+
+   * Given runs per ball in a list: `[1, 0, 6, 4, 2, 1]`
+   * Use a for loop to calculate total runs.
+
+3. **Multiplication Table (Scoreboard Style)**
+
+   * Ask a number (say `7`) and print its table (like run rate calculation).
+
+---
+
+## 🔹 4. While Loop
+
+1. **Score Until Century**
+
+   * Start with score = 0.
+   * Keep adding random runs (choose from `[0,1,2,4,6]`) until the score reaches 100.
+   * Print the total balls taken.
+
+2. **Fan Entry Pass**
+
+   * Ask user for a password `"IPL2025"`.
+   * Keep asking until they enter the correct password.
+   * Print `"Welcome to the Stadium 🎉"` once correct.
+
+3. **Super Over Countdown**
+
+   * Use a while loop to count down from 6 to 1 balls left.
+
+---
+
+## 🔹 5. Bonus Fun Task
+
+👉 **RCB Victory Song Loop**
+
+* Ask the user how many times to chant `"Ee Sala Cup Namde!"`.
+* Print it that many times using both `for` and `while` loop.
+
+---
+
+⚡ These tasks will **reinforce loops and conditions** while keeping the IPL excitement alive.
+
+---
+

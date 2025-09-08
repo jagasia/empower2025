@@ -450,3 +450,22 @@ Content-Type: application/json
 
 ---
 
+Project steps:
+
+1) abstract
+and create a project spec that contains all the features that you are going to implement.
+
+2) identify all the entities and the attributes that are involved in the project
+	relationships between entities (one to many, many to many....)
+this will be used to create Entity classes and hence tables.
+
+3) create the restful web service
+	first create a single webservice 
+	and after testing, refactor it into multiple (atleast 2 services)
+
+	then you can introduce microservices (spring cloud features)
+
+4) Front end
+	ReactJs
+
+5) security jwt
