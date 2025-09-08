@@ -1196,3 +1196,54 @@ Team RCB with 3 players
 
 ---
 
+---------------------------------------------
+DevOps
+----------
+Development Operations
+
+Maven
+Git
+Jira
+Jenkins
+
+
+
+Git:
+-----
+we can synchronize a local folder (that is present in our computer) with a remote (github or any such) repository
+
+1) create a remote repository in github.com
+
+2) choose a folder in your computer to act as a local repository.
+	Ensure that this folder is not a child folder of a folder that is already a git repository
+
+
+D:\Jag\Empower\gitdemo			(local repository)
+https://github.com/jagasia/gitdemo.git	(remote repository)
+
+git init
+	this command makes our local folder a git repository
+	but it is currently not synced with any remote repository
+
+git remote add origin https://github.com/jagasia/gitdemo.git
+	this command mentions the remote repository name
+
+del .git	(y/n)	y
+
+
+Activity
+---------
+understand what is git?
+how to create a repositor (local and remote)
+
+how to create branches?
+
+how to checkout / switch branches.
+
+how to pull / push
+
+merge.
+
+
+commands to delete a local branch, remote branch
+merge
