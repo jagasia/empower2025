@@ -709,3 +709,246 @@ finally:
 
 ---
 
+Modules and Libraries:-
+================
+
+Great 👍 you’ve completed **functions → data structures → error handling**, and now you’re moving into the **Modules and Libraries** chapter. This is a very important part because it teaches how to organize and reuse code, and how to leverage Python’s huge ecosystem.
+
+Here’s a clear and engaging breakdown for your **Modules & Libraries chapter** 👇
+
+---
+
+# 📘 Chapter: Modules and Libraries
+
+## 1. 🔹 What is a Module?
+
+* A **module** is just a **Python file (`.py`) that contains code** (functions, variables, classes).
+* You can **import** it into another file and reuse the code.
+* Helps in **code organization** and avoids duplication.
+
+**Example:**
+📂 `rcb.py`
+
+```python
+def cheer():
+    print("RCB! RCB! RCB!")
+```
+
+📂 `main.py`
+
+```python
+import rcb
+
+rcb.cheer()  # Output: RCB! RCB! RCB!
+```
+
+---
+
+## 2. 🔹 Built-in Modules
+
+Python comes with many modules pre-installed.
+Examples:
+
+* `math` → mathematical operations
+* `random` → random numbers
+* `datetime` → dates and time
+* `os` → operating system functions
+
+**Example:**
+
+```python
+import math
+import random
+from datetime import date
+
+print(math.sqrt(49))        # 7.0
+print(random.randint(1,6))  # dice roll
+print(date.today())         # current date
+```
+
+---
+
+## 3. 🔹 Installing External Libraries
+
+* Python has a package manager called **pip**.
+* Install packages from **PyPI (Python Package Index)**.
+
+**Example:**
+
+```bash
+pip install requests
+```
+
+Use it:
+
+```python
+import requests
+
+res = requests.get("https://jsonplaceholder.typicode.com/posts/1")
+print(res.json())
+```
+
+---
+
+## 4. 🔹 Standard vs Third-Party Libraries
+
+* **Standard libraries**: Come with Python (e.g., `os`, `math`, `json`).
+* **Third-party libraries**: Installed via pip (e.g., `requests`, `pandas`, `flask`).
+
+---
+
+## 5. 🔹 Creating Your Own Module
+
+1. Create a Python file (e.g., `ipl_utils.py`).
+2. Write some functions inside it.
+3. Import and use them in another file.
+
+**Example:**
+📂 `ipl_utils.py`
+
+```python
+def team_runs(runs):
+    print(f"RCB scored {runs} runs!")
+```
+
+📂 `main.py`
+
+```python
+import ipl_utils
+
+ipl_utils.team_runs(200)
+```
+
+---
+
+## 6. 🔹 Packages (Folder Modules)
+
+* A **package** is a folder with an `__init__.py` file.
+* Helps group related modules together.
+
+📂 Project Structure
+
+```
+ipl/
+   __init__.py
+   batting.py
+   bowling.py
+```
+
+📂 `batting.py`
+
+```python
+def best_batsman():
+    return "Virat Kohli"
+```
+
+📂 `main.py`
+
+```python
+from ipl import batting
+
+print(batting.best_batsman())
+```
+
+---
+
+## 7. 🔹 Best Practices
+
+* Keep code modular (split into multiple files).
+* Use descriptive names for modules.
+* Don’t put everything in one big file.
+
+---
+
+## 8. 🔹 Hands-on Exercises
+
+1. Create a module `cheers.py` with a function that prints a team chant. Import and call it from another file.
+2. Use the `random` module to simulate a coin toss (Heads/Tails).
+3. Install `emoji` library (`pip install emoji`) and display RCB chants with emojis.
+4. Build a package `ipl/` with `teams.py` and `matches.py` modules. Import and display team details.
+
+---
+
+Handson
+-----------
+
+Perfect 👌 here are **hands-on tasks (without solutions)** for your team to practice **Modules & Libraries**, all with a fun **IPL / RCB twist** 🚩🔥
+
+---
+
+# 🏏 Hands-On Tasks: Modules & Libraries
+
+### **Task 1: Create Your Own Module**
+
+* Create a file `cheers.py`.
+* Write a function that prints an RCB team chant.
+* Import it into another file and call the function.
+
+---
+
+### **Task 2: Use Built-in Modules**
+
+* Use the `random` module to simulate an IPL coin toss (`Heads` / `Tails`).
+* Decide which team bats first based on the toss.
+
+---
+
+### **Task 3: Use Math Module**
+
+* Ask the user to enter the strike rate and balls faced by a batsman.
+* Use the `math` module to calculate the number of runs scored (runs = strike rate × balls / 100).
+
+---
+
+### **Task 4: Install and Use External Library**
+
+* Install the `emoji` library.
+* Display an RCB chant like:
+  `"RCB RCB RCB 🏏🔥❤️"`
+
+---
+
+### **Task 5: Create a Custom IPL Utility Module**
+
+* Create a module `ipl_utils.py`.
+* Add functions like:
+
+  * `top_batsman(team)`
+  * `top_bowler(team)`
+* Import this module in another file and call the functions for RCB.
+
+---
+
+### **Task 6: Build a Package**
+
+1. Create a folder `ipl/`
+2. Inside, add:
+
+   * `teams.py` → stores team names.
+   * `matches.py` → stores match results.
+3. Import both into `main.py` and display:
+
+   * RCB’s team name
+   * One match result
+
+---
+
+### **Task 7: Practice With Date and Time**
+
+* Use the `datetime` module to:
+
+  * Print today’s date.
+  * Print how many days left for IPL Final (pick any date).
+
+---
+
+### **Task 8: Bonus Challenge**
+
+* Create a module `scoreboard.py` that:
+
+  * Keeps track of runs, wickets, overs.
+  * Import it in `main.py`.
+  * Update the score dynamically as if a live IPL match is going on.
+
+---
+
