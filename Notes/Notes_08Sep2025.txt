@@ -952,3 +952,247 @@ Perfect 👌 here are **hands-on tasks (without solutions)** for your team to pr
 
 ---
 
+Object Oriented Programming:-
+--------------------------------------
+🔥 Super! Let’s keep the momentum.
+We’ve already nailed **Inheritance & Overriding**. Now, let’s continue OOP step by step.
+
+---
+
+# 🏏 Object-Oriented Programming (OOP) in Python (Part 2)
+
+---
+
+## 1. 🔹 Polymorphism
+
+📌 **Definition**: Polymorphism means “**many forms**.”
+In OOP, it allows methods with the **same name** to behave **differently** depending on the object (class).
+
+---
+
+### Example 1: Method Overriding (we already saw)
+
+```python
+class Player:
+    def role(self):
+        print("Generic Player")
+
+class Batsman(Player):
+    def role(self):
+        print("Batsman - Focused on scoring runs")
+
+class Bowler(Player):
+    def role(self):
+        print("Bowler - Focused on taking wickets")
+
+virat = Batsman()
+siraj = Bowler()
+
+for p in [virat, siraj]:
+    p.role()
+```
+
+✅ Output:
+
+```
+Batsman - Focused on scoring runs
+Bowler - Focused on taking wickets
+```
+
+👉 Same method name `role()`, different behaviors → **Polymorphism**.
+
+---
+
+### Example 2: Duck Typing (Python’s flavor of polymorphism)
+
+In Python, if an object has a method, it doesn’t matter what class it belongs to.
+"If it walks like a duck and quacks like a duck, it’s a duck." 🦆
+
+```python
+class Commentator:
+    def speak(self):
+        print("Commentator: Describes the match")
+
+class Umpire:
+    def speak(self):
+        print("Umpire: Gives decisions")
+
+def announce(person):
+    person.speak()
+
+announce(Commentator())
+announce(Umpire())
+```
+
+✅ Output:
+
+```
+Commentator: Describes the match
+Umpire: Gives decisions
+```
+
+---
+
+### Example 3: Operator Overloading
+
+Python allows overriding operators (like `+`, `*`, etc.) using **magic methods**.
+
+```python
+class Score:
+    def __init__(self, runs):
+        self.runs = runs
+    
+    def __add__(self, other):
+        return Score(self.runs + other.runs)
+
+    def __str__(self):
+        return str(self.runs)
+
+kohli = Score(82)
+maxwell = Score(50)
+
+total = kohli + maxwell
+print("Total Score:", total)
+```
+
+✅ Output:
+
+```
+Total Score: 132
+```
+
+---
+
+## 2. 🔹 Encapsulation
+
+📌 **Definition**: Wrapping **data (attributes)** and **methods** into a single unit (class).
+
+* Protect data using **access specifiers**.
+* In Python, access control is not strict like Java, but we follow conventions:
+
+| Type      | Convention | Example           |
+| --------- | ---------- | ----------------- |
+| Public    | No `_`     | `player.name`     |
+| Protected | One `_`    | `player._age`     |
+| Private   | Two `__`   | `player.__salary` |
+
+---
+
+### Example:
+
+```python
+class Player:
+    def __init__(self, name, salary):
+        self.name = name
+        self.__salary = salary   # private attribute
+    
+    def get_salary(self):
+        return self.__salary
+    
+    def set_salary(self, new_salary):
+        if new_salary > 0:
+            self.__salary = new_salary
+        else:
+            print("Invalid salary")
+
+virat = Player("Virat Kohli", 1000000)
+
+print(virat.get_salary())   # Access via getter
+virat.set_salary(1200000)   # Update via setter
+print(virat.get_salary())
+```
+
+---
+
+## 3. 🔹 Abstraction
+
+📌 **Definition**: Hiding implementation details and showing only the required functionality.
+In Python, we use the `abc` module (Abstract Base Class).
+
+---
+
+### Example:
+
+```python
+from abc import ABC, abstractmethod
+
+class Coach(ABC):
+    @abstractmethod
+    def train(self):
+        pass
+
+class BattingCoach(Coach):
+    def train(self):
+        print("Improving batting skills")
+
+class BowlingCoach(Coach):
+    def train(self):
+        print("Improving bowling skills")
+
+coach1 = BattingCoach()
+coach2 = BowlingCoach()
+
+coach1.train()
+coach2.train()
+```
+
+✅ Output:
+
+```
+Improving batting skills
+Improving bowling skills
+```
+
+---
+
+## 4. 🔹 Special / Magic Methods
+
+Python classes have many built-in **dunder methods** (double underscore).
+Examples:
+
+* `__init__` → constructor
+* `__str__` → string representation
+* `__len__` → length
+* `__add__`, `__sub__`, etc. → operator overloading
+
+---
+
+### Example:
+
+```python
+class Team:
+    def __init__(self, name, players):
+        self.name = name
+        self.players = players
+    
+    def __len__(self):
+        return len(self.players)
+    
+    def __str__(self):
+        return f"Team {self.name} with {len(self.players)} players"
+
+rcb = Team("RCB", ["Virat", "Maxwell", "Siraj"])
+print(len(rcb))   # calls __len__
+print(rcb)        # calls __str__
+```
+
+✅ Output:
+
+```
+3
+Team RCB with 3 players
+```
+
+---
+
+## 5. 🔹 Hands-On Tasks (No Solutions)
+
+1. Create a `Batsman` and `Bowler` class overriding a method `performance()`. Demonstrate polymorphism by looping through objects.
+2. Use duck typing: Create classes `Commentator` and `Umpire` with a `speak()` method. Pass them into a function `announce()`.
+3. Create a `Score` class with operator overloading (`+`) to add two players’ runs.
+4. Create a `Player` class with a private attribute `_salary` and provide getter & setter methods.
+5. Create an abstract class `Coach` with an abstract method `train()`. Implement `BattingCoach` and `BowlingCoach`.
+6. Create a `Team` class and implement `__len__` and `__str__` magic methods to display team info.
+
+---
+
