@@ -264,3 +264,242 @@ Handson:
 
 ---
 
+
+
+
+
+
+#we will write a python program that asks user to 
+#enter run-rate and display over wise runs
+run_rate = float(input("Enter the run-rate: "))
+for over in range(1, 21):   
+    runs = run_rate * over
+    print(f"Over {over}: {runs} runs")      
+#20 overs
+
+
+
+#Ask user for a password "IPL2025".
+
+#Keep asking until they enter the correct password.
+
+#Print "Welcome to the Stadium 🎉" once correct.
+password = ""
+while password != "IPL2025":
+    password = input("Enter the password: ")    
+print("Welcome to the Stadium 🎉")  
+
+
+
+
+
+Functions:
+
+def fn1():
+    return "Hello, World!"
+
+result=fn1()
+print(result)
+
+
+
+
+
+Got it ✅ You’ve taught your team up to **while loops**, and now you’re planning to move into **Functions**. Let’s go **step by step** with an **IPL-flavored explanation, syntax, examples, and hands-on exercises**.
+
+---
+
+# 🏏 Functions in Python
+
+---
+
+## 🔹 1. What is a Function?
+
+* A **function** is a reusable block of code that performs a specific task.
+* Instead of writing the same code again and again, you put it inside a function and just call it whenever needed.
+* Think of it like a **batsman** in IPL: once trained (defined), you can send him to bat (call) multiple times.
+
+---
+
+## 🔹 2. Syntax of a Function
+
+```python
+def function_name(parameters):
+    # code block
+    return value
+```
+
+* `def` → keyword to define a function
+* `function_name` → your chosen name (should be meaningful)
+* `parameters` → inputs (optional)
+* `return` → sends output back (optional)
+
+---
+
+## 🔹 3. Example 1: Function Without Parameters
+
+```python
+def cheer_team():
+    print("Ee Sala Cup Namde! 🔥")
+
+cheer_team()  # calling the function
+cheer_team()
+```
+
+👉 Output:
+
+```
+Ee Sala Cup Namde! 🔥
+Ee Sala Cup Namde! 🔥
+```
+
+---
+
+## 🔹 4. Example 2: Function With Parameters
+
+```python
+def greet_player(name):
+    print(f"Welcome {name} to RCB 🏏")
+
+greet_player("Kohli")
+greet_player("Maxwell")
+```
+
+👉 Output:
+
+```
+Welcome Kohli to RCB 🏏
+Welcome Maxwell to RCB 🏏
+```
+
+---
+
+## 🔹 5. Example 3: Function With Return Value
+
+```python
+def add_runs(runs1, runs2):
+    return runs1 + runs2
+
+total = add_runs(45, 67)
+print("Total Runs:", total)
+```
+
+👉 Output:
+
+```
+Total Runs: 112
+```
+
+---
+
+## 🔹 6. Example 4: Default Parameters
+
+```python
+def player_status(name="Unknown", runs=0):
+    print(f"{name} scored {runs} runs")
+
+player_status("Faf", 72)
+player_status("Siraj")  # uses default runs=0
+```
+
+---
+
+## 🔹 7. Example 5: Return Multiple Values
+
+```python
+def player_stats(runs, balls):
+    strike_rate = (runs / balls) * 100
+    return runs, balls, strike_rate
+
+stats = player_stats(50, 30)
+print("Runs:", stats[0], "Balls:", stats[1], "Strike Rate:", stats[2])
+```
+
+---
+
+## 🔹 8. Why Functions? (Benefits)
+
+✔ Reusable code
+✔ Cleaner and organized programs
+✔ Easier to test/debug
+✔ Can divide big problems into smaller tasks
+
+---
+
+# 🏏 Hands-on Tasks (Functions)
+
+1. **Boundary Counter**
+   Write a function `count_boundaries(runs_list)` that counts how many 4s and 6s are in a list of runs.
+
+   ```python
+   runs = [1,4,6,2,6,0,4,1,6]
+   print(count_boundaries(runs))  # Output: Fours=2, Sixes=3
+   ```
+
+2. **Strike Rate Calculator**
+   Write a function `strike_rate(runs, balls)` that returns a player’s strike rate.
+   Example:
+
+   ```
+   strike_rate(72, 45) → 160.0
+   ```
+
+3. **Match Result Function**
+   Write a function `match_result(team1, score1, team2, score2)` that prints who won or if it’s a draw.
+
+4. **Multiplication Table Function**
+   Write a function `print_table(n)` that prints the multiplication table of `n`.
+
+5. **Fan Chant Function**
+   Write a function `chant(team, times)` that prints `"Go <team> Go!"` multiple times using a loop.
+
+---
+
+🔥 With these, your team will not only understand **functions deeply** but also enjoy IPL-themed problem-solving.
+
+---
+
+Perfect 👍 You want only **interesting hands-on tasks (without solutions)** for your team, and since they’ve just reached **Functions**, I’ll design **IPL-themed practice problems** that build on what they already know (loops + functions).
+
+---
+
+# 🏏 Hands-on Tasks for Functions (No Solutions)
+
+1. **Cheer Function**
+   Create a function `cheer_team(team, times)` that prints a team’s cheer multiple times. Example:
+
+   ```
+   Go RCB Go! 🔥
+   ```
+
+2. **Over Summary**
+   Write a function `over_summary(balls)` where `balls` is a list of runs (like `[1,0,4,6,2,1]`). The function should print the total runs scored in that over.
+
+3. **Boundary Counter**
+   Create a function `count_boundaries(runs_list)` that counts the number of **fours** and **sixes** hit from a given list of runs.
+
+4. **Strike Rate Calculator**
+   Define a function `strike_rate(runs, balls)` that calculates and returns a player’s strike rate.
+
+5. **Winner Function**
+   Write a function `match_result(team1, score1, team2, score2)` that prints which team won the match or if it was a draw.
+
+6. **Multiplication Table Function**
+   Create a function `print_table(n)` that prints the multiplication table of `n` (from 1 to 10).
+
+7. **Super Over Simulator**
+   Define a function `super_over(runs_list)` where `runs_list` contains the runs scored in 6 balls. The function should print the total score and balls faced.
+
+8. **Average Runs Function**
+   Write a function `average_runs(scores)` that takes a list of runs scored by a player in multiple matches and returns their batting average.
+
+9. **Fan Vote Counter**
+   Create a function `fan_votes(votes_list)` that counts how many times each team was voted for in the list (e.g., `["RCB","CSK","RCB","MI","RCB"]`).
+
+10. **Powerplay Runs**
+    Write a function `powerplay(runs)` that calculates the total runs scored in the first 6 balls (powerplay over) from a given list of runs.
+
+---
+
+👉 These tasks are **IPL-themed, simple → challenging, and loop + function-based**.
+
