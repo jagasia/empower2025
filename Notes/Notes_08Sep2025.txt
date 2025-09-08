@@ -601,3 +601,111 @@ Find the player with the highest score from the dictionary.
 Create a dictionary of IPL teams and their captains. Print all team-captain pairs.
 
 🔥 These tasks will help your team practice list, tuple, set, and dictionary in a fun way while sticking to IPL.
+
+
+
+
+Error handling:-
+===============
+
+
+Super 🚀 You’ve completed **Data Structures**, so the next chapter is **Error Handling in Python**.
+Let’s make it **clear, IPL-friendly, and practice-oriented**.
+
+---
+
+# 🏏 Python Error Handling
+
+---
+
+## 🔹 1. What is an Error?
+
+* Errors are problems that stop your program from running.
+* Example: dividing by zero, spelling mistakes in code, wrong input type.
+* Python shows errors called **Exceptions**.
+
+👉 Types of errors:
+
+1. **Syntax Errors** → mistakes in writing Python code.
+2. **Runtime Errors (Exceptions)** → errors that occur while program is running.
+
+---
+
+## 🔹 2. Handling Errors with `try-except`
+
+```python
+try:
+    runs = int(input("Enter runs: "))
+    print("Runs doubled:", runs * 2)
+except ValueError:
+    print("Invalid input! Please enter a number.")
+```
+
+👉 Analogy: In IPL, if a bowler bowls a **no-ball**, the game doesn’t stop — it gives a **free hit**. Similarly, `try-except` ensures the program doesn’t crash.
+
+---
+
+## 🔹 3. Catching Multiple Exceptions
+
+```python
+try:
+    score = int(input("Enter score: "))
+    balls = int(input("Enter balls: "))
+    strike_rate = (score / balls) * 100
+    print("Strike Rate:", strike_rate)
+except ValueError:
+    print("Invalid input! Enter numbers only.")
+except ZeroDivisionError:
+    print("Balls faced cannot be zero!")
+```
+
+---
+
+## 🔹 4. Using `else` and `finally`
+
+```python
+try:
+    runs = int(input("Enter runs: "))
+except ValueError:
+    print("Invalid input!")
+else:
+    print("You entered:", runs)
+finally:
+    print("Match over! 🎉")
+```
+
+* `else` → runs if no error happens.
+* `finally` → always runs, like closing ceremony after IPL final (happens no matter what).
+
+---
+
+# 🏏 Hands-on Tasks (Error Handling)
+
+### ✅ Easy
+
+1. Write a program that asks for two numbers and divides them. Handle **division by zero** error.
+2. Ask user for their age. Handle the case when they enter text instead of a number.
+
+### ✅ Medium
+
+3. Create a program that asks for runs scored and balls faced. Calculate strike rate. Handle both **ValueError** and **ZeroDivisionError**.
+4. Write a program where the user enters a player’s name. If the name doesn’t exist in your dictionary, handle the error and print `"Player not found!"`.
+
+### ✅ Challenging
+
+5. Simulate a cricket score update system:
+
+   * Create a dictionary of players and their runs.
+   * Ask user to enter a player name and additional runs to add.
+   * Handle errors:
+
+     * If player doesn’t exist → `"Invalid player"`
+     * If runs entered is not a number → `"Invalid runs"`
+   * Finally, print updated scores.
+
+---
+
+🔥 This chapter teaches your team how to **write safer code** that doesn’t crash, just like IPL umpires handle no-balls, wides, and free-hits to keep the game running.
+
+---
+
