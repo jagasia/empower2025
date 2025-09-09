@@ -8,7 +8,7 @@ Demo:
 --------
 there is a java file in the following git url:
 
-https://github.com/jagasia/hello.git
+https://github.com/jagasia/jenkins-spring.git
 
 
 lets create a jenkins job, that will pull the file and run.
@@ -90,4 +90,197 @@ https://7d6683f0ded2.ngrok-free.app/github-webhook/
 
 i have transformed the localhost into "7d6683f0ded2.ngrok-free.app"
 using ngrok
+
+-----------------------------------------------------
+Docker
+--------
+
+🔹 What is Docker?
+
+Docker is a tool that helps developers package applications and everything they need to run (code, libraries, system tools, settings) into something called a container.
+
+
+🔹 Key Terms (in plain English)
+
+Image – A blueprint for your application (like a recipe).
+
+Container – A running instance of an image (like the finished dish).
+
+Dockerfile – A file that tells Docker how to build an image (like a cooking instruction list).
+
+Docker Hub – Like the App Store, but for Docker images.
+
+🔹 Real-World Analogy
+
+Without Docker: “It works on my machine 🤷‍♂️”
+
+With Docker: “It works everywhere, every time ✅”
+
+🔹 Why We Should Use Docker
+
+Consistency – Runs the same on all machines (local, test, production).
+
+Simplicity – No more “install this, configure that” — just run a container.
+
+Isolation – Each app lives in its own world. No conflicts.
+
+Portability – Move containers across machines or clouds easily.
+
+Speed – Containers start super fast, saving development and deployment time.
+
+
+docker commands:
+----------------------
+
+docker -v
+docker images		lists all the images
+docker image ls		lists all the images
+docker ps			lists all the containers
+docker container ls		lists all the containers
+docker ps -a		lists all the containers including background
+docker rm <<containerid>>	removes the container
+				-f means forcibly
+docker rmi <<imageid>>	removes an image
+docker kill <<containerid>>
+docker start
+docker stop
+docker pull		pull an image from hub.docker.com to local
+docker run		run an image (so, it will become a container)
+docker push		push an image from local to hub.docker.com
+docker tag		tag a local image to a docker hub repository
+docker build
+docker network
+docker compose up		to run the containers using docker compose file
+
+
+Demo:
+-------
+lets run a docker image
+
+
+
+
+
+install docker for windows 
+	https://docs.docker.com/docker-for-windows/install/
+	after downloading 
+		Docker Desktop Installer.exe
+	execute the above downloaded file
+
+Restart computer
+
+update wsl:
+	Download the Linux kernel update package
+	https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi
+	execute it
+
+Restart computer
+
+To start docker:
+	systemctl start docker
+To create network:
+	docker network create employee-mysql
+To check the networks:
+	docker network ls
+
+experimental:true			(if error like cannot run linux)
+
+
+To check if virtualization is supported on Windows 8 and above, run the following command on your Windows terminal or command prompt.
+
+systeminfo
+If you see the following output, virtualization is supported on Windows.
+
+Hyper-V Requirements:     VM Monitor Mode Extensions: Yes
+                          Virtualization Enabled In Firmware: Yes
+                          Second Level Address Translation: Yes
+                          Data Execution Prevention Available: Yes
+If you see the following output, your system already has a Hypervisor installed and you can skip the next step.
+
+Hyper-V Requirements:     A hypervisor has been detected. Features required for Hyper-V will not be displayed.
+
+
+
+--------------------------------
+Lets run an existing application in docker.
+1) open cmd / terminal
+2) 
+3) docker run -p 5000:5000 in28min/todo-rest-api-h2:1.0.0.RELEASE
+4) http://localhost:5000/hello-world
+	check this in a browser
+	(also)
+http://localhost:5000/hello-world-bean
+
+5) 
+	i) To check the running containers list
+		docker container ls
+	ii) To check all the containers list
+		docker container ls -a
+6) to kill a container
+	docker stop <<container-id>>
+	docker container stop <<container-id>>
+
+	stop vs kill	(stop gracefully. Kill immediately)
+
+7) to run a docker container in the background
+	docker run -p 5000:5000 -d in28min/todo-rest-api-h2:1.0.0.RELEASE
+8) to check the logs,
+	docker logs <<container-id>>
+	(also)
+	docker logs -f <<first 5 digits of container id>>
+9) docker images
+	to list the images
+-------------------------------------------
+=============================================
+Lets deploy our java application in docker
+visit:
+	hub.docker.com
+sign in and search 
+	openjdk
+
+under "how to use this image", you can find "start a java instance in your app"
+
+FROM openjdk:7
+COPY . /usr/src/myapp
+WORKDIR /usr/src/myapp
+RUN javac Main.java
+CMD ["java", "Main"]
+
+-----------
+go to pom.xml and add the following below the </plugins>
+	<finalName>docker-spring-jag</finalName>
+rebuild and create the jar/war
+
+FROM openjdk:8
+ADD target/docker-spring-jag.war docker-spring-jag.war		(local jar path & the container path.here it is root)
+EXPOSE 8085
+--------------------------------------=====================Dockerfile-------------------------
+FROM java:8
+
+EXPOSE 8080
+
+ADD target/docker-demo.jar docker-demo.jar
+
+ENTRYPOINT ["java","-jar","docker-demo.jar"]
+
+
+
+
+To find the ip address of docker container
+	docker container inspect container_name_or_ID
+
+------------------------------------
+To create a docker image without using Dockerfine	(for spring boot applications)
+	mvn spring-boot:build-image
+
+
+
+
+
+
+http://localhost:5000/users/in28minutes/todos
+
+http://localhost:5000/hello-world
+
+
 
