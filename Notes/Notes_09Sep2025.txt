@@ -1,0 +1,93 @@
+Jenkins
+----------
+We have already learned to run a java program from our local file system.
+Now, we are going to learn, how to run a program from github.
+
+
+Demo:
+--------
+there is a java file in the following git url:
+
+https://github.com/jagasia/hello.git
+
+
+lets create a jenkins job, that will pull the file and run.
+
+
+choose SCM	(Source Code Management) as git
+
+and provide the details.
+
+Build
+	window batch command.
+
+javac Hello.java
+java Hello
+
+
+-------------------------------
+CI/CD pipeline in jenkins.
+
+this time we will deploy a spring boot application
+
+
+1) Source code management
+	Git
+	repo url:
+		https://github.com/jagasia/jenkins-spring.git
+	credentials:
+		jag/******
+	branches:
+		*/jag
+
+
+2) Build triggers
+	GitHub hook trigger for GITScm polling
+
+
+3) Build steps
+
+	Invoke top-level Maven targets
+		goals:	clean package -DskipTests
+
+
+	Execute Windows batch command
+
+@echo off
+echo Stopping old process on port 5000...
+
+FOR /F "tokens=5" %%a IN ('netstat -ano ^| findstr :5000') DO (
+    if NOT %%a==0 (
+        echo Killing process %%a
+        taskkill /PID %%a /F
+    )
+)
+
+echo Starting new Spring Boot app in background...
+
+for %%f in (%WORKSPACE%\hello-service\target\*.jar) do (
+    echo Running %%f
+    start "SpringBootApp" /b java -jar "%%f" > "%WORKSPACE%\hello-service\target\app.log" 2>&1
+    goto :done
+)
+
+:done
+echo Spring Boot app started. Logs: %WORKSPACE%\hello-service\target\app.log
+
+
+
+Save.
+
+Build now.
+
+
+
+IMPORTANT:
+in github repository settings, create a webhook.
+
+	Payload URL:
+https://7d6683f0ded2.ngrok-free.app/github-webhook/
+
+i have transformed the localhost into "7d6683f0ded2.ngrok-free.app"
+using ngrok
+
