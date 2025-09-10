@@ -122,3 +122,48 @@ since the tag name is "latest", it is default
 	docker run -p 5000:5000 jagindia/book-service
 
 
+============================
+we have spring boot restful webservice that connects to oracle.
+So, we need 2 docker images run as 2 containers together.
+
+how to run multiple docker images together?
+1) using docker network
+2) using docker compose
+
+
+lets clone our book-service now and change datasource from h2 to oracle.
+
+
+
+method1:
+----------
+using docker network
+
+
+create a docker network "book-oracle"
+	docker network create book-oracle
+
+create a docker image of book-service-oracle
+	docker build -t book-service-oracle .
+
+run an oracle docker image
+	gvenzl/oracle-xe:21-slim
+
+we have already pulled the above image.	
+	docker pull gvenzl/oracle-xe:21-slim
+
+
+now, lets run oracle docker image in our network
+
+
+docker container run --name oracledb --network book-oracle -e ORACLE_PASSWORD=password -e ORACLE_DATABASE=t3 -p 1522:1521 -p 5500:5500 -d gvenzl/oracle-xe:21-slim
+
+docker exec -it oracledb sqlplus system/root@//localhost:1522/t3
+
+
+now lets run our docker image "book-service-oracle" in the same network.
+
+
+
+
+docker container run --network book-oracle --name book-oracle-container -p 5000:5000 -d book-service-oracle
