@@ -1,0 +1,124 @@
+Docker
+--------
+installing docker		in windows:
+	install docker desktop
+	install wsl	(windows sub system for linux)
+
+open docker desktop
+	this will start the docker engine if it is not yet running.
+
+docker image
+	is a packaged version of our project
+	that not only includes the code, but also		
+		the system libraries
+		OS features 
+		and all that are required to run our project
+
+docker image ls
+docker images
+
+docker container
+	is a running instance of a docker image
+
+
+docker container ls
+docker ps
+
+
+-a to see background/ invisible process
+
+we also learned to pull an image from docker hub 
+and run that image in our system.
+
+
+Today,
+
+1) we will create our own docker image
+2) run the image locally
+3) push the image to docker hub
+4) now, ask others to pull our image and run in their computer.
+
+
+in cmd prompt, where pom.xml is present:
+
+mvn spring-boot:build-image
+
+to create a docker image of a spring boot app
+
+
+
+
+
+docker run -v /absolute/path/on/host/data:/workspace/data -p 5000:8082 product-mvc-jdbc-jpa:0.0.1-SNAPSHOT
+
+
+
+
+
+docker run -d -p 8081:8081 -v ${PWD}\data:/workspace/data --name boot-mvc-jpa 11-feb-boot-mvc-jpa:0.0.1-SNAPSHOT
+
+
+1) Vaishnavi A
+2) Rekha
+3) Syed
+4) Bhawya
+5) Anish
+
+
+
+
+
+docker demo with Dockerfile
+
+book-service-0.0.1-SNAPSHOT
+
+
+
+
+after the project is tested,
+
+create a docker file "Dockerfile" in project root.
+
+
+FROM eclipse-temurin:21-jdk
+VOLUME /tmp
+EXPOSE 5000
+ADD target/book-service-0.0.1-SNAPSHOT.jar app.jar
+ENTRYPOINT ["java","-jar","app.jar"]
+
+
+
+in cmd prompt where Dockerfile is present:
+1) build the docker image
+	docker build -t book-service .
+
+2) run the docker image
+	docker run -p 5000:5000 book-service
+
+3) http://localhost:5000/product
+
+Now that we are able to run a docker image that is present locally,
+others will not be able to run.
+
+
+so, we will push this image to docker hub.
+
+1) login to hub.docker.com
+and create a repository
+
+2) docker tag:
+	docker tag book-service jagindia/book-service
+
+3) docker push:
+	docker push jagindia/book-service
+
+now, you can share your docker url to other:
+
+jagindia/book-service
+
+since the tag name is "latest", it is default
+
+
+	docker run -p 5000:5000 jagindia/book-service
+
+

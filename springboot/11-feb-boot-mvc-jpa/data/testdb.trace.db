@@ -1,0 +1,6 @@
+2025-09-10 09:17:21.286225+05:30 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "HTE_PRODUCT" already exists; SQL statement:
+create global temporary table HTE_Product(id integer, rn_ integer not null, expiryDate timestamp(6), price float(53), category varchar(255), name varchar(255), picture clob, primary key (rn_)) TRANSACTIONAL [42101-232]
+2025-09-10 09:17:57.477516+05:30 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "HTE_PRODUCT" already exists; SQL statement:
+create global temporary table HTE_Product(id integer, rn_ integer not null, expiryDate timestamp(6), price float(53), category varchar(255), name varchar(255), picture clob, primary key (rn_)) TRANSACTIONAL [42101-232]
