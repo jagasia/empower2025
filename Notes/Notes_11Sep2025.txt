@@ -1,0 +1,116 @@
+docker compose.
+
+we are going to run 2 services.
+1) oracle 
+	gvenzl/oracle-xe:21-slim
+
+2) our spring boot app
+	book-service-oracle
+
+to run these 2 docker images together,
+lets use
+	docker compose up
+
+the above command will look for a file:
+	docker-compose.yml
+
+YAML	=	YAML A'nt Markup Language
+
+
+
+
+I want to run the following images together using docker compose yml.
+1) oracle 
+	gvenzl/oracle-xe:21-slim
+
+2) our spring boot app
+	book-service-oracle:latest
+
+now, give me detailed steps including what i should update in application.properties.
+
+here is my application.properties:
+spring.application.name=book-service
+
+server.port=5000
+spring.application.name=book-service
+
+spring.datasource.hikari.connection-timeout=60000
+spring.datasource.hikari.initialization-fail-timeout=60000
+
+spring.sql.init.continue-on-error=true
+spring.sql.init.mode=always
+
+
+server.port=5000
+
+# ===============================
+# DataSource Configuration
+# ===============================
+spring.datasource.url=jdbc:oracle:thin:@oracledb:1521/t3
+spring.datasource.username=system
+spring.datasource.password=password
+spring.datasource.driver-class-name=oracle.jdbc.OracleDriver
+
+# ===============================
+# JPA / Hibernate Configuration
+# ===============================
+spring.jpa.database-platform=org.hibernate.dialect.OracleDialect
+spring.jpa.show-sql=true
+spring.jpa.hibernate.ddl-auto=update
+
+
+
+
+
+docker-compose.yml:
+------------------------
+services:
+  oracledb:
+    image: gvenzl/oracle-xe:21-slim
+    container_name: oracledb
+    environment:
+      - ORACLE_PASSWORD=password
+    ports:
+      - "11521:1521"
+      - "5500:5500"
+    healthcheck:
+      test: ["CMD-SHELL", "echo 'SELECT 1 FROM dual;' | sqlplus -s system/password@//localhost:1521/XE || exit 1"]
+      interval: 20s
+      timeout: 10s
+      retries: 10
+      start_period: 40s
+
+  book-service:
+    image: book-service-oracle:latest
+    container_name: book-service
+    depends_on:
+      oracledb:
+        condition: service_healthy
+    ports:
+      - "5000:5000"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:oracle:thin:@oracledb:1521/XE
+      - SPRING_DATASOURCE_USERNAME=system
+      - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=oracle.jdbc.OracleDriver
+
+
+
+
+in cmd:where the docker-compose.yml is present:
+
+	docker compose up -d
+
+
+check:
+	docker ps -a
+
+when both services are up,
+
+check logs
+
+	docker logs book-service
+
+if you see the spring boot started,
+then check swagger.
+
