@@ -114,3 +114,82 @@ check logs
 if you see the spring boot started,
 then check swagger.
 
+-------------------------------------------------
+AWS
+-----
+Amazon Web Services
+
+https://aws.amazon.com/
+
+login to 
+	AWS Management console
+
+EC2
+----
+	Elastic Compute Cloud
+
+storage
+compute
+network
+
+launch a windows server ec2 instance
+
+1) search EC2
+2) instances running is 0
+
+click "Launch instance"
+
+3) name:		rupesh-windows
+4) choose the OS	windows
+5) instance type:	t3.2xlarge
+6) key-value pair:	create it. it will in downloads folder	rupesh-key.pem
+7) Network settings:
+	edit
+		Auto-assign public ip	enable
+
+Launch instance button
+------------------------------------
+--------------------------------
+Now we will create a linux EC2 instance.
+
+1) in aws.amazon.com
+
+search for EC2
+
+2) click "Launch instance"
+
+3) choose OS
+	Amazon linux
+
+4) t3 2x large
+
+5) create a key pair
+
+6) edit the n/w setting
+	enable the "auto assign public ip"
+
+7) launch instance
+--------------------------------
+
+Lets connect to our EC2 instance
+
+1) select the instance
+	and click the connect button
+
+2) choose "ssh client" tab
+
+copy the ssh command and paste it in cmd prompt in a location where your pem file present (downloads)
+
+3) 
+
+
+
+
+
+
+http://
+3.109.206.232
+:5000/book
+
+
+
