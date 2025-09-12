@@ -396,3 +396,244 @@ If the **public IP is missing**, check these:
 
 ---
 
+
+AWS Elastic beanstalk
+CI/CD pipeline
+
+
+
+
+AWS Elastic beanstalk
+
+
+demo:
+
+we are going to deploy our "book-service" jar file in elastic beanstalk
+
+my jar is here:
+
+D:\Jag\Empower\2025\springboot\book-service\target\book-service-0.0.1-SNAPSHOT.jar
+
+
+
+
+in aws.amazon.com
+	go to my account -> amazon management console.
+
+
+search for elastic beanstalk
+
+create "application"
+
+
+rupesh.ap-south-1.elasticbeanstalk.com
+
+
+
+
+Here’s a **complete step-by-step guide** to deploy your **Spring Boot `.jar` file** to **AWS Elastic Beanstalk**, creating an application named **`book-service`**.
+
+---
+
+## 🧾 Prerequisites
+
+| Requirement         | Description                                                                  |
+| ------------------- | ---------------------------------------------------------------------------- |
+| ✅ AWS account       | Logged into the AWS Console                                                  |
+| ✅ AWS CLI installed | Use `aws configure` to set up access keys                                    |
+| ✅ `.jar` file built | e.g., `book-service-0.0.1-SNAPSHOT.jar`                                      |
+| ✅ Java app          | Your app should use an embedded server (like Tomcat), typical of Spring Boot |
+
+---
+
+## 🚀 Step-by-Step Deployment to Elastic Beanstalk
+
+---
+
+### **Step 1: Prepare Your `.jar` File**
+
+Build your Spring Boot app using Maven or Gradle:
+
+```bash
+# For Maven
+./mvnw clean package
+
+# For Gradle
+./gradlew bootJar
+```
+
+Make sure you get a `.jar` in the `target/` or `build/libs/` directory.
+
+---
+
+### **Step 2: Install and Configure EB CLI (if not already)**
+
+Install EB CLI:
+
+#### On macOS/Linux:
+
+```bash
+pip install awsebcli --upgrade
+```
+
+#### On Windows:
+
+Use:
+
+```bash
+pip install awsebcli --upgrade
+```
+
+Or install via [AWS EB CLI installer](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install.html)
+
+Then configure:
+
+```bash
+aws configure
+```
+
+Provide:
+
+* Access Key ID
+* Secret Key
+* Region (e.g., `ap-south-1`)
+* Output format (e.g., `json`)
+
+---
+
+### **Step 3: Create a Project Directory (if needed)**
+
+```bash
+mkdir book-service
+cd book-service
+```
+
+Place your `.jar` file inside this folder.
+
+---
+
+### **Step 4: Initialize Elastic Beanstalk App**
+
+```bash
+eb init
+```
+
+Follow the prompts:
+
+* Choose your **region** (e.g., `ap-south-1`)
+* Enter the **application name**: `book-service`
+* Select **Java** as the platform (e.g., `Java 17 running on 64bit Amazon Linux`)
+* Answer `Yes` to set up SSH (optional but useful for debugging)
+
+---
+
+### **Step 5: Create Beanstalk Environment**
+
+We'll use a **"Web server environment"** for the Java app.
+
+```bash
+eb create book-service-env
+```
+
+Prompts:
+
+* Environment name: `book-service-env`
+* DNS (optional): leave blank or customize
+* Load balancer: default is fine
+* Instance type: `t2.micro` is free-tier eligible
+
+🛠️ This will create:
+
+* EC2 instance
+* Auto Scaling Group
+* Load balancer
+* CloudWatch logs
+
+⏳ This takes a few minutes.
+
+---
+
+### **Step 6: Deploy the JAR**
+
+Create a folder structure that Beanstalk expects:
+
+```bash
+mkdir -p .ebextensions
+```
+
+Create a file named `Procfile` (no extension):
+
+```bash
+echo "java -jar book-service-0.0.1-SNAPSHOT.jar" > Procfile
+```
+
+Now deploy it:
+
+```bash
+eb deploy
+```
+
+---
+
+### **Step 7: Open the Application in Browser**
+
+Once deployment is done:
+
+```bash
+eb open
+```
+
+This will open your app in the default browser.
+
+---
+
+## 📁 Final Project Structure
+
+```
+book-service/
+├── book-service-0.0.1-SNAPSHOT.jar
+├── Procfile
+└── .elasticbeanstalk/
+    └── config.yml
+```
+
+---
+
+## 🔄 Later: Updating the App
+
+When you make changes:
+
+1. Rebuild the `.jar` file
+2. Replace the old `.jar`
+3. Run:
+
+```bash
+eb deploy
+```
+
+---
+
+## 🔐 Bonus Tips
+
+| Task                | Command        |
+| ------------------- | -------------- |
+| Check logs          | `eb logs`      |
+| SSH into instance   | `eb ssh`       |
+| Change env settings | `eb config`    |
+| Delete app          | `eb terminate` |
+
+---
+
+## ✅ Summary
+
+| Step | Action                              |
+| ---- | ----------------------------------- |
+| 1    | Build your Spring Boot `.jar`       |
+| 2    | Install & configure EB CLI          |
+| 3    | Initialize project with `eb init`   |
+| 4    | Create environment with `eb create` |
+| 5    | Create `Procfile`                   |
+| 6    | Deploy with `eb deploy`             |
+| 7    | Open with `eb open`                 |
+
+---
