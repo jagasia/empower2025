@@ -110,3 +110,50 @@ docker tag book-service:latest 029756575211.dkr.ecr.ap-south-1.amazonaws.com/jag
 
 docker push 029756575211.dkr.ecr.ap-south-1.amazonaws.com/jag3:latest
 
+-----------------------------------------------
+SonarQube
+-------------
+	is used to check Code Quality
+
+there are some metrics to measure the code quality
+	bugs
+	code smell	(maintainability)
+		declared but not used
+		long methods, multiple return statements
+		in java, a class in default package
+	security hotspot
+	coverage
+
+
+
+Lab setup:
+------------
+download sonarqube zip
+unzip
+go inside bin folder
+then windows folder
+
+run the batch file to start sonar
+	startSonar.bat
+
+
+
+localhost:9000
+
+login
+
+1) Add project
+
+get the goal
+
+
+mvn sonar:sonar \
+  -Dsonar.projectKey=sonar-demo-1 \
+  -Dsonar.host.url=http://localhost:9000 \
+  -Dsonar.login=f472cee48f3a6b22f116f7cd813c60ad236de00a
+
+
+
+
+
+sonar:sonar -Dsonar.projectKey=sonar-demo-1 -Dsonar.host.url=http://localhost:9000 -Dsonar.login=f472cee48f3a6b22f116f7cd813c60ad236de00a
