@@ -82,3 +82,31 @@ http://your-bucket-name.s3-website-<region>.amazonaws.com
   * The S3 objects (images) are publicly accessible by checking the permissions.
 
 That's it! You’ve now deployed your HTML website with supporting images on AWS S3.
+
+=================
+ECR - Elastic Container Registry
+
+we will use aws cli
+	to create a registry in ECR
+
+we should install aws cli
+
+	aws --version
+
+
+
+C:\Users\rjaga>aws --version
+aws-cli/2.27.45 Python/3.13.4 Windows/10 exe/AMD64
+
+C:\Users\rjaga>
+
+
+aws ecr create-repository --repository-name jag4 --region ap-south-1
+
+
+aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 029756575211.dkr.ecr.ap-south-1.amazonaws.com
+
+docker tag book-service:latest 029756575211.dkr.ecr.ap-south-1.amazonaws.com/jag3:latest
+
+docker push 029756575211.dkr.ecr.ap-south-1.amazonaws.com/jag3:latest
+
