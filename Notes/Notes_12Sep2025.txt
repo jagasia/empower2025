@@ -157,3 +157,242 @@ mvn sonar:sonar \
 
 
 sonar:sonar -Dsonar.projectKey=sonar-demo-1 -Dsonar.host.url=http://localhost:9000 -Dsonar.login=f472cee48f3a6b22f116f7cd813c60ad236de00a
+
+===========================
+ECS
+----
+	Elastic Container Service
+
+we are going to run "book-service" docker image in ECS.
+Note:	already our image is in ECR. shall we use that?
+		if not, we can use docker.io/jagindia/book-service:latest
+
+
+
+
+
+029756575211.dkr.ecr.ap-south-1.amazonaws.com/jag3:latest
+docker.io/jagindia/book-service:latest
+
+Here’s a **complete step-by-step guide** to run your Docker image (`docker.io/jagindia/book-service:latest`) on **Amazon ECS (Elastic Container Service)** using **Fargate** (no EC2 servers needed).
+
+---
+
+## 🚀 Goal:
+
+Run `docker.io/jagindia/book-service:latest` in **AWS ECS** using **Fargate**, via the AWS Console.
+
+---
+
+## ✅ Prerequisites:
+
+* AWS account
+* AWS CLI configured (optional, for CLI users)
+* IAM permissions to use ECS, IAM, CloudWatch Logs, etc.
+* A public Docker image (yours is from Docker Hub, so you're good)
+
+---
+
+## 🧭 Steps to Run the Docker Image on ECS (Fargate)
+
+### **1. Create a VPC (if not already available)**
+
+If you don't have a VPC, use the **VPC Wizard**:
+
+* Go to **VPC > Your VPCs > Create VPC**
+* Choose **VPC with Public Subnets**
+* Name it something like `ecs-fargate-vpc`
+
+---
+
+### **2. Create a Cluster**
+
+1. Go to **ECS > Clusters**
+2. Click **Create Cluster**
+3. Choose **Networking only (Fargate)**
+4. Set:
+
+   * **Cluster name**: `book-service-cluster`
+5. Click **Create**
+
+---
+
+### **3. Create a Task Definition**
+
+1. Go to **ECS > Task Definitions**
+2. Click **Create new Task Definition**
+3. Choose **Fargate**
+4. Configure:
+
+   * **Task Definition Name**: `book-service-task`
+   * **Task Role**: Leave default or create a new one if needed
+   * **Operating system**: Linux
+   * **Task Size**:
+
+     * CPU: `0.25 vCPU`
+     * Memory: `0.5 GB` (or more as needed)
+
+---
+
+### **4. Add Container to the Task**
+
+1. In the **Add container** section:
+
+   * **Container name**: `book-service`
+   * **Image**: `docker.io/jagindia/book-service:latest`
+   * **Port mappings**:
+
+     * Container port: `8080` (or whatever your app uses)
+
+2. Optional: Enable logging
+
+   * Choose **AWS Logs**
+   * Set a log group name like `/ecs/book-service`
+   * Create the group in **CloudWatch Logs** if needed
+
+3. Click **Add** → then **Create** the task definition.
+
+---
+
+### **5. Run the Task in ECS Cluster**
+
+1. Go to **ECS > Clusters > book-service-cluster**
+
+2. Click **Run new task**
+
+3. Set:
+
+   * **Launch type**: Fargate
+   * **Task Definition**: `book-service-task`
+   * **Cluster**: `book-service-cluster`
+   * **Platform version**: Latest
+   * **VPC**: Select the VPC you created earlier
+   * **Subnets**: Choose a public subnet
+   * **Security Group**:
+
+     * Allow **inbound access on port 8080** (or your app port)
+     * Also allow outbound access to the internet
+
+4. Click **Run Task**
+
+---
+
+### **6. Check Task Status**
+
+* Go to **ECS > Clusters > book-service-cluster > Tasks**
+* Wait for task to move from **PROVISIONING → PENDING → RUNNING**
+
+---
+
+### **7. Get Public IP and Access the App**
+
+1. Click the running **task**
+2. Scroll to the **"ENI" (Elastic Network Interface)** section
+3. Copy the **public IP**
+4. Access your app in the browser:
+
+```
+http://<public-ip>:8080
+```
+
+---
+
+## 🔁 Optional: Expose via Load Balancer (for production)
+
+* Create an **ECS Service** instead of running a standalone task
+* Use **Application Load Balancer (ALB)** to get a public DNS name
+* Set up **health checks, auto-scaling, and HTTPS** if needed
+
+Let me know if you want steps for that too.
+
+---
+
+## ✅ Summary
+
+| Step | What You Did                           |
+| ---- | -------------------------------------- |
+| 1.   | Created a VPC (if needed)              |
+| 2.   | Created a Fargate ECS cluster          |
+| 3.   | Defined a task using your Docker image |
+| 4.   | Added container and networking configs |
+| 5.   | Ran the task in a public subnet        |
+| 6.   | Accessed the app via public IP         |
+
+---
+
+
+
+To **copy the public IP** of a running ECS task in **Fargate**, follow these steps from the **AWS Console**:
+
+---
+
+## ✅ Steps to Find & Copy Public IP of ECS Task
+
+### 🔹 **1. Go to the ECS Console**
+
+* URL: [https://console.aws.amazon.com/ecs](https://console.aws.amazon.com/ecs)
+* Select the **region** where your ECS cluster is running (e.g., `ap-south-1` for Mumbai).
+
+---
+
+### 🔹 **2. Select Your ECS Cluster**
+
+* Click on your cluster name (e.g., `book-service-cluster`).
+
+---
+
+### 🔹 **3. Go to the Tasks Tab**
+
+* Scroll down to the **“Tasks”** section.
+* Click on the **Task ID** of your **RUNNING** task.
+
+---
+
+### 🔹 **4. Find the ENI (Elastic Network Interface)**
+
+* Scroll down to the **“Network”** section.
+* Look for **“Elastic network interface”**.
+* Click the **ENI ID link** (e.g., `eni-xxxxxxxx`) — it opens in the EC2 console.
+
+---
+
+### 🔹 **5. Get the Public IP in EC2 Console**
+
+* In the **EC2 Console**, under the **“Description”** tab of the ENI, you'll see:
+
+  * **Private IP**
+  * **Public IPv4 address** ← ✅ **This is what you need**
+* Click the **📋 copy icon** next to the Public IP to copy it.
+
+---
+
+### 🔹 **6. Access the App**
+
+Open your browser and navigate to:
+
+```
+http://<public-ip>:<port>
+```
+
+For example:
+
+```
+http://3.108.56.123:8080
+```
+
+(Replace `8080` with the container port your app uses.)
+
+---
+
+## 🛑 If You Don’t See a Public IP
+
+If the **public IP is missing**, check these:
+
+| Issue                        | Fix                                                                              |
+| ---------------------------- | -------------------------------------------------------------------------------- |
+| Subnet is private            | Make sure you're using a **public subnet**                                       |
+| No public IP assigned        | Modify the task's network config to **assign public IP = ENABLED**               |
+| Security Group blocks access | Allow **inbound traffic** on the app port (e.g., 8080) in the **Security Group** |
+
+---
+
