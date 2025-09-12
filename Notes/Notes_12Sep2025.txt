@@ -1,0 +1,84 @@
+S3
+ECR
+ECS
+
+
+S3 - Simple Storage Service
+
+Steps to deploy a simple html,css,js website in S3 bucket and enable static web hosting.
+
+To deploy an HTML file and its supporting images in AWS S3, follow these steps:
+
+### 1. **Prepare Your Files**
+
+* **HTML file**: Make sure your HTML file is ready, and any paths to images are correct.
+* **Supporting images**: Ensure that the images are in a folder, and the links to these images in your HTML file point to the correct relative paths.
+
+### 2. **Create an S3 Bucket**
+
+* Go to the [AWS S3 Console](https://s3.console.aws.amazon.com/s3/home).
+* Click on **Create bucket**.
+
+  * Choose a globally unique name for your bucket.
+  * Select the AWS region where you'd like to host the files.
+  * Uncheck **Block all public access** (this will allow public access to your files).
+  * Click **Create bucket**.
+
+### 3. **Upload Your HTML and Images to S3**
+
+* Open your newly created S3 bucket.
+* Click on the **Upload** button.
+* Upload the HTML file and the image folder (you can drag and drop the entire folder with all your images).
+* After uploading, ensure the folder structure is intact in the S3 bucket (i.e., your images should be in the same folder path as they are in your local machine).
+
+### 4. **Set Permissions for Public Access**
+
+* You need to make the files publicly accessible. Go to the **Permissions** tab in the S3 bucket and:
+
+  * In the **Bucket Policy**, add the following JSON policy (replace `your-bucket-name` with the actual bucket name):
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::your-bucket-name/*"
+    }
+  ]
+}
+```
+
+* This policy allows anyone to read files in the bucket.
+
+### 5. **Enable Static Website Hosting**
+
+* Go to the **Properties** tab of your S3 bucket.
+* Scroll down to the **Static website hosting** section.
+* Click **Enable**.
+* For **Index document**, enter the name of your main HTML file (e.g., `index.html`).
+* (Optional) For **Error document**, you can specify an error page (e.g., `error.html`).
+* Click **Save changes**.
+
+### 6. **Access Your Website**
+
+* Once static website hosting is enabled, S3 will provide you with a **Bucket website endpoint**. It will look like:
+
+```
+http://your-bucket-name.s3-website-<region>.amazonaws.com
+```
+
+* Use this URL to access your website. If you have an `index.html` file, it should now be displayed in the browser.
+
+---
+
+### Troubleshooting:
+
+* If your images are not showing up, ensure that:
+
+  * The image paths in your HTML are relative to the S3 bucket's structure.
+  * The S3 objects (images) are publicly accessible by checking the permissions.
+
+That's it! You’ve now deployed your HTML website with supporting images on AWS S3.
