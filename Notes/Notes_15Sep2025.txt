@@ -1,0 +1,43 @@
+AWS CI/CD 
+-----------
+continuous integration, continuous deployment
+
+demo1:
+using AWS Amplify
+
+D:\Jag\aws\cicd_demo\using_amplify_react\first-app
+
+here, our reactjs project is there.
+
+lets create a github repository
+
+Project milestones:
+
+Monday:
+All restful webservices end points to be tested using
+	swagger
+	hoppscotch
+
+whoever needs support in this, or spring security, reach me.
+
+Tuesday:
+no backend end points pending.
+Front end
+
+List of all the components, navbar items
+routing
+
+Wednesday:
+Validations, exception handling
+
+Thursday:
+	backend exception handling, logging
+	frontend logging
+
+	backend Unit testing 
+
+Friday:
+	mock presentation and note the improvements or changes.
+
+Monday:
+	all the changes are implemented and ready for presentation

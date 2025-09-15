@@ -437,8 +437,8 @@ Here’s a **complete step-by-step guide** to deploy your **Spring Boot `.jar` f
 
 ## 🧾 Prerequisites
 
-| Requirement         | Description                                                                  |
-| ------------------- | ---------------------------------------------------------------------------- |
+| Requirement          | Description                                                                  |
+| -------------------  | ---------------------------------------------------------------------------- |
 | ✅ AWS account       | Logged into the AWS Console                                                  |
 | ✅ AWS CLI installed | Use `aws configure` to set up access keys                                    |
 | ✅ `.jar` file built | e.g., `book-service-0.0.1-SNAPSHOT.jar`                                      |
