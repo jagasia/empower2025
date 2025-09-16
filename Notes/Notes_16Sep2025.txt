@@ -1,0 +1,22 @@
+Project phase 1:
+All entities are identified and the flow
+	entity-> repository-> service -> controller
+
+are tested using 
+	hoppscotch (or)
+	swagger
+
+The relationship between entities are confirmed and verified with the trainer to avoid problems later.
+
+One team member to moderate the progress using the spec and actuals.
+
+One team member to be critic, test each implementation and identify the problems and optionally suggest corrections or brainstorm for changes with other members.
+
+Understanding the spec for one phase at a time and implement in iterative model.
+
+Common problems to be escalated to the trainer for the trainer to give demo.
+
+Individual problems are notified to the trainer and support for that team.
+
+Any feature, that takes more than 20 minutes are considered as problems and notified to trainer to get support.
+
