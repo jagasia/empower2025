@@ -1,0 +1,89 @@
+AI-ML
+------
+Artificial Intelligence.
+Machine Learning
+
+GenAI
+Generative AI
+
+GPT = Generative Pre-trained Transformer
+
+What are the dimensions in AI?
+Text generation
+Image generation
+Text to Speech
+Video generation
+Code assist
+
+
+
+## Clarifying the Terms
+
+* **AI (Artificial Intelligence):** Broad umbrella term for systems that mimic human-like intelligence, from decision-making to perception.
+* **ML (Machine Learning):** A subset of AI focused on algorithms that learn from data.
+* **GenAI (Generative AI):** A subset of ML/AI that focuses on creating new content (text, images, music, code, etc.).
+
+One correction:
+
+* **GPT** stands for **“Generative Pre-trained Transformer”**, not *“Generative Preprocessor Text”*. The "Transformer" is the architecture behind it.
+
+---
+
+## Dimensions / Capabilities in AI
+
+You listed some important ones. Here’s a more complete picture, grouped into categories:
+
+### 1. **Language and Text**
+
+* Text generation (stories, articles, chat)
+* Summarization
+* Translation
+* Question answering
+* Code assistance (coding copilots, debugging tools)
+
+### 2. **Vision**
+
+* Image generation (DALL·E, Stable Diffusion)
+* Image recognition/classification (object detection, facial recognition)
+* Text-to-image and image-to-text (captioning, scene understanding)
+* Video generation and editing
+
+### 3. **Speech and Audio**
+
+* Text-to-speech (synthetic voices, voice cloning)
+* Speech-to-text (transcription, voice assistants)
+* Music generation and sound synthesis
+
+### 4. **Multimodal AI**
+
+* Models that combine text, vision, and audio (e.g., describe an image, generate images from prompts, answer questions about videos).
+
+### 5. **Reasoning and Decision Support**
+
+* Planning and problem solving
+* Recommendation systems
+* Autonomous agents (AI assistants, robotics)
+
+### 6. **Robotics and Control**
+
+* Computer vision for navigation
+* Reinforcement learning for motion and interaction
+* Industrial automation
+
+---
+
+## Where You’re Spot On
+
+✅ You already captured some of the *most popular generative dimensions*: text, image, TTS, video, and code.
+✅ You’re thinking in terms of "what AI can *produce*," which is the right way to frame generative AI capabilities.
+
+---
+
+## Suggested Next Step
+
+You could try categorizing **“AI use cases”** vs **“AI modalities”**. For example:
+
+* **Modalities**: text, image, audio, video, code.
+* **Use cases**: healthcare diagnosis, education, gaming, productivity, art/design.
+
+---
